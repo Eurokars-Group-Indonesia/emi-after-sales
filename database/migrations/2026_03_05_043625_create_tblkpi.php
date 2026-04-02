@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('tblkpi', function (Blueprint $table) {
             $table->string('kd_kpi');
-            $table->text('fk_work_planning')->nullable();
-            $table->text('fk_dealer');
-            $table->text('fk_customer')->nullable();
-            $table->text('fk_category_1_vehicles')->nullable();
-            $table->text('fk_category_2_vehicles')->nullable();
+            $table->string('fk_work_planning')->nullable();
+            $table->string('fk_dealer');
+            $table->string('fk_customer')->nullable();
+            $table->string('fk_category_1_vehicles')->nullable();
+            $table->string('fk_category_2_vehicles')->nullable();
             $table->text('washing')->nullable()->default(null);
             $table->text('customer_request')->nullable();
             $table->datetime('tanggal_faktur')->nullable()->default(null);
@@ -141,7 +141,13 @@ return new class extends Migration
 
             
             // Index gabungan (composite index)
-            $table->index(['kd_kpi', 'fk_work_planning', 'fk_dealer', 'fk_customer', 'fk_category_1_vehicles', 'fk_category_2_vehicles', 'fk_category_2_vehicles', 'customer_request', 'tanggal_faktur']);
+            $table->index('kd_kpi');
+            $table->index('fk_work_planning');
+            $table->index('fk_dealer');
+            $table->index('fk_customer');
+            $table->index('fk_category_1_vehicles');
+            $table->index('fk_category_2_vehicles');
+            $table->index('tanggal_faktur');
         });
     }
 
