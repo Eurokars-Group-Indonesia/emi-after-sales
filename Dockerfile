@@ -107,5 +107,7 @@ EXPOSE 9000
 # This allows entrypoint to run as root for permission fixes
 # USER www-data
 
+## todo
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+##CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["php-fpm"]
