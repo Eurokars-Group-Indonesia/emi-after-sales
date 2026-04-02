@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ms_users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->string('user_id', 50)->primary();
             $table->string('dealer_id', 50)->nullable();
             $table->string('name', 150);
@@ -34,9 +34,9 @@ return new class extends Migration
             $table->index('updated_by');
 
             // Foreign Keys - Self Reference only
-            $table->foreign('created_by')->references('user_id')->on('ms_users')
+            $table->foreign('created_by')->references('user_id')->on('users')
                 ->onUpdate('restrict')->onDelete('restrict');
-            $table->foreign('updated_by')->references('user_id')->on('ms_users')
+            $table->foreign('updated_by')->references('user_id')->on('users')
                 ->onUpdate('restrict')->onDelete('restrict');
         });
 
@@ -63,6 +63,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('ms_users');
+        Schema::dropIfExists('users');
     }
 };
