@@ -12,15 +12,7 @@
         </div>
 
         <div class="dropdown">
-            @php
-                $nameParts = explode(' ', trim(session('user.name', 'U')));
-                $initials = count($nameParts) >= 2
-                    ? strtoupper(substr($nameParts[0], 0, 1) . substr($nameParts[1], 0, 1))
-                    : strtoupper(substr($nameParts[0], 0, 2));
-            @endphp
-            <div data-bs-toggle="dropdown" style="cursor:pointer; width:40px; height:40px; border-radius:50%; background:#003f88; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:14px; user-select:none;">
-                {{ $initials }}
-            </div>
+            <img src="https://i.pravatar.cc/40" class="rounded-circle" data-bs-toggle="dropdown" style="cursor:pointer">
             <ul class="dropdown-menu dropdown-menu-end shadow">
                 <li><span class="dropdown-item text-muted small">{{ session('user.name') }}</span></li>
                 <li><hr class="dropdown-divider"></li>
@@ -39,6 +31,3 @@
         </div>
     </div>
 </nav>
-
-
-

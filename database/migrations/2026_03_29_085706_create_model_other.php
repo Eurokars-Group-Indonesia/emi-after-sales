@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('kd_model')->unique();
             $table->boolean('is_active')->default(true);
+            
+            $table->index('id');
         });
+
+        
     }
 
     /**

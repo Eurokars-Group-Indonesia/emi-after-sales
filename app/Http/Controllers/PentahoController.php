@@ -11,8 +11,19 @@ class PentahoController
 
     // ini sudah pasti jalan di CMD
     // "D:\pentaho\pdi-ce-11.0.0.0-237\data-integration\Kitchen.bat" /file:"D:\laragon\www\emi-after-sales\storage\pentaho\job\job_sync_wrs_aftersales.kjb" /param:last_kd_customer="0"  /level:Basic
-    // "D:\pentaho\pdi-ce-11.0.0.0-237\data-integration\Kitchen.bat" /file:"D:\laragon\www\emi-after-sales\storage\pentaho\job\job_sync_wrs_aftersales.kjb" /param:last_kd_customer="0" /param:last_kd_kpi="0" /param:last_no_faktur_request="0" /level:Basic
-   
+    
+    /*
+        # multiple line
+        "D:\pentaho\pdi-ce-11.0.0.0-237\data-integration\Kitchen.bat" ^
+            /file:"D:\laragon\www\emi-after-sales\storage\pentaho\job\job_sync_wrs_aftersales.kjb" ^
+            /param:last_kd_customer="0" ^
+            /param:last_kd_kpi="0" ^
+            /param:last_no_faktur_request="0" ^
+            /level:Basic
+
+        # single line
+        "D:\pentaho\pdi-ce-11.0.0.0-237\data-integration\Kitchen.bat" /file:"D:\laragon\www\emi-after-sales\storage\pentaho\job\job_sync_wrs_aftersales.kjb" /param:last_kd_customer="0" /param:last_kd_kpi="0" /param:last_no_faktur_request="0" /level:Basic
+    */
 
     // public function runJob()
     // {

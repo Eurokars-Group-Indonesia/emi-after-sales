@@ -6,68 +6,34 @@ use Illuminate\Support\Facades\Http;
 
 class UserWrsAfterSalesApiService
 {
-    // public function getUsers()
-    // {
-    //     return Http::timeout(10)
-    //         ->retry(3, 100)
-    //         ->get('https://api.example.com/users')
-    //         ->json();
-    // }
-
-    // public function createUser($data)
-    // {
-    //     return Http::post('https://api.example.com/users', $data)
-    //         ->json();
-    // }
+    private function baseHttp()
+    {
+        return Http::baseUrl(config('services.api_wrs_aftersales.base_url'))
+            ->asJson()
+            ->timeout(10);
+    }
 
     public function login($username, $password, $loginAs)
     {
-        
-        if($loginAs == 'atpm')
-        {
-            return Http::baseUrl(config('services.api_wrs_aftersales.base_url'))
-                ->asJson()
-                ->timeout(10)
-                ->retry(3, 100)
-                ->post('/wrs-aftersales/api/v1/atpm-user/login', [
-                    'username' => $username,
-                    'password' => $password,
-                ])
-                ->throw()
-                ->json();
+        $endpoints = [
+            'atpm'   => '/wrs-aftersales/api/v1/atpm-user/login',
+            'dealer' => '/wrs-aftersales/api/v1/dealer-user/login',
+        ];
+
+        if (!isset($endpoints[$loginAs])) {
+            return ['code' => 400, 'status' => 'FAILED', 'message' => 'Login type tidak valid'];
         }
-        else if($loginAs == 'dealer')
-        {
-            return Http::baseUrl(config('services.api_wrs_aftersales.base_url'))
-                ->asJson()
-                ->timeout(10)
-                ->retry(3, 100)
-                ->post('/wrs-aftersales/api/v1/dealer-user/login', [
-                    'username' => $username,
-                    'password' => $password,
-                ])
-                ->throw()
-                ->json();
-        }
-        else 
-        {
-            return response()->json([
-                'message' => 'Login type tidak valid'
-            ], 400);
-        }
+
+        return $this->baseHttp()
+            ->post($endpoints[$loginAs], [
+                'username' => $username,
+                'password' => $password,
+            ])
+            ->json();
     }
 
     public function atpm_users()
     {
-        // return Http::baseUrl(config('services.api_wrs_aftersales.base_url'))
-        //         ->asJson()
-        //         ->timeout(10)
-        //         ->retry(3, 100)
-        //         ->get('/api-gateway/v1/wrs/atpm-users', [
-        //             'username' => $username,
-        //             'password' => $password,
-        //         ])
-        //         ->throw()
-        //         ->json();
+        //
     }
 }

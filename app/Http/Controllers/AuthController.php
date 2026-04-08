@@ -3,85 +3,88 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Services\UserWrsAfterSalesApiService;
-use Illuminate\Auth\GenericUser;
-// use Illuminate\Support\Facades\Cache;
-// use Illuminate\Support\Facades\Log;
-// use Illuminate\Support\Facades\RateLimiter;
-// use Laravel\Socialite\Facades\Socialite;
-// use App\Models\User;
 
 class AuthController extends Controller
 {
     public function showLogin()
     {
-        if (Auth::check()) {
-            return redirect()->route('dashboard');
+        if (session()->has('user.id')) {
+            $loginAs = session('user.loginAs');
+            if ($loginAs === 'atpm') {
+                return redirect()->route('atpm.aftersales.home');
+            } elseif ($loginAs === 'dealer') {
+                return redirect()->route('dealer.aftersales.home');
+            }
         }
         return view('auth.login');
     }
 
-    public function loginWrsAfterSales(Request $request, UserWrsAfterSalesApiService $UserWrsAfterSalesApiService)
+    public function loginWrsAfterSales(Request $request, UserWrsAfterSalesApiService $api)
     {
-        
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+            'login_as' => 'required|in:atpm,dealer',
+        ], [
+            'username.required' => 'Username tidak boleh kosong.',
+            'password.required' => 'Password tidak boleh kosong.',
+            'login_as.required' => 'Login As tidak boleh kosong.',
+            'login_as.in'       => 'Login As tidak valid.',
+        ]);
+
         $username = $request->input('username');
         $password = $request->input('password');
-        $loginAs = $request->input('login_as');
+        $loginAs  = $request->input('login_as');
 
         try {
+            $response = $api->login($username, $password, $loginAs);
 
-            $response = $UserWrsAfterSalesApiService->login($username, $password, $loginAs);
-            // dd($response);
-            if ($response['code'] !== 200 || $response['status'] !== 'SUCCESS') {
+            // Gagal jika response kosong atau bukan SUCCESS
+            if (empty($response) || ($response['code'] ?? null) !== 200 || ($response['status'] ?? '') !== 'SUCCESS') {
                 return back()->withErrors([
-                    'login' => $response['message'] ?? 'Login gagal'
+                    'login' => $response['message'] ?? 'Login gagal.'
                 ]);
             }
-            else 
-            {
-                $user = $response['data'];
 
+            $user = $response['data'];
+
+            if ($loginAs === 'atpm') {
                 session([
                     'user.loginAs'  => $loginAs,
                     'user.id'       => $user['kd_atpm_user'],
                     'user.name'     => $user['nm_atpm_user'],
                     'user.username' => $user['username'],
                     'user.email'    => $user['email'],
-                    'user.level'     => $user['atpm_level']['nm_atpm_level'],
-                    'user.dept'     => $user['atpm_dept']['nm_atpm_department'],
+                    'user.level'    => $user['atpm_level']['nm_atpm_level'] ?? null,
+                    'user.dept'     => $user['atpm_dept']['nm_atpm_department'] ?? null,
                 ]);
-
-
-                $user = new GenericUser([
-                    'id' => $response['data']['kd_atpm_user'],
-                    'name' => $response['data']['nm_atpm_user'],
-                ]);
-
-                Auth::login($user);
-
-
-                if($loginAs == 'atpm')
-                {
-                    return redirect()->route('atpm.aftersales.home');
-                }
-                else 
-                {
-                    // return redirect()->route('dealer.aftersales.home');
-                }
-
-                
+                return redirect()->route('atpm.aftersales.home');
             }
 
-        } catch (\Illuminate\Http\Client\RequestException $e) {
-            return back()->withErrors([
-                'login' => 'Server API tidak merespon'
-            ]);
+            if ($loginAs === 'dealer') {
+                session([
+                    'user.loginAs'   => $loginAs,
+                    'user.id'        => $user['kd_dealer_user'],
+                    'user.name'      => $user['nm_dealer_user'],
+                    'user.username'  => $user['username'],
+                    'user.email'     => $user['email'],
+                    'user.kd_dealer' => $user['fk_dealer'],
+                    'user.nm_dealer' => $user['dealer']['nm_dealer'] ?? null,
+                ]);
+                return redirect()->route('dealer.aftersales.home');
+            }
+
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            return back()->withErrors(['login' => 'Server API tidak dapat dihubungi.']);
         } catch (\Exception $e) {
-            return back()->withErrors([
-                'login' => 'Terjadi kesalahan'
-            ]);
+            return back()->withErrors(['login' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
 
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect()->route('login');
+    }
 }

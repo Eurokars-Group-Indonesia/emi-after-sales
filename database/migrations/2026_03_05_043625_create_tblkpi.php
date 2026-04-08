@@ -144,6 +144,7 @@ return new class extends Migration
             $table->index('kd_kpi');
             $table->index('fk_work_planning');
             $table->index('fk_dealer');
+            $table->index('fk_model');
             $table->index('fk_customer');
             $table->index('fk_category_1_vehicles');
             $table->index('fk_category_2_vehicles');

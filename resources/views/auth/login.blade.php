@@ -124,19 +124,28 @@
 
                     <div class="form-group mb-2">
                         <label for="username" class="mb-1">Username</label>
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="{{ old('username') }}">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Username" value="{{ old('username') }}" required>
+                        @error('username')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group mb-2">
                         <label for="password" class="mb-1">Password</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password" required>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group mb-4">
                         <label for="login_as" class="mb-1">Login As</label>
-                        <select class="form-control" name="login_as">
+                        <select class="form-control @error('login_as') is-invalid @enderror" name="login_as" required>
                             <option value="">- Choose Login As -</option>
-                            <option value="atpm">ATPM</option>
-                            <option value="dealer">Dealer</option>
+                            <option value="atpm" {{ old('login_as') == 'atpm' ? 'selected' : '' }}>ATPM</option>
+                            <option value="dealer" {{ old('login_as') == 'dealer' ? 'selected' : '' }}>Dealer</option>
                         </select>
+                        @error('login_as')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary"  style="border-radius: 10px; font-weight: 600; background: #0078d4; border: none;">Login</button>
                 </form>

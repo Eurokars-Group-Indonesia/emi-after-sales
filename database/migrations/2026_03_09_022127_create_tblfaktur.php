@@ -92,6 +92,7 @@ return new class extends Migration
 
             $table->index('no_faktur_request');
             $table->index('tgl_faktur_request');
+            $table->index('tanggal_handover');
             $table->index('fk_dealer');
             $table->index('fk_spk');
             $table->index('fk_vin');

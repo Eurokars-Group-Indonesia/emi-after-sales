@@ -9,12 +9,17 @@ return Application::configure(basePath: dirname(__DIR__))
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        api: __DIR__.'/../routes/api.php',
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'permission' => \App\Http\Middleware\CheckPermission::class,
-            'role' => \App\Http\Middleware\CheckRole::class,
-            'has.role' => \App\Http\Middleware\CheckUserHasRole::class,
+            'permission'    => \App\Http\Middleware\CheckPermission::class,
+            'role'          => \App\Http\Middleware\CheckRole::class,
+            'has.role'      => \App\Http\Middleware\CheckUserHasRole::class,
+            'check.session' => \App\Http\Middleware\CheckSession::class,
+            'role.atpm'     => \App\Http\Middleware\CheckRoleAtpm::class,
+            'role.dealer'   => \App\Http\Middleware\CheckRoleDealer::class,
+            'check.sync'    => \App\Http\Middleware\CheckSyncRunning::class,
         ]);
         
         // Add security headers to all web requests

@@ -9,7 +9,7 @@ class DealerAfterSalesHomeController
 {
     public function index()
     {
-        dd('test');
-        // return view('atpm.page_home.home');
+        // dd('test');
+        return view('dealer.page_home.home');
     }
 }

@@ -24,7 +24,26 @@ class AtpmReportRetentionController
 
         DB::connection('db_wrs_aftersales')->table('tblmodel')->where('is_wrs_aftersales', true)->orderBy('kd_model', 'asc')->get();
         $data['dataUio'] = DB::connection('mysql')->table('tbluio')->where('is_active', true)->get();
-    // dd($data['dataUio']);
+        // dd($data['dataUio']);
+
+        // $data['isSyncRunning'] = DB::table('sync_logs')
+        //                 ->where('status', 'RUNNING')
+        //                 ->where('job_name', 'sync_pentaho')
+        //                 ->get();
+
+        $dataSyncLogs = DB::table('sync_logs')
+                    ->where('job_name', 'sync_pentaho')
+                    ->orderBy('start_time', 'desc')
+                    ->first();
+        
+        // dd($data);
+
+        if($dataSyncLogs->status == 'RUNNING') {
+            $data['isSyncRunning'] = true;
+        } else {
+            $data['isSyncRunning'] = false;
+        }
+
         return view('atpm.report_retention.index', $data);
     }
 
@@ -46,9 +65,6 @@ class AtpmReportRetentionController
             'uio.required' => 'UIO belum dipilih.',
             'including_vin.required' => 'Including VIN sold by other dealer belum dipilih.'
         ]);
-
-
-        
 
         if ($validator->fails()) {
             return response()->json([
@@ -92,19 +108,68 @@ class AtpmReportRetentionController
             $kd_model = array_unique(array_merge($kd_model, $qModelOtherArray));
         }
 
-       ;
+       
+        // // Ini jalan
+        // $reportRetention = DB::connection('mysql')
+        //     ->select(
+        //         'CALL sp_generateReportRetention(CAST(? AS JSON),?,?,CAST(? AS JSON),?,?)', 
+        //         [json_encode($kd_dealer), $tahun, $category_customer, json_encode($kd_model), $uio, $including_vin]
+        // );
 
-        $reportRetention = DB::connection('mysql')
-            ->select(
-                'CALL sp_generateReportRetention(CAST(? AS JSON),?,?,CAST(? AS JSON),?,?)', 
-                [json_encode($kd_dealer), $tahun, $category_customer, json_encode($kd_model), $uio, $including_vin]
-        );
+        // // dd($reportRetention);
 
-        // dd($reportRetention);
+        // return response()->json([
+        //     'status'=> true,
+        //     'reportRetention'=>$reportRetention
+        // ]);
+        // // ./Ini jalan
+
+        $pdo = DB::connection('mysql')->getPdo();
+
+        $stmt = $pdo->prepare("
+            CALL sp_generateReportRetention(
+                CAST(? AS JSON),
+                ?,
+                ?,
+                CAST(? AS JSON),
+                ?,
+                ?
+            )
+        ");
+
+        // dd(json_encode($kd_dealer));
+
+        $stmt->execute([
+            json_encode($kd_dealer),
+            $tahun,
+            $category_customer,
+            json_encode($kd_model),
+            $uio,
+            $including_vin
+        ]);
+
+        // Result summary report
+        $resultSummaryReport = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt->nextRowset();
+
+        // result detail customer visit
+        $resultDetailCustomerVisit = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt->nextRowset();
+        
+        // result detail faktur
+        $resultDetailUio = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt->nextRowset();
+
+        $resultDetailGap = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         return response()->json([
-            'status'=> true,
-            'reportRetention'=>$reportRetention
+            'status' => true,
+            'reportRetention' => [
+                'resultSummaryReport' => $resultSummaryReport,
+                'resultDetailCustomerVisit' => $resultDetailCustomerVisit,
+                'resultDetailUio' => $resultDetailUio,
+                'resultDetailGap' => $resultDetailGap
+            ]
         ]);
     }
 }

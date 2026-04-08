@@ -23,7 +23,11 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->text('picture_ext')->nullable();
             $table->datetime('tgl_masuk')->nullable();
+
+            $table->index('kd_atpm_user');
         });
+
+        
     }
 
     /**

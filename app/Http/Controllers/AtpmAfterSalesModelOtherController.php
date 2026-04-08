@@ -40,7 +40,7 @@ class AtpmAfterSalesModelOtherController
 
     public function atpm_model_other_create()
     {
-        $data['dataModel'] = $this->modelRepo->getModel();
+        $data['dataModel'] = $this->modelRepo->getModelExcludeInOther();
         return view('atpm.page_model.V_model_other_create', $data);
     }
 
@@ -66,22 +66,28 @@ class AtpmAfterSalesModelOtherController
 
         $kd_model = $request->input('kd_model');
 
-        $callback = $this->modelRepo->modelOtherStore($kd_model);
-        
-        if($callback == true)
-        {
+        try {
+            $this->modelRepo->modelOtherStore($kd_model);
+
             return response()->json([
-                'status' => true,
-                'message' => 'Insert Data Success',
-                'errors' => ''
+                'status'  => true,
+                'message' => 'Data berhasil ditambahkan.',
+                'errors'  => ''
             ]);
-        }
-        else 
-        {
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Duplicate entry
+            if ($e->getCode() === '23000') {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Model ini sudah ada di daftar Model Other.',
+                    'errors'  => ''
+                ]);
+            }
+
             return response()->json([
-                'status' => false,
-                'message' => 'Insert Data Failed',
-                'errors' => ''
+                'status'  => false,
+                'message' => 'Gagal menyimpan data. Silakan coba lagi.',
+                'errors'  => ''
             ]);
         }
 
