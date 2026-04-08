@@ -24,6 +24,9 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: emi_retention_app
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
     # Removed user mapping - container runs as www-data (defined in Dockerfile)
     # user: "${USER_ID:-1000}:${GROUP_ID:-1000}"
     volumes:
