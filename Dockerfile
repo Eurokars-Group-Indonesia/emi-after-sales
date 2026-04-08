@@ -23,8 +23,6 @@ RUN apk update && apk add --no-cache \
     zip \
     unzip \
     mysql-client \
-    postgresql-dev \
-    postgresql-client \
     supervisor \
     redis \
     nodejs \
