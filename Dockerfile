@@ -15,7 +15,7 @@ RUN npm run build
 FROM php:8.3-fpm-alpine
 
 # Install system dependencies
-RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     git \
     curl \
     libpng-dev \
