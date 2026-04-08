@@ -23,6 +23,8 @@ RUN apk add --no-cache \
     zip \
     unzip \
     mysql-client \
+    postgresql-dev \
+    postgresql-client \
     supervisor \
     redis \
     nodejs \
@@ -31,7 +33,7 @@ RUN apk add --no-cache \
     shadow
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql zip gd pcntl opcache intl
+RUN docker-php-ext-install pdo_mysql pdo_pgsql pgsql zip gd pcntl opcache intl
 
 # Install Redis extension via PECL
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
