@@ -15,7 +15,7 @@ RUN npm run build
 FROM php:8.3-fpm-alpine
 
 # Install system dependencies
-RUN apk update && apk add --no-cache \
+RUN apk add --no-cache \
     git \
     curl \
     libpng-dev \
@@ -31,7 +31,7 @@ RUN apk update && apk add --no-cache \
     shadow
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql pdo_pgsql pgsql zip gd pcntl opcache intl
+RUN docker-php-ext-install pdo_mysql zip gd pcntl opcache intl
 
 # Install Redis extension via PECL
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
