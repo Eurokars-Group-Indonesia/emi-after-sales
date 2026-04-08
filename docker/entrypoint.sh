@@ -24,7 +24,6 @@ if [ "$(id -u)" = "0" ]; then
     # Create log files if they don't exist
     touch /var/www/html/storage/logs/laravel.log 2>/dev/null || true
     touch /var/www/html/storage/logs/supervisord.log 2>/dev/null || true
-    touch /var/www/html/storage/logs/worker.log 2>/dev/null || true
     
     # Fix ownership and permissions
     chown -R www-data:www-data /var/www/html/storage 2>/dev/null || true
@@ -124,7 +123,7 @@ if [ $attempt -eq $max_attempts ]; then
     echo "  - MySQL server is running and accessible"
     echo ""
     echo "You can:"
-    echo "  1. Run migrations manually: docker exec -it laravel_app php artisan migrate --force"
+    echo "  1. Run migrations manually: docker exec -it emi_retention_app php artisan migrate --force"
     echo "  2. Set SKIP_DB_SETUP=true to skip this check"
     echo ""
     echo "Continuing without database setup..."
@@ -135,7 +134,7 @@ else
         echo "✓ Migrations completed successfully!"
     else
         echo "⚠ Warning: Migrations failed!"
-        echo "You can run manually: docker exec -it laravel_app php artisan migrate --force"
+        echo "You can run manually: docker exec -it emi_retention_app php artisan migrate --force"
     fi
     
     # Run seeders if SEED_DATABASE is set to true
