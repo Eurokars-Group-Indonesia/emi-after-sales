@@ -1115,7 +1115,6 @@ service_type,
 uploaded_to_msi
 FROM transaksi_aftersales.tblkpi
 WHERE kd_kpi > COALESCE(${last_kd_kpi}, 0)
-  AND tanggal_faktur > '2016-01-01'
 ORDER BY kd_kpi ASC
 LIMIT 9999</sql>
     <limit/>

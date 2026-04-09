@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>tr_wrsaftersales_tblkpi</name>
+    <name>tr_wrsaftersales_tblkpi_log</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -426,10 +426,10 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2026/03/22 05:55:23.243</created_date>
+    <created_date>2026/03/22 07:02:19.291</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2026/03/22 05:55:23.243</modified_date>
-    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2026/03/22 07:02:19.291</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -479,8 +479,8 @@
     </partitioning>
     <fields>
       <field>
-        <name>last_kd_kpi</name>
-        <variable>${last_kd_kpi}</variable>
+        <name>last_kd_kpi_log</name>
+        <variable>${last_kd_kpi_log}</variable>
         <type>String</type>
         <format/>
         <currency/>
@@ -500,8 +500,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>192</yloc>
+      <xloc>272</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -521,7 +521,7 @@
       </group>
     <fields>
       <field>
-        <aggregate>last_kd_kpi_new</aggregate>
+        <aggregate>last_kd_kpi_log_new</aggregate>
         <subject>kd_kpi</subject>
         <type>MAX</type>
         <valuefield/>
@@ -536,8 +536,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>880</xloc>
-      <yloc>192</yloc>
+      <xloc>800</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -555,378 +555,523 @@
     <fields>
       <field>
         <name>kd_kpi</name>
+        <rename/>
       </field>
       <field>
         <name>fk_work_planning</name>
+        <rename/>
       </field>
       <field>
         <name>fk_dealer</name>
+        <rename/>
       </field>
       <field>
         <name>fk_customer</name>
+        <rename/>
       </field>
       <field>
         <name>fk_category_1_vehicles</name>
+        <rename/>
       </field>
       <field>
         <name>fk_category_2_vehicles</name>
+        <rename/>
       </field>
       <field>
         <name>washing</name>
+        <rename/>
       </field>
       <field>
         <name>customer_request</name>
+        <rename/>
       </field>
       <field>
         <name>tanggal_faktur</name>
+        <rename/>
       </field>
       <field>
         <name>labor_sales</name>
+        <rename/>
       </field>
       <field>
         <name>part_sales</name>
+        <rename/>
       </field>
       <field>
         <name>fk_engine_oli</name>
+        <rename/>
       </field>
       <field>
         <name>qty_engine_oli</name>
+        <rename/>
       </field>
       <field>
         <name>total_engine_oli</name>
+        <rename/>
       </field>
       <field>
         <name>fk_transmisi_oli</name>
+        <rename/>
       </field>
       <field>
         <name>qty_transmisi_oli</name>
+        <rename/>
       </field>
       <field>
         <name>total_transmisi_oli</name>
+        <rename/>
       </field>
       <field>
         <name>qty_tire_sales</name>
+        <rename/>
       </field>
       <field>
         <name>hrg_tire_sales</name>
+        <rename/>
       </field>
       <field>
         <name>qty_battery_sales</name>
+        <rename/>
       </field>
       <field>
         <name>hrg_battery_sales</name>
+        <rename/>
       </field>
       <field>
         <name>aksesoris</name>
+        <rename/>
       </field>
       <field>
         <name>chemical_sales</name>
+        <rename/>
       </field>
       <field>
         <name>other_sales</name>
+        <rename/>
       </field>
       <field>
         <name>srt</name>
+        <rename/>
       </field>
       <field>
         <name>tgl_selesai_aktual</name>
+        <rename/>
       </field>
       <field>
         <name>labor_sales_2</name>
+        <rename/>
       </field>
       <field>
         <name>part_sales_2</name>
+        <rename/>
       </field>
       <field>
         <name>fk_engine_oli_2</name>
+        <rename/>
       </field>
       <field>
         <name>qty_engine_oli_2</name>
+        <rename/>
       </field>
       <field>
         <name>total_engine_oli_2</name>
+        <rename/>
       </field>
       <field>
         <name>fk_transmisi_oli_2</name>
+        <rename/>
       </field>
       <field>
         <name>qty_transmisi_oli_2</name>
+        <rename/>
       </field>
       <field>
         <name>total_transmisi_oli_2</name>
+        <rename/>
       </field>
       <field>
         <name>qty_tire_sales_2</name>
+        <rename/>
       </field>
       <field>
         <name>hrg_tire_sales_2</name>
+        <rename/>
       </field>
       <field>
         <name>qty_battery_sales_2</name>
+        <rename/>
       </field>
       <field>
         <name>hrg_battery_sales_2</name>
+        <rename/>
       </field>
       <field>
         <name>aksesoris_2</name>
+        <rename/>
       </field>
       <field>
         <name>chemical_sales_2</name>
+        <rename/>
       </field>
       <field>
         <name>other_sales_2</name>
+        <rename/>
       </field>
       <field>
         <name>srt_2</name>
+        <rename/>
       </field>
       <field>
         <name>tgl_selesai_aktual_2</name>
+        <rename/>
       </field>
       <field>
         <name>labor_sales_3</name>
+        <rename/>
       </field>
       <field>
         <name>part_sales_3</name>
+        <rename/>
       </field>
       <field>
         <name>fk_engine_oli_3</name>
+        <rename/>
       </field>
       <field>
         <name>qty_engine_oli_3</name>
+        <rename/>
       </field>
       <field>
         <name>total_engine_oli_3</name>
+        <rename/>
       </field>
       <field>
         <name>fk_transmisi_oli_3</name>
+        <rename/>
       </field>
       <field>
         <name>qty_transmisi_oli_3</name>
+        <rename/>
       </field>
       <field>
         <name>total_transmisi_oli_3</name>
+        <rename/>
       </field>
       <field>
         <name>qty_tire_sales_3</name>
+        <rename/>
       </field>
       <field>
         <name>hrg_tire_sales_3</name>
+        <rename/>
       </field>
       <field>
         <name>qty_battery_sales_3</name>
+        <rename/>
       </field>
       <field>
         <name>hrg_battery_sales_3</name>
+        <rename/>
       </field>
       <field>
         <name>aksesoris_3</name>
+        <rename/>
       </field>
       <field>
         <name>chemical_sales_3</name>
+        <rename/>
       </field>
       <field>
         <name>other_sales_3</name>
+        <rename/>
       </field>
       <field>
         <name>srt_3</name>
+        <rename/>
       </field>
       <field>
         <name>tgl_selesai_aktual_3</name>
+        <rename/>
       </field>
       <field>
         <name>pro_active_customer_contact</name>
+        <rename/>
       </field>
       <field>
         <name>fixed_appointments_before_customer_visit</name>
+        <rename/>
       </field>
       <field>
         <name>interactive_reception</name>
+        <rename/>
       </field>
       <field>
         <name>fixed_repair_price_before_service</name>
+        <rename/>
       </field>
       <field>
         <name>part_pre_picking_before_scheduled_service</name>
+        <rename/>
       </field>
       <field>
         <name>all_parts_available_from_warehouse</name>
+        <rename/>
       </field>
       <field>
         <name>invoice_ready_before_vehicles_return</name>
+        <rename/>
       </field>
       <field>
         <name>explanation_of_work_done_on_vehicle</name>
+        <rename/>
       </field>
       <field>
         <name>follow_up_call_within_5_days</name>
+        <rename/>
       </field>
       <field>
         <name>repeated_repair</name>
+        <rename/>
       </field>
       <field>
         <name>counter_follow_up</name>
+        <rename/>
       </field>
       <field>
         <name>counter_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>tgl_follow_up</name>
+        <rename/>
       </field>
       <field>
         <name>status_konfirmasi_1_follow_up</name>
+        <rename/>
       </field>
       <field>
         <name>return_job_booking</name>
+        <rename/>
       </field>
       <field>
         <name>fk_booking</name>
+        <rename/>
       </field>
       <field>
         <name>status_konfirmasi_2_follow_up</name>
+        <rename/>
       </field>
       <field>
         <name>catatan_follow_up</name>
+        <rename/>
       </field>
       <field>
         <name>tgl_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>status_konfirmasi_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>fk_booking_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>alasan_1_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>alasan_2_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>catatan_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>reschedule_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>tgl_akan_di_follow_dari</name>
+        <rename/>
       </field>
       <field>
         <name>tgl_akan_di_follow_sampai</name>
+        <rename/>
       </field>
       <field>
         <name>tgl_akan_di_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>odo_reminder</name>
+        <rename/>
       </field>
       <field>
         <name>no_polisi_terakhir</name>
+        <rename/>
       </field>
       <field>
         <name>is_backdate_kpi</name>
+        <rename/>
       </field>
       <field>
         <name>catatan_service</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_1</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_2</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_3</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_4</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_5</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_6</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_7</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_8</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_9</name>
+        <rename/>
       </field>
       <field>
         <name>pertanyaan_10</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_1</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_2</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_3</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_4</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_5</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_6</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_7</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_8</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_9</name>
+        <rename/>
       </field>
       <field>
         <name>jawaban_10</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_1</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_2</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_3</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_4</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_5</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_6</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_7</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_8</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_9</name>
+        <rename/>
       </field>
       <field>
         <name>jenis_jawaban_10</name>
+        <rename/>
       </field>
       <field>
         <name>status_update_nomor_tlp</name>
+        <rename/>
       </field>
       <field>
         <name>service_type</name>
+        <rename/>
       </field>
       <field>
         <name>uploaded_to_msi</name>
+        <rename/>
+      </field>
+      <field>
+        <name>log_action_userid</name>
+        <rename/>
+      </field>
+      <field>
+        <name>log_action_username</name>
+        <rename/>
+      </field>
+      <field>
+        <name>log_action_date</name>
+        <rename/>
+      </field>
+      <field>
+        <name>log_action_mode</name>
+        <rename/>
+      </field>
+      <field>
+        <name>pk_id_log</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -939,8 +1084,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>624</xloc>
-      <yloc>192</yloc>
+      <xloc>544</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -957,8 +1102,8 @@
     </partitioning>
     <fields>
       <field>
-        <field_name>last_kd_kpi_new</field_name>
-        <variable_name>last_kd_kpi</variable_name>
+        <field_name>last_kd_kpi_log_new</field_name>
+        <variable_name>last_kd_kpi_log</variable_name>
         <variable_type>PARENT_JOB</variable_type>
         <default_value/>
       </field>
@@ -973,8 +1118,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1152</xloc>
-      <yloc>192</yloc>
+      <xloc>1072</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -996,8 +1141,9 @@ fk_work_planning,
 fk_dealer, 
 fk_customer, 
 fk_category_1_vehicles, 
-fk_category_2_vehicles, 
-washing, customer_request, 
+fk_category_2_vehicles,
+washing, 
+customer_request, 
 tanggal_faktur, 
 labor_sales, 
 part_sales, 
@@ -1013,7 +1159,8 @@ qty_battery_sales,
 hrg_battery_sales, 
 aksesoris, 
 chemical_sales, 
-other_sales, srt, 
+other_sales, 
+srt, 
 tgl_selesai_aktual, 
 labor_sales_2, 
 part_sales_2, 
@@ -1043,79 +1190,21 @@ total_transmisi_oli_3,
 qty_tire_sales_3, 
 hrg_tire_sales_3, 
 qty_battery_sales_3, 
-hrg_battery_sales_3, 
-aksesoris_3, 
-chemical_sales_3, 
-other_sales_3, 
-srt_3, 
-tgl_selesai_aktual_3, 
-pro_active_customer_contact, 
-fixed_appointments_before_customer_visit, 
-interactive_reception, 
-fixed_repair_price_before_service, 
-part_pre_picking_before_scheduled_service, 
-all_parts_available_from_warehouse, 
-invoice_ready_before_vehicles_return, 
-explanation_of_work_done_on_vehicle, 
-follow_up_call_within_5_days, 
-repeated_repair, counter_follow_up, 
-counter_reminder, 
-tgl_follow_up, 
-status_konfirmasi_1_follow_up, 
-return_job_booking, 
-fk_booking, 
-status_konfirmasi_2_follow_up, 
-catatan_follow_up, 
-tgl_reminder, 
-status_konfirmasi_reminder, 
-fk_booking_reminder, 
-alasan_1_reminder, 
-alasan_2_reminder, 
-catatan_reminder, 
-reschedule_reminder, 
-tgl_akan_di_follow_dari, 
-tgl_akan_di_follow_sampai, 
-tgl_akan_di_reminder, 
-odo_reminder, 
-no_polisi_terakhir, 
-is_backdate_kpi, 
-catatan_service, 
-pertanyaan_1, 
-pertanyaan_2, 
-pertanyaan_3, 
-pertanyaan_4, 
-pertanyaan_5, 
-pertanyaan_6, 
-pertanyaan_7, 
-pertanyaan_8, 
-pertanyaan_9, 
-pertanyaan_10, 
-jawaban_1, 
-jawaban_2, 
-jawaban_3, 
-jawaban_4, 
-jawaban_5, 
-jawaban_6, 
-jawaban_7, 
-jawaban_8, 
-jawaban_9, 
-jawaban_10, 
-jenis_jawaban_1, 
-jenis_jawaban_2, 
-jenis_jawaban_3, 
-jenis_jawaban_4, 
-jenis_jawaban_5, 
-jenis_jawaban_6, 
-jenis_jawaban_7, 
-jenis_jawaban_8, 
-jenis_jawaban_9, 
-jenis_jawaban_10, 
-status_update_nomor_tlp, 
-service_type, 
-uploaded_to_msi
-FROM transaksi_aftersales.tblkpi
-WHERE kd_kpi > COALESCE(${last_kd_kpi}, 0)
-  AND tanggal_faktur > '2016-01-01'
+hrg_battery_sales_3, aksesoris_3, chemical_sales_3, other_sales_3, srt_3, tgl_selesai_aktual_3, pro_active_customer_contact, 
+fixed_appointments_before_customer_visit, interactive_reception, fixed_repair_price_before_service, part_pre_picking_before_scheduled_service, 
+all_parts_available_from_warehouse, invoice_ready_before_vehicles_return, explanation_of_work_done_on_vehicle, 
+follow_up_call_within_5_days, repeated_repair, counter_follow_up, counter_reminder, tgl_follow_up, 
+status_konfirmasi_1_follow_up, return_job_booking, fk_booking, status_konfirmasi_2_follow_up, catatan_follow_up, 
+tgl_reminder, status_konfirmasi_reminder, fk_booking_reminder, alasan_1_reminder, alasan_2_reminder, catatan_reminder, 
+reschedule_reminder, tgl_akan_di_follow_dari, tgl_akan_di_follow_sampai, tgl_akan_di_reminder, odo_reminder, 
+no_polisi_terakhir, is_backdate_kpi, catatan_service, pertanyaan_1, pertanyaan_2, pertanyaan_3, pertanyaan_4, 
+pertanyaan_5, pertanyaan_6, pertanyaan_7, pertanyaan_8, pertanyaan_9, pertanyaan_10, jawaban_1, jawaban_2, jawaban_3, 
+jawaban_4, jawaban_5, jawaban_6, jawaban_7, jawaban_8, jawaban_9, jawaban_10, jenis_jawaban_1, jenis_jawaban_2, 
+jenis_jawaban_3, jenis_jawaban_4, jenis_jawaban_5, jenis_jawaban_6, jenis_jawaban_7, jenis_jawaban_8, jenis_jawaban_9, 
+jenis_jawaban_10, status_update_nomor_tlp, service_type, uploaded_to_msi, log_action_userid, log_action_username, 
+log_action_date, log_action_mode, pk_id_log
+FROM transaksi_aftersales.tblkpi_log
+WHERE kd_kpi > COALESCE('${last_kd_kpi_log}', '0')
 ORDER BY kd_kpi ASC
 LIMIT 9999</sql>
     <limit/>
@@ -1128,8 +1217,8 @@ LIMIT 9999</sql>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>last_kd_kpi</name>
-        <length>14</length>
+        <name>last_kd_kpi_log</name>
+        <length>18</length>
         <precision>-1</precision>
         <origin>Get variables</origin>
         <comments/>
@@ -1497,8 +1586,8 @@ LIMIT 9999</sql>
         <type>Number</type>
         <storagetype>normal</storagetype>
         <name>qty_transmisi_oli</name>
-        <length>-1</length>
-        <precision>-1</precision>
+        <length>8</length>
+        <precision>8</precision>
         <origin>Table input</origin>
         <comments>qty_transmisi_oli</comments>
         <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
@@ -1678,16 +1767,16 @@ LIMIT 9999</sql>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
-        <type>Number</type>
+        <type>BigNumber</type>
         <storagetype>normal</storagetype>
         <name>other_sales</name>
         <length>-1</length>
         <precision>-1</precision>
         <origin>Table input</origin>
         <comments>other_sales</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
+        <grouping_symbol/>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -2069,16 +2158,16 @@ LIMIT 9999</sql>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
       <value-meta>
-        <type>Number</type>
+        <type>BigNumber</type>
         <storagetype>normal</storagetype>
         <name>other_sales_2</name>
         <length>-1</length>
         <precision>-1</precision>
         <origin>Table input</origin>
         <comments>other_sales_2</comments>
-        <conversion_Mask>####0.0#########;-####0.0#########</conversion_Mask>
+        <conversion_Mask>######0.0###################;-######0.0###################</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol>,</grouping_symbol>
+        <grouping_symbol/>
         <currency_symbol/>
         <trim_type>none</trim_type>
         <case_insensitive>N</case_insensitive>
@@ -4023,6 +4112,121 @@ LIMIT 9999</sql>
         <date_format_timezone>Asia/Bangkok</date_format_timezone>
         <lenient_string_to_number>N</lenient_string_to_number>
       </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>log_action_userid</name>
+        <length>2147483647</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>log_action_userid</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_GB</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>log_action_username</name>
+        <length>2147483647</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>log_action_username</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_GB</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>Timestamp</type>
+        <storagetype>normal</storagetype>
+        <name>log_action_date</name>
+        <length>6</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>log_action_date</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_GB</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>log_action_mode</name>
+        <length>2</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>log_action_mode</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_GB</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>pk_id_log</name>
+        <length>2147483647</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>pk_id_log</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_GB</date_format_locale>
+        <date_format_timezone>Asia/Bangkok</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
     </row-meta>
     <attributes/>
     <cluster_schema/>
@@ -4033,8 +4237,8 @@ LIMIT 9999</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>192</yloc>
+      <xloc>416</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4051,7 +4255,7 @@ LIMIT 9999</sql>
     </partitioning>
     <connection>emi_after_sales</connection>
     <schema/>
-    <table>tblkpi</table>
+    <table>tblkpi_log</table>
     <commit>5000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -4077,8 +4281,8 @@ LIMIT 9999</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>192</yloc>
+      <xloc>688</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4097,7 +4301,7 @@ LIMIT 9999</sql>
     <displayHeader>Y</displayHeader>
     <limitRows>N</limitRows>
     <limitRowsNumber>0</limitRowsNumber>
-    <logmessage>CURRENT last_kd_kpi = ${last_kd_kpi}</logmessage>
+    <logmessage>CURRENT last_kd_kpi_log = ${last_kd_kpi_log}</logmessage>
     <fields>
       </fields>
     <attributes/>
@@ -4109,8 +4313,8 @@ LIMIT 9999</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
-      <yloc>192</yloc>
+      <xloc>928</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

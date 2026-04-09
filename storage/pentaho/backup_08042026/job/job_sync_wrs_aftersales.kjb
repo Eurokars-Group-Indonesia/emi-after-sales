@@ -803,8 +803,7 @@ LIMIT 1</custom_sql>
       <is_usevars>Y</is_usevars>
       <custom_sql>SELECT 1
 FROM transaksi_aftersales.tblkpi
-WHERE kd_kpi > COALESCE(${last_kd_kpi}, 0)
-AND tanggal_faktur > '2016-01-01'
+WHERE kd_kpi > COALESCE('${last_kd_kpi}', '0')
 LIMIT 1</custom_sql>
       <add_rows_result>N</add_rows_result>
       <clear_result_rows>N</clear_result_rows>
