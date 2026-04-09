@@ -34,12 +34,12 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-md-3">
+            {{-- <div class="col-md-3">
                 <div class="card p-3">
                     <h6 class="text-muted">Total Users</h6>
                     <h3>1,200</h3>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection
