@@ -22,10 +22,10 @@ class AtpmReportRetentionController
         $data['dataModel'] = $this->modelRepo->getModelExcludeInOther();
         // dd($data['dataModel']);
 
-        DB::connection('db_wrs_aftersales')->table('tblmodel')->where('is_wrs_aftersales', true)->orderBy('kd_model', 'asc')->get();
+        // DB::connection('db_wrs_aftersales')->table('tblmodel')->where('is_wrs_aftersales', true)->orderBy('kd_model', 'asc')->get();
         $data['dataUio'] = DB::connection('mysql')->table('tbluio')->where('is_active', true)->get();
+        
         // dd($data['dataUio']);
-
         // $data['isSyncRunning'] = DB::table('sync_logs')
         //                 ->where('status', 'RUNNING')
         //                 ->where('job_name', 'sync_pentaho')
@@ -36,13 +36,22 @@ class AtpmReportRetentionController
                     ->orderBy('start_time', 'desc')
                     ->first();
         
-        // dd($data);
-
-        if($dataSyncLogs->status == 'RUNNING') {
-            $data['isSyncRunning'] = true;
-        } else {
+        // dd($dataSyncLogs);
+    
+        /* jika true maka sedang proses sync, jika false maka tidak ada proses synv */
+        if($dataSyncLogs != null)
+        {
+            if($dataSyncLogs->status == 'RUNNING') {
+                $data['isSyncRunning'] = true;
+            } else {
+                $data['isSyncRunning'] = false;
+            }
+        }
+        else 
+        {
             $data['isSyncRunning'] = false;
         }
+
 
         return view('atpm.report_retention.index', $data);
     }
