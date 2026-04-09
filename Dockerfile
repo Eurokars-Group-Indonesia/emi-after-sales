@@ -88,7 +88,6 @@ RUN chown -R www-data:www-data /var/www/html \
     && find /var/www/html/bootstrap/cache -type f -exec chmod 664 {} \; \
     && touch /var/www/html/storage/logs/laravel.log \
     && touch /var/www/html/storage/logs/supervisord.log \
-    && touch /var/www/html/storage/logs/worker.log \
     && chown www-data:www-data /var/www/html/storage/logs/*.log \
     && chmod 664 /var/www/html/storage/logs/*.log
 
@@ -97,8 +96,7 @@ COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy entrypoint script
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY docker/queue-entrypoint.sh /usr/local/bin/queue-entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/queue-entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Expose port 9000 for PHP-FPM
 EXPOSE 9000
@@ -107,7 +105,5 @@ EXPOSE 9000
 # This allows entrypoint to run as root for permission fixes
 # USER www-data
 
-## todo
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-##CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-CMD ["php-fpm"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
