@@ -39,16 +39,9 @@ class AtpmReportRetentionController
         // dd($dataSyncLogs);
     
         /* jika true maka sedang proses sync, jika false maka tidak ada proses synv */
-        if($dataSyncLogs != null)
-        {
-            if($dataSyncLogs->status == 'RUNNING') {
-                $data['isSyncRunning'] = true;
-            } else {
-                $data['isSyncRunning'] = false;
-            }
-        }
-        else 
-        {
+        if (optional($dataSyncLogs)->status === 'RUNNING') {
+            $data['isSyncRunning'] = true;
+        } else {
             $data['isSyncRunning'] = false;
         }
 
