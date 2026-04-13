@@ -7,21 +7,22 @@
     <title>Admin Dashboard</title>
     
     <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    <script src="{{ asset('assets/js/jquery4.js') }}"></script>
 
     <!-- axios -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('assets/vendor/axios/axios.min.js') }}"></script>
 
-    <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- bootstrap -->    
+    <link href="{{ asset('assets/vendor/bootstrap/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendor/bootstrap/bootstrap-icons.css') }}" rel="stylesheet" />
 
     <!-- datatable -->
-    <link href="https://cdn.datatables.net/2.3.7/css/dataTables.dataTables.min.css" rel="stylesheet">
-    <script src="https://cdn.datatables.net/2.3.7/js/dataTables.min.js"></script>
+    <link href="{{ asset('assets/vendor/datatable/dataTables.dataTables.min.css') }}" rel="stylesheet" />
+    <script src="{{ asset('assets/vendor/datatable/dataTables.min.js') }}"></script>
+
 
     <!-- sweet alert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/vendor/sweetalert2/sweetaler2@11.js') }}"></script>
 
     <!-- css general -->
     <style>
@@ -225,7 +226,7 @@
 
     @yield('content')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
 
     <script>
         const sidebar = document.getElementById('sidebar');
