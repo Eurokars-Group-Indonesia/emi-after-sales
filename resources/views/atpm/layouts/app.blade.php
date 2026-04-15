@@ -210,6 +210,8 @@
     </style>
 
     <!-- css datatable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
 </head>
 
 <body>
@@ -227,6 +229,23 @@
     @yield('content')
 
     <script src="{{ asset('assets/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Datatable -->
+    <script src="{{ asset('assets/vendor/datatable/dataTables.min_1_13_8.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatable/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatable/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatable/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatable/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/datatable/buttons.html5.min.js') }}"></script>
+
+
+
+    <!-- <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script> -->
 
     <script>
         const sidebar = document.getElementById('sidebar');

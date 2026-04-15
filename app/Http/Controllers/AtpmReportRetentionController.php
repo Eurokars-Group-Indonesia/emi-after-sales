@@ -20,26 +20,28 @@ class AtpmReportRetentionController
     {
         $data['dataDealer'] = DB::connection('db_wrs_aftersales')->table('tbldealer')->where('is_active', true)->orderBy('nm_dealer')->get();
         $data['dataModel'] = $this->modelRepo->getModelExcludeInOther();
-        // dd($data['dataModel']);
-
-        // DB::connection('db_wrs_aftersales')->table('tblmodel')->where('is_wrs_aftersales', true)->orderBy('kd_model', 'asc')->get();
         $data['dataUio'] = DB::connection('mysql')->table('tbluio')->where('is_active', true)->get();
-        
-        // dd($data['dataUio']);
-        // $data['isSyncRunning'] = DB::table('sync_logs')
-        //                 ->where('status', 'RUNNING')
-        //                 ->where('job_name', 'sync_pentaho')
-        //                 ->get();
 
-        $dataSyncLogs = DB::table('sync_logs')
+        // dapetin status sync berdasarkan tanggal start_time terakhir
+        $dataLastSyncLogs = DB::table('sync_logs')
                     ->where('job_name', 'sync_pentaho')
                     ->orderBy('start_time', 'desc')
                     ->first();
+
+        $dataSuccessSyncLogs = DB::table('sync_logs')
+                    ->where('job_name', 'sync_pentaho')
+                    ->where('status', 'SUCCESS')
+                    ->orderBy('start_time', 'desc')
+                    ->first();
+
+        $data['dataSuccessSyncLogs'] = $dataSuccessSyncLogs;
+
+
+
         
-        // dd($dataSyncLogs);
     
         /* jika true maka sedang proses sync, jika false maka tidak ada proses synv */
-        if (optional($dataSyncLogs)->status === 'RUNNING') {
+        if (optional($dataLastSyncLogs)->status === 'RUNNING') {
             $data['isSyncRunning'] = true;
         } else {
             $data['isSyncRunning'] = false;
@@ -53,10 +55,10 @@ class AtpmReportRetentionController
     {
 
         $validator = Validator::make($request->all(), [
-            // 'kd_dealer' => 'required',
+            'kd_dealer' => 'required',
             'tahun' => 'required',
             'category_customer' => 'required',
-            // 'kd_model' => 'required',
+            'kd_model' => 'required',
             'uio' => 'required',
             'including_vin' => 'required',
         ], [
