@@ -108,14 +108,23 @@
                         <form id="parameterSearch">
                             @csrf
                             <div class="row mb-3">
-
+                                <div class="col-md-12 mb-2" style="text-align:right">
+                                    <label for="last_finish_sync mb-2">
+                                        <span class="badge bg-success   last_finish_sync" style="font-weight:normal;">Last Sync Date: {{ date('m-d-Y h:i:s', strtotime($dataSuccessSyncLogs->end_time)) }}</span>
+                                    </label>
+                                </div>
+                                <div class="clear:both"></div>
                                 <div class="col-md-6">
-                                    <div class="input-group mb-3">
+                                    <div class="input-group">
                                         <select name="kd_dealer[]" id="kd_dealer" class="form-control" multiple>
                                             @foreach ($dataDealer as $dealer)
                                                 <option value="{{ $dealer->kd_dealer }}">{{ $dealer->nm_dealer }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="button" class="btn btn-sm btn-secondary me-1 ms-2" id="btn-select-all-dealer" style="padding:0px 5px 0px 5px">Select All</button>
+                                        <button type="button" class="btn btn-sm btn-warning" id="btn-unselect-all-dealer" style="padding:0px 5px 0px 5px">Unselect All</button>
                                     </div>
                                     <div class="input-group mb-3">
                                         <select name="tahun" id="tahun" class="form-control">
@@ -129,18 +138,22 @@
                                     <div class="input-group mb-3">
                                         <select name="category_customer" id="category_customer" class="form-control">
                                             <option value=""selected>- Category Customer -</option>
-                                            <option value="without">Customer Paid(Without 1.000km Check)</option>
-                                            <option value="with">Customer Paid(With 1.000km Check)</option>
+                                            <option value="without">Customer Paid (Without 1.000km Check)</option>
+                                            <option value="with">Customer Paid (With 1.000km Check)</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <div class="input-group mb-3">
+                                    <div class="input-group">
                                         <select name="kd_model[]" id="kd_model" class="form-control" multiple>
                                             @foreach ($dataModel as $model)
                                                 <option value="{{ $model->kd_model }}">{{ $model->nm_model }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="button" class="btn btn-sm btn-secondary me-1 ms-2" id="btn-select-all-model" style="padding:0px 5px 0px 5px">Select All</button>
+                                        <button type="button" class="btn btn-sm btn-warning" id="btn-unselect-all-model" style="padding:0px 5px 0px 5px">Unselect All</button>
                                     </div>
 
                                     <div class="input-group mb-3">
@@ -239,25 +252,109 @@
     {{-- Modal Csutomer Visit --}}
     <style>
 
-    #modalDetailCustomerVisit .modal-dialog
-    {
-        max-width: 1400px; /* sesuaikan dengan kebutuhan */
-        width: 95%;
+    #modalDetailCustomerVisit .modal-dialog {
+        max-width: 98vw;
+        width: 98vw;
+        margin: 1vh auto;
     }
+
+    /* modal full height */
+    #modalDetailCustomerVisit .modal-content {
+        display: flex;
+        flex-direction: column;
+        height: 98vh;
+        max-height: 98vh;
+    }
+    #modalDetailCustomerVisit .modal-body {
+        flex: 1 1 auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        min-height: 0;
+    }
+
+    /* wrapper DataTables flex */
+    #modalDetailCustomerVisit .dataTables_wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        height: 100%;
+        overflow: hidden;
+        padding: 6px 10px 0;
+        min-height: 0;
+    }
+    #modalDetailCustomerVisit .dataTables_wrapper .dt-buttons,
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_length,
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_filter {
+        flex-shrink: 0;
+    }
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_scroll {
+        flex: 1 1 auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_scrollHead {
+        flex-shrink: 0;
+    }
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_scrollBody {
+        flex: 1 1 auto;
+        overflow-y: auto !important;
+        overflow-x: auto !important;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+    /* row info+pagination selalu di bawah */
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_info,
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_paginate {
+        flex-shrink: 0;
+        padding: 4px 0 6px;
+    }
+    #modalDetailCustomerVisit .dataTables_wrapper > .row:last-child {
+        flex-shrink: 0;
+        margin-top: auto !important;
+        padding-bottom: 4px;
+    }
+
+    /* compact table: kurangi padding cell */
+    #modalDetailCustomerVisit table.dataTable thead th,
+    #modalDetailCustomerVisit table.dataTable tbody td {
+        padding: 4px 6px !important;
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+    #modalDetailCustomerVisit table.dataTable thead th {
+        white-space: nowrap;
+    }
+
+    /* compact controls */
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_length,
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_filter,
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_info,
+    #modalDetailCustomerVisit .dataTables_wrapper .dataTables_paginate {
+        font-size: 0.8rem;
+    }
+    #modalDetailCustomerVisit .dataTables_wrapper .dt-buttons .btn {
+        padding: 2px 8px;
+        font-size: 0.78rem;
+        color: #ffffff;
+    }
+
     </style>
     
     <div class="modal fade" id="modalDetailCustomerVisit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable ">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header py-2">
                     <h6 class="modal-title mb-0">Detail Customer Visit — <span id="modal-customer_visit-bulan"></span></h6>
                     <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-0">
+                <div class="modal-body">
 
                     <!-- Table -->
-                    <div id="modal-customer_visit-content" style="display:none;">
-                        <table class="table table-sm table-hover table-bordered mb-0 small">
+                    <div id="modal-customer_visit-content">
+                        <table id="dt-customer-visit" class="table table-sm table-hover table-bordered mb-0 small" style="width:100%">
                             <thead class="table-light">
                                 <tr>
                                     <th class="text-center">#</th>
@@ -266,21 +363,15 @@
                                     <th class="text-center">Tanggal Service</th>
                                     <th class="text-center">Dealer Service</th>
                                     <th class="text-center">Category 1</th>
-                                    <th class="text-center" style="width:28rem;">Permintaan Pelanggan</th>
+                                    <th class="text-center">Permintaan Pelanggan</th>
                                 </tr>
                             </thead>
                             <tbody id="modal-customer_visit-tbody"></tbody>
                         </table>
                     </div>
 
-                    <!-- Empty state -->
-                    <div id="modal-customer_visit-empty" class="text-center text-secondary py-4 small" style="display:none;">
-                        Tidak ada data untuk periode ini.
-                    </div>
-
                 </div>
                 <div class="modal-footer py-2">
-                    <span class="text-secondary small me-auto" id="modal-customer_visit-count"></span>
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
@@ -288,25 +379,88 @@
     </div>
 
     {{-- Modal UIO --}}
+    <style>
+    #modalDetailUio .modal-dialog {
+        max-width: 98vw;
+        width: 98vw;
+        margin: 1vh auto;
+    }
+    #modalDetailUio .modal-content {
+        display: flex;
+        flex-direction: column;
+        height: 98vh;
+        max-height: 98vh;
+    }
+    #modalDetailUio .modal-body {
+        flex: 1 1 auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        min-height: 0;
+    }
+    #modalDetailUio .dataTables_wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        height: 100%;
+        overflow: hidden;
+        padding: 6px 10px 0;
+        min-height: 0;
+    }
+    #modalDetailUio .dataTables_wrapper .dt-buttons,
+    #modalDetailUio .dataTables_wrapper .dataTables_length,
+    #modalDetailUio .dataTables_wrapper .dataTables_filter { flex-shrink: 0; }
+    #modalDetailUio .dataTables_wrapper .dataTables_scroll {
+        flex: 1 1 auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+    #modalDetailUio .dataTables_wrapper .dataTables_scrollHead { flex-shrink: 0; }
+    #modalDetailUio .dataTables_wrapper .dataTables_scrollBody {
+        flex: 1 1 auto;
+        overflow-y: auto !important;
+        overflow-x: auto !important;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+    #modalDetailUio .dataTables_wrapper .dataTables_info,
+    #modalDetailUio .dataTables_wrapper .dataTables_paginate {
+        flex-shrink: 0;
+        padding: 4px 0 6px;
+        font-size: 0.8rem;
+    }
+    #modalDetailUio .dataTables_wrapper > .row:last-child {
+        flex-shrink: 0;
+        margin-top: auto !important;
+        padding-bottom: 4px;
+    }
+    #modalDetailUio table.dataTable thead th,
+    #modalDetailUio table.dataTable tbody td {
+        padding: 4px 6px !important;
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+    #modalDetailUio table.dataTable thead th { white-space: nowrap; }
+    #modalDetailUio .dataTables_wrapper .dataTables_length,
+    #modalDetailUio .dataTables_wrapper .dataTables_filter { font-size: 0.8rem; }
+    #modalDetailUio .dataTables_wrapper .dt-buttons .btn {
+        padding: 2px 8px;
+        font-size: 0.78rem;
+        color: #ffffff;
+    }
+    </style>
     <div class="modal fade" id="modalDetailUio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header py-2">
                     <h6 class="modal-title mb-0">Detail UIO — <span id="modal-uio-bulan"></span></h6>
                     <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-0">
-
-                    <!-- Loader -->
-                    {{-- <div id="modal-uio-loader" class="d-flex align-items-center gap-2 px-3 py-3">
-                        <div class="spinner-border spinner-border-sm text-secondary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                        <span class="text-secondary small">Loading...</span>
-                    </div> --}}
-                    <!-- Table -->
-                    <div id="modal-uio-content" style="display:none;">
-                        <table class="table table-sm table-hover table-bordered mb-0 small">
+                <div class="modal-body">
+                    <div id="modal-uio-content">
+                        <table id="dt-uio" class="table table-sm table-hover table-bordered mb-0 small" style="width:100%">
                             <thead class="table-light">
                                 <tr>
                                     <th class="text-center">#</th>
@@ -319,15 +473,8 @@
                             <tbody id="modal-uio-tbody"></tbody>
                         </table>
                     </div>
-
-                    <!-- Empty state -->
-                    <div id="modal-uio-empty" class="text-center text-secondary py-4 small" style="display:none;">
-                        Tidak ada data untuk periode ini.
-                    </div>
-
                 </div>
                 <div class="modal-footer py-2">
-                    <span class="text-secondary small me-auto" id="modal-uio-count"></span>
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
@@ -335,18 +482,88 @@
     </div>
 
     {{-- Modal Gap --}}
+    <style>
+    #modalDetailGap .modal-dialog {
+        max-width: 98vw;
+        width: 98vw;
+        margin: 1vh auto;
+    }
+    #modalDetailGap .modal-content {
+        display: flex;
+        flex-direction: column;
+        height: 98vh;
+        max-height: 98vh;
+    }
+    #modalDetailGap .modal-body {
+        flex: 1 1 auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        min-height: 0;
+    }
+    #modalDetailGap .dataTables_wrapper {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        height: 100%;
+        overflow: hidden;
+        padding: 6px 10px 0;
+        min-height: 0;
+    }
+    #modalDetailGap .dataTables_wrapper .dt-buttons,
+    #modalDetailGap .dataTables_wrapper .dataTables_length,
+    #modalDetailGap .dataTables_wrapper .dataTables_filter { flex-shrink: 0; }
+    #modalDetailGap .dataTables_wrapper .dataTables_scroll {
+        flex: 1 1 auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+    #modalDetailGap .dataTables_wrapper .dataTables_scrollHead { flex-shrink: 0; }
+    #modalDetailGap .dataTables_wrapper .dataTables_scrollBody {
+        flex: 1 1 auto;
+        overflow-y: auto !important;
+        overflow-x: auto !important;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+    #modalDetailGap .dataTables_wrapper .dataTables_info,
+    #modalDetailGap .dataTables_wrapper .dataTables_paginate {
+        flex-shrink: 0;
+        padding: 4px 0 6px;
+        font-size: 0.8rem;
+    }
+    #modalDetailGap .dataTables_wrapper > .row:last-child {
+        flex-shrink: 0;
+        margin-top: auto !important;
+        padding-bottom: 4px;
+    }
+    #modalDetailGap table.dataTable thead th,
+    #modalDetailGap table.dataTable tbody td {
+        padding: 4px 6px !important;
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+    #modalDetailGap table.dataTable thead th { white-space: nowrap; }
+    #modalDetailGap .dataTables_wrapper .dataTables_length,
+    #modalDetailGap .dataTables_wrapper .dataTables_filter { font-size: 0.8rem; }
+    #modalDetailGap .dataTables_wrapper .dt-buttons .btn {
+        padding: 2px 8px;
+        font-size: 0.78rem;
+        color: #ffffff;
+    }
+    </style>
     <div class="modal fade" id="modalDetailGap" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header py-2">
                     <h6 class="modal-title mb-0">Detail GAP — <span id="modal-gap-bulan"></span></h6>
                     <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-0">
-
-                    <!-- Table -->
-                    <div id="modal-gap-content" style="display:none;">
-                        <table class="table table-sm table-hover table-bordered mb-0 small">
+                <div class="modal-body">
+                    <div id="modal-gap-content">
+                        <table id="dt-gap" class="table table-sm table-hover table-bordered mb-0 small" style="width:100%">
                             <thead class="table-light">
                                 <tr>
                                     <th class="text-center">#</th>
@@ -359,15 +576,8 @@
                             <tbody id="modal-gap-tbody"></tbody>
                         </table>
                     </div>
-
-                    <!-- Empty state -->
-                    <div id="modal-gap-empty" class="text-center text-secondary py-4 small" style="display:none;">
-                        Tidak ada data untuk periode ini.
-                    </div>
-
                 </div>
                 <div class="modal-footer py-2">
-                    <span class="text-secondary small me-auto" id="modal-gap-count"></span>
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
@@ -383,6 +593,23 @@
     <script type="text/javascript">
 
         // ################## Klik generate report ################## 
+            
+            $('body').on('click', '#btn-select-all-dealer', function() {
+                $('#kd_dealer option').prop('selected', true);
+            });
+
+            $('body').on('click', '#btn-unselect-all-dealer', function() {
+                $('#kd_dealer option').prop('selected', false);
+            });
+
+            $('body').on('click', '#btn-select-all-model', function() {
+                $('#kd_model option').prop('selected', true);
+            });
+
+            $('body').on('click', '#btn-unselect-all-model', function() {
+                $('#kd_model option').prop('selected', false);
+            });
+
             $('body').on('click', '#search-report', function() {
 
                 // empty json
@@ -421,8 +648,11 @@
                             $('#spinner-search').addClass('d-none');
 
                             // Buat row untuk setiap field
-                            const fields = ["rangePeriode", "bulan", "customer_visit", "uio", "service_retention", "gap"];
-                            const labels = ["rangePeriode", "Bulan", "Customer Visit", "UIO", "Service Retention", "Gap"];
+                            // const fields = ["rangePeriode", "bulan", "customer_visit", "uio", "service_retention", "gap"];
+                            // const labels = ["rangePeriode", "Bulan", "Customer Visit", "UIO", "Service Retention", "Gap"];
+
+                            const fields = ["bulan", "customer_visit", "uio", "service_retention", "gap"];
+                            const labels = ["Bulan", "Customer Visit", "UIO", "Service Retention", "Gap"];
 
                             fields.forEach((field, idx) => {
 
@@ -432,8 +662,11 @@
                                 // Kolom pertama = label
                                 const tdLabel = document.createElement('td');
                                 tdLabel.textContent = labels[idx];
-                                tdLabel.style.background = '#efefef';
-                                tdLabel.style.background = '#efefef';
+                                // tdLabel.style.background = '#efefef';
+                                // tdLabel.style.background = '#efefef';
+                                // tdLabel.style.whiteSpace = 'nowrap';
+                                tdLabel.style.background = 'rgb(58 123 202)';
+                                tdLabel.style.color = '#efefef';
                                 tdLabel.style.whiteSpace = 'nowrap';
                                 tr.appendChild(tdLabel);
 
@@ -444,16 +677,24 @@
                                     // console.log(field, item);
 
                                     if (field === 'rangePeriode') {
+                                        console.log(item[field]);
                                         td.innerHTML = (item[field] || '').replace(/\r?\n/g,
                                         "<br>");
                                     } else if(field == 'customer_visit') {
                                         td.innerHTML = `<div class="showDetailCustomerVisit" data-bulan-customer-visit="${item.bulan}" >${item[field]}</div>`;
                                     } else if(field == 'uio') {
-                                        td.innerHTML = `<div class="showDetailUio" data-bulan-uio="${item.bulan}" >${item[field]}</div>`;
+                                        const rangePeriodeUio = (item['rangePeriode'] || '').replace(/\r?\n/g, ' ');
+                                        td.innerHTML = `<div class="showDetailUio" data-bulan-uio="${item.bulan}" title="${rangePeriodeUio}">${item[field]}</div>`;
                                     } else if(field == 'service_retention') {
-                                        td.textContent = item[field]+' %';
+                                        // td.textContent = item[field]+' %';
+                                        td.textContent = (item[field] ?? 0) + ' %';
                                     } else if(field == 'gap') {
                                         td.innerHTML = `<div class="showDetailGap" data-bulan-gap="${item.bulan}" >${item[field]}</div>`;
+                                    } else if(field == 'bulan'){
+                                        td.textContent = item[field];
+                                        td.style.background = '#cfe2ff';
+                                        td.style.color = '#084298';
+                                        td.style.fontWeight = '600';
                                     } else {
                                         td.textContent = item[field];
                                     }
@@ -503,6 +744,13 @@
                         $('#spinner-search').addClass('d-none');
                     });
             });
+            
+
+
+
+
+
+
 
 
         // ################## Customer Visit ################## 
@@ -517,45 +765,89 @@
 
 
             // click Customer Visit detail
+            let dtCustomerVisit = null;
+
             $('body').on('click', '.showDetailCustomerVisit', function () {
                 const bulan = $(this).attr('data-bulan-customer-visit');
 
-                // reset state
                 $('#modal-customer_visit-bulan').text(bulan);
-                $('#modal-customer_visit-content').hide();
-                $('#modal-customer_visit-empty').hide();
-                $('#modal-customer_visit-count').text('');
-                $('#modal-customer_visit-tbody').empty();
 
-                // tampilkan modal
+                if (dtCustomerVisit) {
+                    dtCustomerVisit.destroy();
+                    dtCustomerVisit = null;
+                    $('#modal-customer_visit-tbody').empty();
+                }
+
                 const modalEl = document.getElementById('modalDetailCustomerVisit');
                 const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
                 modal.show();
 
                 $(modalEl).off('shown.bs.modal').on('shown.bs.modal', function () {
                     const filtered = getDetailCustomerVisitByBulan(bulan);
+                    filtered.sort((a, b) => new Date(a.tanggal_service) - new Date(b.tanggal_service));
 
-                    if (!filtered || filtered.length === 0) {
-                        $('#modal-customer_visit-empty').show();
-                        return;
-                    }
-
-                    filtered.forEach((item, idx) => {
-                        $('#modal-customer_visit-tbody').append(`
-                            <tr>
-                                <td class="text-center">${idx + 1}</td>
-                                <td class="text-center"><code>${item.no_vin}</code></td>
-                                <td>${item.dealer_sold}</td>
-                                <td class="text-center">${item.tanggal_service}</td>
-                                <td>${item.dealer_service}</td>
-                                <td>${item.category_1}</td>
-                                <td>${item.permintaan_pelanggan}</td>
-                            </tr>
-                        `);
+                    const rows = filtered.map((item, idx) => {
+                        const tgl = item.tanggal_service
+                            ? (d => `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`)(new Date(item.tanggal_service))
+                            : '';
+                        return [
+                            idx + 1,
+                            `<code>${item.no_vin}</code>`,
+                            item.dealer_sold,
+                            tgl,
+                            item.dealer_service,
+                            item.category_1,
+                            item.permintaan_pelanggan
+                        ];
                     });
 
-                    $('#modal-customer_visit-count').text(`${filtered.length} data ditemukan`);
-                    $('#modal-customer_visit-content').show();
+                    dtCustomerVisit = $('#dt-customer-visit').DataTable({
+                        data: rows,
+                        columns: [
+                            { title: '#',                    className: 'text-center', width: '40px' },
+                            { title: 'VIN',                  className: 'text-center' },
+                            { title: 'Dealer Sold' },
+                            { title: 'Tanggal Service',      className: 'text-center' },
+                            { title: 'Dealer Service' },
+                            { title: 'Category 1',           className: 'text-center' },
+                            { title: 'Permintaan Pelanggan' },
+                        ],
+                        pageLength: 25,
+                        lengthMenu: [10, 25, 50, 100],
+                        order: [[3, 'asc']],
+                        scrollX: true,
+                        scrollY: '100%',
+                        scrollCollapse: false,
+                        autoWidth: false,
+                        columnDefs: [{ targets: 6, width: '28rem' }],
+                        dom: "<'row mb-1'<'col-sm-4 d-flex align-items-center'l><'col-sm-4 d-flex justify-content-center'B><'col-sm-4 d-flex justify-content-end'f>>" +
+                             "<'row'<'col-12't>>" +
+                             "<'row mt-1'<'col-sm-5'i><'col-sm-7 d-flex justify-content-end'p>>",
+                        buttons: [
+                            {
+                                extend: 'copy',
+                                text: '<i class="bi bi-clipboard"></i> Copy',
+                                className: 'btn btn-sm btn-outline-secondary',
+                                exportOptions: { columns: ':visible', orthogonal: 'display' }
+                            },
+                            {
+                                extend: 'excel',
+                                text: '<i class="bi bi-file-earmark-excel"></i> Excel',
+                                className: 'btn btn-sm btn-outline-success',
+                                title: 'Detail Customer Visit - ' + bulan,
+                                exportOptions: { columns: ':visible', orthogonal: 'display' }
+                            }
+                        ],
+                        language: {
+                            search:      'Cari:',
+                            lengthMenu:  'Tampilkan _MENU_ data',
+                            info:        'Menampilkan _START_–_END_ dari _TOTAL_ data',
+                            infoEmpty:   'Tidak ada data',
+                            zeroRecords: 'Tidak ada data yang cocok',
+                            emptyTable:  'Tidak ada data untuk periode ini.',
+                            paginate:    { previous: '&laquo;', next: '&raquo;' }
+                        }
+                    });
                 });
             });
 
@@ -568,47 +860,78 @@
                 return data.filter(item => item.periode === bulan);
             }
 
-            // klik showDetailUio
+            let dtUio = null;
+
             $('body').on('click', '.showDetailUio', function () {
                 const bulan = $(this).attr('data-bulan-uio');
 
-                // reset state
                 $('#modal-uio-bulan').text(bulan);
-                // $('#modal-uio-loader').show();
-                $('#modal-uio-content').hide();
-                $('#modal-uio-empty').hide();
-                $('#modal-uio-count').text('');
-                $('#modal-uio-tbody').empty();
 
-                // tampilkan modal
+                if (dtUio) {
+                    dtUio.destroy();
+                    dtUio = null;
+                    $('#modal-uio-tbody').empty();
+                }
+
                 const modalEl = document.getElementById('modalDetailUio');
                 const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
                 modal.show();
 
                 $(modalEl).off('shown.bs.modal').on('shown.bs.modal', function () {
-                    const filtered = getDetailUioByBulan(bulan); // bulan dari closure, selalu fresh
+                    const filtered = getDetailUioByBulan(bulan);
+                    filtered.sort((a, b) => new Date(a.tanggal_faktur) - new Date(b.tanggal_faktur));
 
-                    // $('#modal-uio-loader').hide();
-
-                    if (!filtered || filtered.length === 0) {
-                        $('#modal-uio-empty').show();
-                        return;
-                    }
-
-                    filtered.forEach((item, idx) => {
-                        $('#modal-uio-tbody').append(`
-                            <tr>
-                                <td class="text-center">${idx + 1}</td>
-                                <td class="text-center"><code>${item.fk_vin}</code></td>
-                                <td class="text-center">${item.tanggal_faktur}</td>
-                                <td class="text-center">${item.nm_model}</td>
-                                <td>${item.nm_dealer}</td>
-                            </tr>
-                        `);
+                    const rows = filtered.map((item, idx) => {
+                        const tgl = item.tanggal_faktur
+                            ? (d => `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`)(new Date(item.tanggal_faktur))
+                            : '';
+                        return [idx + 1, `<code>${item.fk_vin}</code>`, tgl, item.nm_model, item.nm_dealer];
                     });
 
-                    $('#modal-uio-count').text(`${filtered.length} data ditemukan`);
-                    $('#modal-uio-content').show();
+                    dtUio = $('#dt-uio').DataTable({
+                        data: rows,
+                        columns: [
+                            { title: '#',                className: 'text-center', width: '40px' },
+                            { title: 'VIN',              className: 'text-center' },
+                            { title: 'Tanggal Handover', className: 'text-center' },
+                            { title: 'Model',            className: 'text-center' },
+                            { title: 'Dealer' },
+                        ],
+                        pageLength: 25,
+                        lengthMenu: [10, 25, 50, 100],
+                        order: [[2, 'asc']],
+                        scrollX: true,
+                        scrollY: '100%',
+                        scrollCollapse: false,
+                        autoWidth: false,
+                        dom: "<'row mb-1'<'col-sm-4 d-flex align-items-center'l><'col-sm-4 d-flex justify-content-center'B><'col-sm-4 d-flex justify-content-end'f>>" +
+                             "<'row'<'col-12't>>" +
+                             "<'row mt-1'<'col-sm-5'i><'col-sm-7 d-flex justify-content-end'p>>",
+                        buttons: [
+                            {
+                                extend: 'copy',
+                                text: '<i class="bi bi-clipboard"></i> Copy',
+                                className: 'btn btn-sm btn-outline-secondary',
+                                exportOptions: { columns: ':visible', orthogonal: 'display' }
+                            },
+                            {
+                                extend: 'excel',
+                                text: '<i class="bi bi-file-earmark-excel"></i> Excel',
+                                className: 'btn btn-sm btn-outline-success',
+                                title: 'Detail UIO - ' + bulan,
+                                exportOptions: { columns: ':visible', orthogonal: 'display' }
+                            }
+                        ],
+                        language: {
+                            search:      'Cari:',
+                            lengthMenu:  'Tampilkan _MENU_ data',
+                            info:        'Menampilkan _START_–_END_ dari _TOTAL_ data',
+                            infoEmpty:   'Tidak ada data',
+                            zeroRecords: 'Tidak ada data yang cocok',
+                            emptyTable:  'Tidak ada data untuk periode ini.',
+                            paginate:    { previous: '&laquo;', next: '&raquo;' }
+                        }
+                    });
                 });
             });
 
@@ -621,48 +944,79 @@
                 return data.filter(item => item.rangePeriode === bulan);
             }
 
+            let dtGap = null;
+
             // klik showDetailUio
             $('body').on('click', '.showDetailGap', function () {
                 const bulan = $(this).attr('data-bulan-gap');
 
-                // reset state
                 $('#modal-gap-bulan').text(bulan);
-                // $('#modal-uio-loader').show();
-                $('#modal-gap-content').hide();
-                $('#modal-gap-empty').hide();
-                $('#modal-gap-count').text('');
-                $('#modal-gap-tbody').empty();
 
-                // tampilkan modal
+                if (typeof dtGap !== 'undefined' && dtGap) {
+                    dtGap.destroy();
+                    dtGap = null;
+                    $('#modal-gap-tbody').empty();
+                }
+
                 const modalEl = document.getElementById('modalDetailGap');
                 const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
                 modal.show();
 
                 $(modalEl).off('shown.bs.modal').on('shown.bs.modal', function () {
+                    const filtered = getDetailGapByBulan(bulan);
+                    filtered.sort((a, b) => new Date(a.tanggal_faktur) - new Date(b.tanggal_faktur));
 
-                    const filtered = getDetailGapByBulan(bulan); // bulan dari closure, selalu fresh
-
-                    // $('#modal-uio-loader').hide();
-
-                    if (!filtered || filtered.length === 0) {
-                        $('#modal-gap-empty').show();
-                        return;
-                    }
-
-                    filtered.forEach((item, idx) => {
-                        $('#modal-gap-tbody').append(`
-                            <tr>
-                                <td class="text-center">${idx + 1}</td>
-                                <td class="text-center"><code>${item.fk_vin}</code></td>
-                                <td class="text-center">${item.tanggal_faktur}</td>
-                                <td class="text-center">${item.nm_model}</td>
-                                <td>${item.nm_dealer}</td>
-                            </tr>
-                        `);
+                    const rows = filtered.map((item, idx) => {
+                        const tgl = item.tanggal_faktur
+                            ? (d => `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`)(new Date(item.tanggal_faktur))
+                            : '';
+                        return [idx + 1, `<code>${item.fk_vin}</code>`, tgl, item.nm_model, item.nm_dealer];
                     });
 
-                    $('#modal-gap-count').text(`${filtered.length} data ditemukan`);
-                    $('#modal-gap-content').show();
+                    dtGap = $('#dt-gap').DataTable({
+                        data: rows,
+                        columns: [
+                            { title: '#',              className: 'text-center', width: '40px' },
+                            { title: 'VIN',            className: 'text-center' },
+                            { title: 'Tanggal Faktur', className: 'text-center' },
+                            { title: 'Model',          className: 'text-center' },
+                            { title: 'Dealer' },
+                        ],
+                        pageLength: 25,
+                        lengthMenu: [10, 25, 50, 100],
+                        order: [[2, 'asc']],
+                        scrollX: true,
+                        scrollY: '100%',
+                        scrollCollapse: false,
+                        autoWidth: false,
+                        dom: "<'row mb-1'<'col-sm-4 d-flex align-items-center'l><'col-sm-4 d-flex justify-content-center'B><'col-sm-4 d-flex justify-content-end'f>>" +
+                             "<'row'<'col-12't>>" +
+                             "<'row mt-1'<'col-sm-5'i><'col-sm-7 d-flex justify-content-end'p>>",
+                        buttons: [
+                            {
+                                extend: 'copy',
+                                text: '<i class="bi bi-clipboard"></i> Copy',
+                                className: 'btn btn-sm btn-outline-secondary',
+                                exportOptions: { columns: ':visible', orthogonal: 'display' }
+                            },
+                            {
+                                extend: 'excel',
+                                text: '<i class="bi bi-file-earmark-excel"></i> Excel',
+                                className: 'btn btn-sm btn-outline-success',
+                                title: 'Detail GAP - ' + bulan,
+                                exportOptions: { columns: ':visible', orthogonal: 'display' }
+                            }
+                        ],
+                        language: {
+                            search:      'Cari:',
+                            lengthMenu:  'Tampilkan _MENU_ data',
+                            info:        'Menampilkan _START_–_END_ dari _TOTAL_ data',
+                            infoEmpty:   'Tidak ada data',
+                            zeroRecords: 'Tidak ada data yang cocok',
+                            emptyTable:  'Tidak ada data untuk periode ini.',
+                            paginate:    { previous: '&laquo;', next: '&raquo;' }
+                        }
+                    });
                 });
             });
 
