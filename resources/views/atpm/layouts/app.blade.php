@@ -210,8 +210,9 @@
     </style>
 
     <!-- css datatable -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+     
+    <link href="{{ asset('assets/vendor/datatable/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendor/datatable/buttons.bootstrap5.min.css') }}" rel="stylesheet" />
 </head>
 
 <body>
