@@ -38,12 +38,30 @@ class AuthController extends Controller
         $loginAs  = $request->input('login_as');
 
         try {
+            
             $response = $api->login($username, $password, $loginAs);
 
+            // dd($response);
             // Gagal jika response kosong atau bukan SUCCESS
             if (empty($response) || ($response['code'] ?? null) !== 200 || ($response['status'] ?? '') !== 'SUCCESS') {
+
+                if($response['message']=='NOT_FOUND')
+                {
+                    $responseMessage = 'Username Not Found';
+                }
+                else if($response['message']=='AUTHENTICATION_FAILED')
+                {
+                    $responseMessage = 'Username or Password is wrong';
+                }
+                else 
+                {
+                    $responseMessage = '';
+                }
+
+
+
                 return back()->withErrors([
-                    'login' => $response['message'] ?? 'Login gagal.'
+                    'login' => $responseMessage ?? 'Login gagal.'
                 ]);
             }
 

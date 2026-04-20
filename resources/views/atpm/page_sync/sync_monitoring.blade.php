@@ -44,17 +44,17 @@
                             <input type="text" id="search-input" class="form-control form-control-sm" placeholder="Search...">
                         </div>
                         <div class="col-auto">
-                            <button id="btn-search" class="btn btn-primary btn-sm">
+                            <button id="btn-search" class="btn-fi btn-fi-primary btn-fi-sm">
                                 <i class="bi bi-search"></i> Search
                             </button>
-                            <button id="btn-reset" class="btn btn-secondary btn-sm ms-1">
+                            <button id="btn-reset" class="btn-fi btn-fi-secondary btn-fi-sm ms-1">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="table-datatable" class="display table-bordered">
+                    <table id="table-datatable" class="table table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th class="text-center">No.</th>

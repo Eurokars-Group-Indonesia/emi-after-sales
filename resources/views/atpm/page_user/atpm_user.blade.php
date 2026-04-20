@@ -39,23 +39,38 @@
             <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="btn btn-primary btn-sm" id="btn-sync-atpm-user"> 
-                        <i class="bi bi-arrow-repeat"></i> Sync - ATPM User
+                    <div class="row g-2 align-items-center">
+                        <div class="col-md-4">
+                            <input type="text" id="search-input" class="form-control form-control-sm" placeholder="Search...">
+                        </div>
+                        <div class="col-auto">
+                            <button id="btn-search" class="btn-fi btn-fi-primary btn-fi-sm">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                            <button id="btn-reset" class="btn-fi btn-fi-secondary btn-fi-sm ms-1">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                            </button>
+                        </div>
+                        <div class="col-auto ms-auto">
+                            <button class="btn-fi btn-fi-warning btn-fi-sm" id="btn-sync-atpm-user">
+                                <i class="bi bi-arrow-repeat"></i> Sync ATPM User
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="customer-table" class="table table-bordered table-hover" style="width:100%">
+                    <table id="customer-table" class="table table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Action</th>
+                                <th class="text-center">No.</th>
+                                <th class="text-center">Username</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
@@ -65,15 +80,31 @@
 
 
 
+    <style>
+        .dt-length select {
+            display: inline-block;
+            width: auto;
+            padding: 2px 6px;
+            font-size: 13px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+    </style>
+
     <script>
         $(function () {
 
-            $('#customer-table').DataTable({
+            const dt = $('#customer-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route("atpm.aftersales.atpm_user_datatable") }}',
+                dom: '<"row align-items-center mb-2"<"col-auto"l><"col-auto ms-auto"i>>rt<"row mt-2"<"col-auto"p>>',
+                language: {
+                    lengthMenu: '_MENU_ entries per page',
+                    info: '<small class="text-muted">_START_–_END_ of _TOTAL_</small>',
+                },
                 columns: [
-                    // { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                     { data: 'username', name: 'username' },
                     { data: 'nm_atpm_user', name: 'nm_atpm_user' },
                     { data: 'email', name: 'email' },
@@ -81,37 +112,33 @@
                 ]
             });
 
-            $('body').on('click', '#btn-sync-atpm-user', function(){
+            $('#btn-search').on('click', function () {
+                dt.search($('#search-input').val()).draw();
+            });
 
+            $('#search-input').on('keypress', function (e) {
+                if (e.which === 13) dt.search($(this).val()).draw();
+            });
+
+            $('#btn-reset').on('click', function () {
+                $('#search-input').val('');
+                dt.search('').draw();
+            });
+
+            $('body').on('click', '#btn-sync-atpm-user', function(){
                 $('#disabler').show();
 
-                axios.get('{{ route('atpm.aftersales.atpm_user_sync') }}',{
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                            }
-                        })
-                        .then(function(response) {
-
-                            $('#disabler').hide();
-
-                            datatTable.ajax.reload();
-                        })
-                        .catch(function(error) {
-
-                            $('#disabler').hide();
-                            
-                        });
-
-
-
-
-
+                axios.get('{{ route('atpm.aftersales.atpm_user_sync') }}', {
+                    headers: { 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value }
+                })
+                .then(function(response) {
+                    $('#disabler').hide();
+                    dt.ajax.reload();
+                })
+                .catch(function(error) {
+                    $('#disabler').hide();
+                });
             });
         });
-
-
-        
-
-
     </script>
 @endsection

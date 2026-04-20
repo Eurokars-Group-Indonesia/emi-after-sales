@@ -1,0 +1,151 @@
+/* ============================================================
+   Existing utilities
+   ============================================================ */
+.btn-xs-mzd {
+  /* padding: 2px 6px; */
+  font-size: 0.8rem;
+  line-height: 1.2;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   SAP Fiori / Enterprise Button System
+   Base token
+   ============================================================ */
+:root {
+  --btn-font:        'Segoe UI', '72', Arial, sans-serif;
+  --btn-radius:      0.375rem;
+  --btn-font-size:   0.8125rem;   /* 13px — Fiori standard */
+  --btn-height:      2rem;        /* 32px */
+  --btn-px:          0.75rem;
+  --btn-fw:          500;
+  --btn-transition:  background 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+/* ── Base ── */
+.btn-fi {
+  display:          inline-flex;
+  align-items:      center;
+  gap:              0.35rem;
+  height:           var(--btn-height);
+  padding:          0 var(--btn-px);
+  font-family:      var(--btn-font);
+  font-size:        var(--btn-font-size);
+  font-weight:      var(--btn-fw);
+  line-height:      1;
+  border-radius:    var(--btn-radius);
+  border:           1px solid transparent;
+  cursor:           pointer;
+  text-decoration:  none;
+  white-space:      nowrap;
+  transition:       var(--btn-transition);
+  user-select:      none;
+  vertical-align:   middle;
+}
+.btn-fi:focus-visible {
+  outline: 2px solid #0070f2;
+  outline-offset: 2px;
+}
+.btn-fi:disabled,
+.btn-fi.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.btn-fi i,
+.btn-fi .bi {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+/* ── Emphasized (Primary) — SAP blue ── */
+.btn-fi-primary {
+  background:   #0070f2;
+  border-color: #0070f2;
+  color:        #fff;
+}
+.btn-fi-primary:hover  { background: #0064d9; border-color: #0064d9; color: #fff; }
+.btn-fi-primary:active { background: #0058c0; border-color: #0058c0; color: #fff; }
+
+/* ── Standard (Secondary) ── */
+.btn-fi-secondary {
+  background:   #fff;
+  border-color: #bcc3ca;
+  color:        #32363a;
+}
+.btn-fi-secondary:hover  { background: #f5f6f7; border-color: #89919a; color: #32363a; }
+.btn-fi-secondary:active { background: #e8eaed; border-color: #89919a; color: #32363a; }
+
+/* ── Positive (Success / Approve) ── */
+.btn-fi-success {
+  background:   #107e3e;
+  border-color: #107e3e;
+  color:        #fff;
+}
+.btn-fi-success:hover  { background: #0d6b34; border-color: #0d6b34; color: #fff; }
+.btn-fi-success:active { background: #0a5829; border-color: #0a5829; color: #fff; }
+
+/* ── Negative (Danger / Reject) ── */
+.btn-fi-danger {
+  background:   #bb0000;
+  border-color: #bb0000;
+  color:        #fff;
+}
+.btn-fi-danger:hover  { background: #a20000; border-color: #a20000; color: #fff; }
+.btn-fi-danger:active { background: #890000; border-color: #890000; color: #fff; }
+
+/* ── Warning / Attention ── */
+.btn-fi-warning {
+  background:   #e9730c;
+  border-color: #e9730c;
+  color:        #fff;
+}
+.btn-fi-warning:hover  { background: #d0620a; border-color: #d0620a; color: #fff; }
+.btn-fi-warning:active { background: #b75208; border-color: #b75208; color: #fff; }
+
+/* ── Ghost (Transparent) ── */
+.btn-fi-ghost {
+  background:   transparent;
+  border-color: transparent;
+  color:        #0070f2;
+}
+.btn-fi-ghost:hover  { background: #e8f2ff; border-color: transparent; color: #0064d9; }
+.btn-fi-ghost:active { background: #d1e6ff; border-color: transparent; color: #0058c0; }
+
+/* ── Outline variants ── */
+.btn-fi-outline-primary {
+  background:   transparent;
+  border-color: #0070f2;
+  color:        #0070f2;
+}
+.btn-fi-outline-primary:hover  { background: #e8f2ff; color: #0064d9; border-color: #0064d9; }
+.btn-fi-outline-primary:active { background: #d1e6ff; color: #0058c0; border-color: #0058c0; }
+
+.btn-fi-outline-danger {
+  background:   transparent;
+  border-color: #bb0000;
+  color:        #bb0000;
+}
+.btn-fi-outline-danger:hover  { background: #fff0f0; color: #a20000; border-color: #a20000; }
+.btn-fi-outline-danger:active { background: #ffe0e0; color: #890000; border-color: #890000; }
+
+/* ── Sizes ── */
+.btn-fi-sm {
+  height:      1.625rem;   /* 26px */
+  padding:     0 0.5rem;
+  font-size:   0.75rem;
+  border-radius: 0.25rem;
+}
+.btn-fi-lg {
+  height:      2.5rem;     /* 40px */
+  padding:     0 1.25rem;
+  font-size:   0.9375rem;
+}
+
+/* ── Icon-only (square) ── */
+.btn-fi-icon {
+  width:    var(--btn-height);
+  padding:  0;
+  justify-content: center;
+}
+.btn-fi-icon.btn-fi-sm { width: 1.625rem; }
+.btn-fi-icon.btn-fi-lg { width: 2.5rem; }

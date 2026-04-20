@@ -24,6 +24,12 @@
     <!-- sweet alert -->
     <script src="{{ asset('assets/vendor/sweetalert2/sweetaler2@11.js') }}"></script>
 
+    
+    <!-- mzd style -->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+
+    
+
     <!-- css general -->
     <style>
         #disabler {
