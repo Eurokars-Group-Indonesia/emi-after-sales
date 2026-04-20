@@ -110,7 +110,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-12 mb-2" style="text-align:right">
                                     <label for="last_finish_sync mb-2">
-                                        <span class="badge bg-success   last_finish_sync" style="font-weight:normal;">Last Sync Date: {{ date('m-d-Y h:i:s', strtotime($dataSuccessSyncLogs->end_time)) }}</span>
+                                        <span class="badge bg-success   last_finish_sync" style="font-weight:normal;">Last Sync Date: {{ date('m-d-Y H:i:s', strtotime($dataSuccessSyncLogs->end_time)) }}</span>
                                     </label>
                                 </div>
                                 <div class="clear:both"></div>

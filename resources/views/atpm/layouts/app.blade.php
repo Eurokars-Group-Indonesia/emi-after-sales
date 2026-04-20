@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>@yield('title')</title>
     
     <!-- jquery -->
     <script src="{{ asset('assets/js/jquery4.js') }}"></script>
@@ -17,7 +17,7 @@
     <link href="{{ asset('assets/vendor/bootstrap/bootstrap-icons.css') }}" rel="stylesheet" />
 
     <!-- datatable -->
-    <link href="{{ asset('assets/vendor/datatable/dataTables.dataTables.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/vendor/datatable/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('assets/vendor/datatable/dataTables.min.js') }}"></script>
 
 
@@ -99,12 +99,12 @@
             padding-left: 25px;
         }
 
-        .active {
+        .sidebar a.active {
             color: #fff !important;
             font-weight: 500;
         }
 
-        .active::before {
+        .sidebar a.active::before {
             content: '';
             position: absolute;
             left: 0;
@@ -115,7 +115,7 @@
             border-radius: 0 4px 4px 0;
         }
 
-        .active i {
+        .sidebar a.active i {
             color: #0d6efd;
         }
 
@@ -210,9 +210,26 @@
     </style>
 
     <!-- css datatable -->
-     
     <link href="{{ asset('assets/vendor/datatable/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/vendor/datatable/buttons.bootstrap5.min.css') }}" rel="stylesheet" />
+
+    <style>
+        /* compact */
+        table.dataTable thead th,
+        table.dataTable tbody td {
+            padding: 5px 8px !important;
+            font-size: 0.82rem;
+            line-height: 1.4;
+        }
+        table.dataTable thead th { white-space: nowrap; }
+
+        /* stripe: odd = putih, even = biru muda */
+        table.dataTable tbody tr:nth-child(odd)  > td { background-color: #ffffff !important; }
+        table.dataTable tbody tr:nth-child(even) > td { background-color: #ddeeff !important; }
+
+        /* hover */
+        table.dataTable tbody tr:hover > td { background-color: #b8d9f8 !important; }
+    </style>
 </head>
 
 <body>

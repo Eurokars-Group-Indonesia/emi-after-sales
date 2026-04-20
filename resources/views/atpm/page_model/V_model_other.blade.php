@@ -25,7 +25,7 @@
 
     <div class="content">
         <div class="page-header">
-            <div class="page-title">ATPM User</div>
+            <div class="page-title">Model Other</div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     @foreach ($breadcrumbs as $item)

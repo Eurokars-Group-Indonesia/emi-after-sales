@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="customer-table" class="display">
+                    <table id="customer-table" class="table table-bordered table-hover" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Username</th>
