@@ -1,6 +1,6 @@
 @extends('atpm.layouts.app')
 
-@section('title', 'ATPM User')
+@section('title', 'ATPM User Menu Permission')
 
 @section('navtop')
     {{ view('atpm.layouts.navtop') }}
@@ -14,7 +14,7 @@
 
     $breadcrumbs = [
         ['title' => 'Home', 'url' => route("atpm.aftersales.home")],
-        ['title' => 'ATPM User', 'url' => 'javascript:void(0)'],
+        ['title' => 'ATPM User Menu Permission', 'url' => 'javascript:void(0)'],
     ];
 @endphp
 
@@ -25,7 +25,7 @@
 
     <div class="content">
         <div class="page-header">
-            <div class="page-title">ATPM User</div>
+            <div class="page-title">ATPM User Menu Permission</div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     @foreach ($breadcrumbs as $item)
@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="btn btn-primary btn-sm" id="btn-sync-atpm-user"> 
-                        <i class="bi bi-arrow-repeat"></i> Sync - ATPM User
+                        <i class="bi bi-arrow-repeat"></i> ATPM User Menu Permission
                     </div>
                 </div>
                 <div class="card-body">

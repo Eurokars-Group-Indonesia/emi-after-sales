@@ -1,6 +1,6 @@
 @extends('atpm.layouts.app')
 
-@section('title', 'ATPM User')
+@section('title', 'Sync Monitoring')
 
 @section('navtop')
     {{ view('atpm.layouts.navtop') }}
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="table-datatable" class="display">
+                    <table id="table-datatable" class="display table-bordered">
                         <thead>
                             <tr>
                                 <th class="text-center">No.</th>
