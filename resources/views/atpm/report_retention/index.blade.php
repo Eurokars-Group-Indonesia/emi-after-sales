@@ -816,8 +816,8 @@
                         lengthMenu: [10, 25, 50, 100],
                         order: [[3, 'asc']],
                         scrollX: true,
-                        scrollY: '100%',
-                        scrollCollapse: false,
+                        scrollY: (window.innerHeight * 0.98) - 220 + 'px',
+                        scrollCollapse: true,
                         autoWidth: false,
                         columnDefs: [{ targets: 6, width: '28rem' }],
                         dom: "<'row mb-1'<'col-sm-4 d-flex align-items-center'l><'col-sm-4 d-flex justify-content-center'B><'col-sm-4 d-flex justify-content-end'f>>" +
@@ -901,8 +901,8 @@
                         lengthMenu: [10, 25, 50, 100],
                         order: [[2, 'asc']],
                         scrollX: true,
-                        scrollY: '100%',
-                        scrollCollapse: false,
+                        scrollY: (window.innerHeight * 0.98) - 220 + 'px',
+                        scrollCollapse: true,
                         autoWidth: false,
                         dom: "<'row mb-1'<'col-sm-4 d-flex align-items-center'l><'col-sm-4 d-flex justify-content-center'B><'col-sm-4 d-flex justify-content-end'f>>" +
                              "<'row'<'col-12't>>" +
@@ -986,8 +986,8 @@
                         lengthMenu: [10, 25, 50, 100],
                         order: [[2, 'asc']],
                         scrollX: true,
-                        scrollY: '100%',
-                        scrollCollapse: false,
+                        scrollY: (window.innerHeight * 0.98) - 220 + 'px',
+                        scrollCollapse: true,
                         autoWidth: false,
                         dom: "<'row mb-1'<'col-sm-4 d-flex align-items-center'l><'col-sm-4 d-flex justify-content-center'B><'col-sm-4 d-flex justify-content-end'f>>" +
                              "<'row'<'col-12't>>" +
