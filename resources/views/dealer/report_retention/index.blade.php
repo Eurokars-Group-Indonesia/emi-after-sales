@@ -1,18 +1,18 @@
-@extends('atpm.layouts.app')
+@extends('dealer.layouts.app')
 
 @section('title', 'Retention Report')
 
 @section('navtop')
-    {{ view('atpm.layouts.navtop') }}
+    {{ view('dealer.layouts.navtop') }}
 @endsection
 
 @section('sidebar')
-    {{ view('atpm.layouts.sidebar') }}
+    {{ view('dealer.layouts.sidebar') }}
 @endsection
 
 @php
     $breadcrumbs = [
-        ['title' => 'Home', 'url' => '#'],
+        ['title' => 'Home', 'url' => route('dealer.aftersales.home')],
         ['title' => 'Report', 'url' => '#'],
         ['title' => 'Retention Report', 'url' => 'javascript:void(0)'],
     ];
@@ -114,23 +114,9 @@
                             <div class="row mb-3">
 
                                 <div class="col-md-6">
-                                    <label class="text-muted ms-1">Dealer</label>
-                                    <div class="input-group">
-                                        <select name="kd_dealer[]" id="kd_dealer" class="form-control" multiple>
-                                            @foreach ($dataDealer as $dealer)
-                                                <option value="{{ $dealer->kd_dealer }}">{{ $dealer->nm_dealer }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <button type="button" class="btn btn-sm btn-secondary me-1 ms-2" id="btn-select-all-dealer" style="padding:0px 5px 0px 5px">Select All</button>
-                                        <button type="button" class="btn btn-sm btn-warning" id="btn-unselect-all-dealer" style="padding:0px 5px 0px 5px">Unselect All</button>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
                                     <label class="text-muted ms-1">Model</label>
                                     <div class="input-group">
+                                        
                                         <select name="kd_model[]" id="kd_model" class="form-control" multiple>
                                             @foreach ($dataModel as $model)
                                                 <option value="{{ $model->kd_model }}">{{ $model->nm_model }}</option>
@@ -143,65 +129,67 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label class="text-muted ms-1">Tahun</label>
-                                    <div class="input-group mb-3">
-                                        <select name="tahun" id="tahun" class="form-control">
-                                            <option value=""selected>- Tahun -</option>
-                                            <option value="2026">2026</option>
-                                            <option value="2025">2025</option>
-                                            <option value="2024">2024</option>
-                                            <option value="2023">2023</option>
-                                        </select>
+
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="text-muted ms-1">Tahun</label>
+                                            <div class="input-group mb-3">
+                                                <select name="tahun" id="tahun" class="form-control">
+                                                    <option value=""selected>- Tahun -</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2024">2024</option>
+                                                    <option value="2023">2023</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="text-muted ms-1">UIO</label><div class="input-group mb-3">
+                                                <select name="uio" id="uio" class="form-control">
+                                                    <option value=""selected>- UIO -</option>
+                                                    @foreach ($dataUio as $row_dataUio)
+                                                        <option value="{{ $row_dataUio->kd_uio }}">{{ $row_dataUio->deskripsi }}</option>
+                                                    @endforeach
+                                                    {{-- 
+                                                        <option value="1styears">1st Years</option>
+                                                        <option value="2ndyears">2nd Years</option>
+                                                        <option value="3rdyears">3rd Years</option>
+                                                        <option value="4thyears">4th Years</option>
+                                                        <option value="5thyears">5th Years</option>
+                                                        <option value="6thyears">6th Years</option>
+                                                        <option value="7thyears">7th Years</option>
+                                                        <option value="overall3Years">Overall 3 Years</option>
+                                                        <option value="overall7Years">Overall 7 Years</option> 
+                                                    --}}
+                                                </select>
+                                            </div>
+                                        </div>
 
-
-                                <div class="col-md-6">
-                                    <label class="text-muted ms-1">UIO</label>
-                                    <div class="input-group mb-3">
-                                        <select name="uio" id="uio" class="form-control">
-                                            <option value=""selected>- UIO -</option>
-                                            @foreach ($dataUio as $row_dataUio)
-                                                <option value="{{ $row_dataUio->kd_uio }}">{{ $row_dataUio->deskripsi }}
-                                                </option>
-                                            @endforeach
-
-
-                                            {{-- <option value="1styears">1st Years</option>
-                                        <option value="2ndyears">2nd Years</option>
-                                        <option value="3rdyears">3rd Years</option>
-                                        <option value="4thyears">4th Years</option>
-                                        <option value="5thyears">5th Years</option>
-                                        <option value="6thyears">6th Years</option>
-                                        <option value="7thyears">7th Years</option>
-                                        <option value="overall3Years">Overall 3 Years</option>
-                                        <option value="overall7Years">Overall 7 Years</option> --}}
-                                        </select>
+                                        <div class="col-md-6">
+                                            <label class="text-muted ms-1">Category Customer</label>
+                                            <div class="input-group mb-3">
+                                                <select name="category_customer" id="category_customer" class="form-control">
+                                                    <option value=""selected>- Category Customer -</option>
+                                                    <option value="without">Customer Paid (Without 1.000km Check)</option>
+                                                    <option value="with">Customer Paid (With 1.000km Check)</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-
-                                <div class="col-md-6">
-                                    <label class="text-muted ms-1">Category Customer</label>
-                                    <div class="input-group mb-3">
-                                        <select name="category_customer" id="category_customer" class="form-control">
-                                            <option value=""selected>- Category Customer -</option>
-                                            <option value="without">Customer Paid (Without 1.000km Check)</option>
-                                            <option value="with">Customer Paid (With 1.000km Check)</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-6">
-                                    <label class="text-muted ms-1">Including VIN sold by other dealer</label>
-                                    <div class="input-group mb-3">
-                                        <select name="including_vin" id="including_vin" class="form-control">
-                                            <option value=""selected>- Including VIN sold by other dealer -</option>
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label class="text-muted ms-1">Including VIN sold by other dealer</label>
+                                            <div class="input-group mb-3">
+                                                <select name="including_vin" id="including_vin" class="form-control">
+                                                    <option value=""selected>- Including VIN sold by other dealer -</option>
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -251,6 +239,7 @@
 
                     <table class="table table-bordered table-hover">
                         <tbody id="report-body">
+                            <!-- Row Target (%) -->
                             <tr>
                                 <td style="background:#efefef; width:200px">Retention Report</td>
                                 <td colspan="12"></td>
@@ -387,9 +376,9 @@
                     </div>
 
                 </div>
-                <!-- <div class="modal-footer py-2">
+                <div class="modal-footer py-2">
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -490,9 +479,9 @@
                         </table>
                     </div>
                 </div>
-                <!-- <div class="modal-footer py-2">
+                <div class="modal-footer py-2">
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -593,9 +582,9 @@
                         </table>
                     </div>
                 </div>
-                <!-- <div class="modal-footer py-2">
+                <div class="modal-footer py-2">
                     <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -610,14 +599,7 @@
 
         // ################## Klik generate report ################## 
             
-            $('body').on('click', '#btn-select-all-dealer', function() {
-                $('#kd_dealer option').prop('selected', true);
-            });
-
-            $('body').on('click', '#btn-unselect-all-dealer', function() {
-                $('#kd_dealer option').prop('selected', false);
-            });
-
+            
             $('body').on('click', '#btn-select-all-model', function() {
                 $('#kd_model option').prop('selected', true);
             });
@@ -641,7 +623,7 @@
 
                 $('#spinner-search').removeClass('d-none');
 
-                axios.post('{{ route('atpm.report.report-retention-retrieve') }}', formData, {
+                axios.post('{{ route('dealer.report.report-retention-retrieve') }}', formData, {
                         headers: {
                             // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                             'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value

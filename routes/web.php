@@ -8,15 +8,15 @@ use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\PentahoController;
 use App\Http\Controllers\AuthController;
 
-# ATPM After Sales
+# ATPM
 use App\Http\Controllers\AtpmAfterSalesHomeController;
 use App\Http\Controllers\AtpmAfterSalesUserController;
 use App\Http\Controllers\AtpmReportRetentionController;
 use App\Http\Controllers\AtpmAfterSalesModelOtherController;
-use App\Http\Controllers\TestController;
 
-# Dealer After Sales
+# Dealer
 use App\Http\Controllers\DealerAfterSalesHomeController;
+use App\Http\Controllers\DealerReportRetentionController;
 
 // ================================ Guest Routes ================================
 Route::middleware('guest')->group(function () {
@@ -65,6 +65,13 @@ Route::middleware(['check.session', 'role.dealer'])->group(function () {
 
     Route::get('dealer/after-sales/home', [DealerAfterSalesHomeController::class, 'index'])->name('dealer.aftersales.home');
 
+    # Retention Report
+    Route::get('dealer/report/report-retention', [DealerReportRetentionController::class, 'index'])->name('dealer.report.service-retention');
+    Route::post('dealer/report/report-retention-retrieve', [DealerReportRetentionController::class, 'retrieve'])->name('dealer.report.report-retention-retrieve');
+    
+
+
+    
 });
 
 // ================================ Utilities ================================
