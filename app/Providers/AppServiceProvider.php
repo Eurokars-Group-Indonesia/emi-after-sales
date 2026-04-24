@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Models\MenuAtpm;
+use App\Models\MenuDealer;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +35,34 @@ class AppServiceProvider extends ServiceProvider
         
         // // Configure rate limiting
         // $this->configureRateLimiting();
+        
+        View::composer('*', function ($view) {
+            $menus = MenuAtpm::whereNull('parent_id')
+                ->orderBy('order')
+                ->with('children')
+                ->get();
+
+            $view->with('MenuAtpm', $menus);
+
+        });
+
+
+
+         View::composer('*', function ($view) {
+            $menus = MenuDealer::whereNull('parent_id')
+                ->orderBy('order')
+                ->with('children')
+                ->get();
+
+            $view->with('MenuDealer', $menus);
+
+        });
+
+
+
+
+
+
     }
     
     /**
