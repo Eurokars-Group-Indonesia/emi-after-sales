@@ -96,7 +96,7 @@ class ServiceHistoryRepository implements ServiceHistoryRepositoryInterface
 
         $query->orderBy('tblkpi.tanggal_faktur', 'desc');
 
-        // $query->limit(1000);
+        $query->limit(1000);
         return $query->get();
 
         // return $query->paginate(100);
