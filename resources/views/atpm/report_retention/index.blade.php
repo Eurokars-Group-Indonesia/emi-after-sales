@@ -588,7 +588,9 @@
                                     <th class="text-center">VIN</th>
                                     <th class="text-center">Tanggal Faktur</th>
                                     <th class="text-center">Model</th>
-                                    <th class="text-center">Dealer</th>
+                                    <th class="text-center">Dealer (sold)</th>
+                                    <th class="text-center">Tanggal Last Service</th>
+                                    <th class="text-center">Dealer (Service)</th>
                                 </tr>
                             </thead>
                             <tbody id="modal-gap-tbody"></tbody>
@@ -610,7 +612,7 @@
 
     <script type="text/javascript">
 
-        // ################## Klik generate report ################## 
+        // ################## Klik generate report ##################
             
             $('body').on('click', '#btn-select-all-dealer', function() {
                 $('#kd_dealer option').prop('selected', true);
@@ -832,7 +834,7 @@
                         ],
                         pageLength: 25,
                         lengthMenu: [10, 25, 50, 100],
-                        order: [[3, 'desc']],
+                        order: [[0, 'desc']],
                         scrollX: true,
                         scrollY: (window.innerHeight * 0.98) - 220 + 'px',
                         scrollCollapse: true,
@@ -909,7 +911,7 @@
                     dtUio = $('#dt-uio').DataTable({
                         data: rows,
                         columns: [
-                            { title: '#',                className: 'text-center', width: '40px' },
+                            { title: '#',                className: 'text-center', width: '40px',  },
                             { title: 'VIN',              className: 'text-center' },
                             { title: 'Tanggal Handover', className: 'text-center' },
                             { title: 'Model',            className: 'text-center' },
@@ -917,7 +919,7 @@
                         ],
                         pageLength: 25,
                         lengthMenu: [10, 25, 50, 100],
-                        order: [[2, 'desc']],
+                        order: [[0, 'asc']],
                         scrollX: true,
                         scrollY: (window.innerHeight * 0.98) - 220 + 'px',
                         scrollCollapse: true,
@@ -964,7 +966,7 @@
 
             let dtGap = null;
 
-            // klik showDetailUio
+            // klik showDetailGap
             $('body').on('click', '.showDetailGap', function () {
                 const bulan = $(this).attr('data-bulan-gap');
 
@@ -988,21 +990,28 @@
                         const tgl = item.tanggal_faktur
                             ? (d => `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`)(new Date(item.tanggal_faktur))
                             : '';
-                        return [idx + 1, `<code>${item.fk_vin}</code>`, tgl, item.nm_model, item.nm_dealer];
+
+                        const tglService = item.tgl_last_service
+                            ? (d => `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`)(new Date(item.tanggal_faktur))
+                            : '';
+
+                        return [idx + 1, `<code>${item.fk_vin}</code>`, tgl, item.nm_model, item.nm_dealer, tglService, item.nm_dealer_service];
                     });
 
                     dtGap = $('#dt-gap').DataTable({
                         data: rows,
                         columns: [
-                            { title: '#',              className: 'text-center', width: '40px' },
-                            { title: 'VIN',            className: 'text-center' },
+                            { title: '#', className: 'text-center', width: '40px' },
+                            { title: 'VIN', className: 'text-center' },
                             { title: 'Tanggal Faktur', className: 'text-center' },
-                            { title: 'Model',          className: 'text-center' },
-                            { title: 'Dealer' },
+                            { title: 'Model', className: 'text-center' },
+                            { title: 'Dealer (Sold)', className: 'text-center'  },
+                            { title: 'Tanggal Las Service', className: 'text-center'  },
+                            { title: 'Dealer (Service)', className: 'text-center'  },
                         ],
                         pageLength: 25,
                         lengthMenu: [10, 25, 50, 100],
-                        order: [[2, 'asc']],
+                        order: [[1, 'asc']],
                         scrollX: true,
                         scrollY: (window.innerHeight * 0.98) - 220 + 'px',
                         scrollCollapse: true,

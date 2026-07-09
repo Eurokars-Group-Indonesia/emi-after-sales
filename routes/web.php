@@ -13,10 +13,12 @@ use App\Http\Controllers\AtpmAfterSalesHomeController;
 use App\Http\Controllers\AtpmAfterSalesUserController;
 use App\Http\Controllers\AtpmReportRetentionController;
 use App\Http\Controllers\AtpmAfterSalesModelOtherController;
+use App\Http\Controllers\AtpmAfterSalesServiceHistoryController;
 
 # Dealer
 use App\Http\Controllers\DealerAfterSalesHomeController;
 use App\Http\Controllers\DealerReportRetentionController;
+
 
 // ================================ Guest Routes ================================
 Route::middleware('guest')->group(function () {
@@ -43,6 +45,13 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
     Route::get('atpm/after-sales/model-other/create', [AtpmAfterSalesModelOtherController::class, 'atpm_model_other_create'])->name('atpm.aftersales.model_other_create');
     Route::post('atpm/after-sales/model-other/store', [AtpmAfterSalesModelOtherController::class, 'atpm_model_other_store'])->name('atpm.aftersales.model_other_store');
     Route::get('atpm/after-sales/model-other/edit', [AtpmAfterSalesModelOtherController::class, 'atpm_model_other_edit'])->name('atpm.aftersales.model_other_edit');
+    
+    // Vehicle History
+    Route::get('atpm/after-sales/vehicle/service-history', [AtpmAfterSalesServiceHistoryController::class, 'index'])->name('atpm.aftersales.vehicle_service_history');
+    Route::get('atpm/after-sales/vehicle/service-history-datatable', [AtpmAfterSalesServiceHistoryController::class, 'service_history_datatable'])->name('atpm.aftersales.vehicle_service_history_datatable');
+
+    
+    
 
     // Report
     // Route::middleware('check.sync')->group(function () {
@@ -50,6 +59,14 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
         Route::post('atpm/report/report-retention-retrieve', [AtpmReportRetentionController::class, 'retrieve'])->name('atpm.report.report-retention-retrieve');
         // Route::get('atpm/after-sales/sp-test', [TestController::class, 'sp_test'])->name('atpm.aftersales.sp_test');
     // });
+
+
+
+
+
+
+
+    
     
 
     // Sync Monitoring 

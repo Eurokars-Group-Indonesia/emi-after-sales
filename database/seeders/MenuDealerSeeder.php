@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Models\MenuDealer;
 
 class MenuDealerSeeder extends Seeder
@@ -13,6 +14,8 @@ class MenuDealerSeeder extends Seeder
      */
     public function run()
     {
+        
+
         $home = MenuDealer::create([
             'title' => 'Home',
             'route' => 'dealer.aftersales.home',

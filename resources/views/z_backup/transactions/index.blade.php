@@ -522,7 +522,7 @@
         // });
 
         // Handle pagination clicks
-        $(document).on('click', '.pagination a', function(e) {
+        $(document).on('click', '.pagintion a', function(e) {
             e.preventDefault();
             const url = new URL($(this).attr('href'));
             const page = url.searchParams.get('page') || 1;
@@ -531,91 +531,7 @@
             performSearch(page, true, isClearButtonVisible);
         });
 
-        // Handle view details button click (when not filtering - use modal) - Using jQuery
-        $(document).on('click', '.view-details', function(e) {
-            e.preventDefault();
-            const wipNo = $(this).data('wipno');
-            const invNo = $(this).data('invno');
-            const posCode = $(this).data('poscode');
-            const magicId = $(this).data('magicid');
-            
-            console.log('View details clicked:', wipNo, invNo, magicId);
-            
-            // Show modal
-            const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
-            modal.show();
-            
-            // Reset modal state
-            $('#modalLoading').show();
-            $('#modalContent').hide();
-            $('#modalError').hide();
-            $('#detailsTableBody').empty();
-            
-            // Set header info
-            $('#modalWipNo').text(wipNo);
-            $('#modalInvNo').text(invNo);
-            $('#modalMagicId').text(magicId);
-            
-            // Fetch data via AJAX
-            $.ajax({
-                url: '{{ route("transactions.body.details") }}',
-                method: 'GET',
-                data: {
-                    wip_no: wipNo,
-                    invoice_no: invNo,
-                    pos_code: posCode,
-                    magic_id: magicId
-                },
-                success: function(response) {
-                    $('#modalLoading').hide();
-                    
-                    if (response.success && response.data.length > 0) {
-                        let totalExtPrice = 0;
-                        let html = '';
-                        
-                        response.data.forEach(function(item, index) {
-                            totalExtPrice += parseFloat(item.extended_price || 0);
-                            
-                            const dateDecard = item.date_decard ? new Date(item.date_decard).toLocaleDateString('en-GB', {day: '2-digit', month: 'short', year: 'numeric'}) : '-';
-                            
-                            html += `
-                                <tr>
-                                    <td class="text-center">${index + 1}</td>
-                                    <td>${item.part_no || '-'}</td>
-                                    <td>${item.description || '-'}</td>
-                                    <td class="text-center">${dateDecard}</td>
-                                    <td class="text-end">${parseFloat(item.qty || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                                    <td class="text-end">${parseFloat(item.cost_price || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                                    <td class="text-end">${parseFloat(item.selling_price || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                                    <td class="text-end">${parseFloat(item.discount || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}%</td>
-                                    <td class="text-end">${parseFloat(item.extended_price || 0).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
-                                    <td>${item.vat || '-'}</td>
-                                    <td>${item.analysis_code || '-'}</td>
-                                    <td class="text-center">
-                                        <span class="badge bg-${item.part_or_labour === 'P' ? 'primary' : 'success'}">
-                                            ${item.part_or_labour === 'P' ? 'Part' : 'Labour'}
-                                        </span>
-                                    </td>
-                                </tr>
-                            `;
-                        });
-                        
-                        $('#detailsTableBody').html(html);
-                        $('#totalExtPrice').text(totalExtPrice.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}));
-                        $('#modalContent').show();
-                    } else {
-                        $('#modalError').show();
-                        $('#errorMessage').text('No transaction body details found for this transaction.');
-                    }
-                },
-                error: function(xhr) {
-                    $('#modalLoading').hide();
-                    $('#modalError').show();
-                    $('#errorMessage').text('Failed to load transaction details. Please try again.');
-                    console.error('AJAX Error:', xhr);
-                }
-            });
-        });
+    
     });
 </script>
 @endpush

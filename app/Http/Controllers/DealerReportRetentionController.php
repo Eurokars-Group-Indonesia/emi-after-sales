@@ -123,7 +123,7 @@ class DealerReportRetentionController
         // // Ini jalan
         // $reportRetention = DB::connection('mysql')
         //     ->select(
-        //         'CALL sp_generateReportRetention(CAST(? AS JSON),?,?,CAST(? AS JSON),?,?)', 
+        //         'CALL sp_rpt_retention_report(CAST(? AS JSON),?,?,CAST(? AS JSON),?,?)', 
         //         [json_encode($kd_dealer), $tahun, $category_customer, json_encode($kd_model), $uio, $including_vin]
         // );
 
@@ -138,7 +138,7 @@ class DealerReportRetentionController
         $pdo = DB::connection('mysql')->getPdo();
 
         $stmt = $pdo->prepare("
-            CALL sp_generateReportRetention(
+            CALL sp_rpt_retention_report(
                 CAST(? AS JSON),
                 ?,
                 ?,
