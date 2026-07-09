@@ -1,0 +1,37 @@
+/* ======================================================
+DATATABLE MZD APPLICATION
+========================================================= */
+
+.dt-length select { 
+    display: inline-block; 
+    width: auto; 
+    padding: 2px 6px; 
+    font-size: 13px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.td-tgl_service, .td-model, .td-dealer  {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;    
+}
+
+.sidebar::after{
+    content:'';
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:180px;
+
+    background:
+        linear-gradient(to top,
+            rgba(11,57,114,0.95),
+            rgba(11,57,114,0.35)
+        ),
+        url("../images/car-vector.svg") bottom center/220px no-repeat;
+
+    opacity:.2;
+    pointer-events:none;
+}

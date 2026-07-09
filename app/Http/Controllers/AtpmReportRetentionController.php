@@ -116,7 +116,7 @@ class AtpmReportRetentionController
         // // Ini jalan
         // $reportRetention = DB::connection('mysql')
         //     ->select(
-        //         'CALL sp_generateReportRetention(CAST(? AS JSON),?,?,CAST(? AS JSON),?,?)', 
+        //         'CALL sp_rpt_retention_report(CAST(? AS JSON),?,?,CAST(? AS JSON),?,?)', 
         //         [json_encode($kd_dealer), $tahun, $category_customer, json_encode($kd_model), $uio, $including_vin]
         // );
 
@@ -131,7 +131,7 @@ class AtpmReportRetentionController
         $pdo = DB::connection('mysql')->getPdo();
 
         $stmt = $pdo->prepare("
-            CALL sp_generateReportRetention(
+            CALL sp_rpt_retention_report(
                 CAST(? AS JSON),
                 ?,
                 ?,
@@ -152,26 +152,28 @@ class AtpmReportRetentionController
             $including_vin
         ]);
 
-        // Result summary report
+
+        // Result summary report (urutan ini fetchAll harus sama dengan SP)
         $resultSummaryReport = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $stmt->nextRowset();
 
+        // result UIO
+        $resultDetailUio = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt->nextRowset();
+        
         // result detail customer visit
         $resultDetailCustomerVisit = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $stmt->nextRowset();
-        
-        // result detail faktur
-        $resultDetailUio = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        $stmt->nextRowset();
 
+        // result detail gap
         $resultDetailGap = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         return response()->json([
             'status' => true,
             'reportRetention' => [
                 'resultSummaryReport' => $resultSummaryReport,
-                'resultDetailCustomerVisit' => $resultDetailCustomerVisit,
                 'resultDetailUio' => $resultDetailUio,
+                'resultDetailCustomerVisit' => $resultDetailCustomerVisit,
                 'resultDetailGap' => $resultDetailGap
             ]
         ]);

@@ -24,8 +24,8 @@
             <ul class="dropdown-menu dropdown-menu-end shadow">
                 <li><span class="dropdown-item text-muted small">{{ session('user.name') }}</span></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile see on WRS</a></li>
+                <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <form action="{{ route('logout') }}" method="POST">

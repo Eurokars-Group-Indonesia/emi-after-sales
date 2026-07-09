@@ -20,7 +20,7 @@ class ServiceHistoryRepository implements ServiceHistoryRepositoryInterface
     public function getAllServiceHistory($srcFromDate, $srcToDate, $srcModel, $srcVin, $srcText)
     {
 
-        $query = DB::table('tblcustomer')
+        $query = DB::table('tblkpi')
                     ->select(
                         'tblkpi.tanggal_faktur as date_service',
                         'tblcustomer.no_vin',
@@ -36,11 +36,11 @@ class ServiceHistoryRepository implements ServiceHistoryRepositoryInterface
                         'tblcustomer.telephone_2',
                         'tblkpi.customer_request'
                     )
-                    ->join('tblkpi', 'tblcustomer.kd_customer', '=', 'tblkpi.fk_customer')
+                    ->join('tblcustomer', 'tblcustomer.kd_customer', '=', 'tblkpi.fk_customer')
                     ->join('tblmodel', 'tblcustomer.fk_model', '=', 'tblmodel.kd_model')
                     ->join('tbldealer', 'tbldealer.kd_dealer', '=', 'tblkpi.fk_dealer');
 
-        if($srcFromDate != null && $srcFromDate != null) {
+        if ($srcFromDate != null && $srcToDate != null) {
 
             $srcFromDate = date('Y-m-d', strtotime($srcFromDate));
             $srcFromDate = $srcFromDate.' 00:00:00';
@@ -48,47 +48,58 @@ class ServiceHistoryRepository implements ServiceHistoryRepositoryInterface
             $srcToDate = date('Y-m-d', strtotime($srcToDate));
             $srcToDate = $srcToDate.' 23:59:59';
 
-            $query->where('tanggal_faktur', '>=', $srcFromDate);
-            $query->where('tanggal_faktur', '<=', $srcToDate);
+            $query->whereBetween('tblkpi.tanggal_faktur', [
+                $srcFromDate,
+                $srcToDate
+            ]);
 
-        }
-
-        if($srcModel != null) {
-            $query->where('kd_model', $srcModel);
-        }
-
-        if($srcVin != null) {
-            $query->where('no_vin', 'like', '%' . $srcVin . '%');
         }
         
 
-        $query->where('tblkpi.tanggal_faktur', '<=', now()->endOfDay());
+        if($srcModel != null) {
+            $query->where('tblcustomer.fk_model', $srcModel);
+        }
+
+        if($srcVin != null) {
+            $query->where('tblcustomer.no_vin', 'like', '%' . $srcVin . '%');
+        }
+
+        $query->whereDate('tblkpi.tanggal_faktur', '<=', today());
+        
 
 
-        $i  = 0;
+        // $i  = 0;
 
-        if($srcText != null && $srcText != '') {
+        // if($srcText != null && $srcText != '') {
+        //     foreach ($this->columnDt as $item) {
+        //         if ($srcText)
+        //         {
+        //             if($i == 0) {
+        //                 $query->where($item, 'like', '%' . $srcText . '%');
+        //             } else {
+        //                 $query->orWhere($item, 'like', '%' . $srcText . '%');
+        //             }
+        //         }
+        //         $i++;
+        //     }
 
-            foreach ($this->columnDt as $item) {
-                if ($srcText)
-                {
-                    if($i == 0) {
-                        $query->where($item, 'like', '%' . $srcText . '%');
-                    } else {
-                        $query->orWhere($item, 'like', '%' . $srcText . '%');
-                    }
+        // }
+
+        if (!empty($srcText)) {
+            $query->where(function ($q) use ($srcText) {
+                foreach ($this->columnDt as $item) {
+                    $q->orWhere($item, 'like', "%{$srcText}%");
                 }
-                $i++;
-            }
-
+            });
         }
 
 
         $query->orderBy('tblkpi.tanggal_faktur', 'desc');
 
-        $query->limit(1000);
-
+        // $query->limit(1000);
         return $query->get();
+
+        // return $query->paginate(100);
     }
 
 

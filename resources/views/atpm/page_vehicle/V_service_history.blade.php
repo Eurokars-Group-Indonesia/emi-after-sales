@@ -57,9 +57,9 @@
                         <div class="col-md-2">
                             <input type="text" id="search-vin" class="form-control form-control-sm" placeholder="VIN">
                         </div>
-                        <div class="col-md-2">
+                        <!-- <div class="col-md-2">
                             <input type="text" id="search-text" class="form-control form-control-sm" placeholder="Search">
-                        </div>
+                        </div> -->
                         <div class="col-auto">
                             <button id="btn-search" class="btn-fi btn-fi-primary btn-fi-sm">
                                 <i class="bi bi-search"></i>
@@ -97,36 +97,6 @@
     </div>
 
 
-    <style>
-
-        .dt-length select { 
-            display: inline-block; 
-            width: auto; 
-            padding: 2px 6px; 
-            font-size: 13px;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-        }
-
-        .td-alamat {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .td-dealer {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .td-req_pelanggan {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-    </style>
 
     <!-- Flatpickr -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -187,11 +157,18 @@
                 ],
                 columnDefs: [
                     {
+                        targets: 0,
+                        className: 'td-tgl_service'
+                    },
+                    {
+                        targets: 3,
+                        className: 'td-model'
+                    },
+                    {
                         targets: 7,
-                        width: '350px',
                         className: 'td-alamat'
                     },
-                    
+
                     {
                         targets: 9,
                         width: '100px',
@@ -200,7 +177,7 @@
                     
                     {
                         targets: 12,
-                        width: '150px',
+                        width: '100px',
                         className: 'td-req_pelanggan'
                     }
                 ]

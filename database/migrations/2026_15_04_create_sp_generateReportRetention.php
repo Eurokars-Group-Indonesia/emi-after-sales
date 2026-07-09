@@ -8,9 +8,9 @@ return new class extends Migration
     public function up(): void
     {
         DB::unprepared("
-        DROP PROCEDURE IF EXISTS sp_generateReportRetention;
+        DROP PROCEDURE IF EXISTS sp_rpt_retention_report;
 
-        CREATE PROCEDURE sp_generateReportRetention(
+        CREATE PROCEDURE sp_rpt_retention_report(
             IN p_kdDealer JSON,
             IN p_tahun INT,
             IN p_categoryCustomer VARCHAR(50),
@@ -185,6 +185,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        DB::unprepared("DROP PROCEDURE IF EXISTS sp_generateReportRetention");
+        DB::unprepared("DROP PROCEDURE IF EXISTS sp_rpt_retention_report");
     }
 };

@@ -35,7 +35,7 @@ class AtpmAfterSalesServiceHistoryController
         $srcToDate = $request->input('srcToDate');
         $srcModel = $request->input('srcModel');
         $srcVin = $request->input('srcVin');
-        $srcText = $request->input('srcText');
+        $srcText = null; //;$request->input('srcText');
 
         // echo $srcFromDate.' '.$srcToDate.' '.$srcModel.' '.$srcVin.' '.$srcText;
         // dd('====================================');
