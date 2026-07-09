@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('kd_customer')->primaryKey();
             $table->string('nomor_polisi', 30)->nullable();
-            $table->string('type_customer', 34)->nullable();
+            $table->string('type_customer')->nullable();
             $table->string('nama_customer', 110)->nullable();
             $table->string('telephone_1', 150)->nullable();
             $table->string('telephone_2', 150)->nullable();
