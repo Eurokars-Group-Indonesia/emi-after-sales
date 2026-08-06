@@ -34,15 +34,25 @@
             </nav>
         </div> -->
 
-        <div class="row g-4">
-            <iframe
-                src="http://192.168.1.25:3000/public/question/966b1b86-a687-4f4b-a157-fdeea71f2861"
-                style="padding:20px;"
-                frameborder="0"
-                width="800"
-                height="600"
-                allowtransparency
-            ></iframe>
+
+        <style>
+            th.text-medium{
+                color:#519ee3!important;
+            }
+        </style>
+        <div class="card">
+            <div class="card-body">
+                <iframe
+                    src="http://192.168.1.25:3000/public/question/966b1b86-a687-4f4b-a157-fdeea71f2861"
+                    style="
+                        width:100%;
+                        height:100vh;
+                        border:none;
+                        display:block;
+                        overflow:hidden;
+                    ">
+                </iframe>
+            </div>
         </div>
         
     </div>
