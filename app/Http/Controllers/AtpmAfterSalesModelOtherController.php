@@ -32,7 +32,7 @@ class AtpmAfterSalesModelOtherController
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                return '<a href="'.route('atpm.aftersales.model_other_edit').'" class="btn btn-sm btn-primary">Edit</a>';
+                return '<a href="'.route('aftersales.atpm.model_other_edit').'" class="btn btn-sm btn-primary">Edit</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

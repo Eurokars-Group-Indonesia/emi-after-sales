@@ -11,7 +11,7 @@ class CheckSession
     public function handle(Request $request, Closure $next): Response
     {
         if (!session()->has('user.id')) {
-            return redirect()->route('login')->withErrors([
+            return redirect()->route('wrs.connect')->withErrors([
                 'login' => 'Silakan login terlebih dahulu.'
             ]);
         }

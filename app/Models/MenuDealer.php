@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MenuDealer extends Model
 {
     protected $table = 'menu_dealer';
+    public $timestamps = false;
 
     protected $fillable = [
         'title',

@@ -17,8 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UioSeeder::class,
-            MenuAtpmSeeder::class,
+            MenuAtpmAfterSalesSeeder::class,
+            MenuAtpmSalesSeeder::class,
             MenuDealerSeeder::class,
+            SalesAtpmMasterMenuSeeder::class,
+            SalesAtpmMasterPermissionSeeder::class
         ]);
     }
 }

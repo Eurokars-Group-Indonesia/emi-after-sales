@@ -48,7 +48,9 @@ return [
     'api_wrs_aftersales' => [
         'base_url' => env('API_SERVICE'),
     ],
+    'api_wrs_sales' => [
+        'base_url' => env('API_SERVICE'),
+    ],
 
-    
 
 ];

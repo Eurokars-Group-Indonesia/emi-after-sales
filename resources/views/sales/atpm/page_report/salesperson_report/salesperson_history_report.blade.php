@@ -1,0 +1,73 @@
+@extends('sales.atpm.layouts.app')
+
+@section('title', 'Sales Person Productivity Report')
+
+@section('navtop')
+    {{ view('sales.atpm.layouts.navtop') }}
+@endsection
+
+@section('sidebar')
+    {{ view('sales.atpm.layouts.sidebar') }}
+@endsection
+
+
+@php
+    $breadcrumbs = [
+        ['title' => 'Home', 'url' => '#']
+    ];
+@endphp
+
+
+
+@section('content')
+
+    
+    <div class="content">
+        <!-- <div class="page-header">
+            <div class="page-title">Sales Person Productivity Report</div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    @foreach ($breadcrumbs as $item)
+                        <li class="breadcrumb-item"><a href="{{ $item['url'] }}">{{ $item['title'] }}</a></li>
+                    @endforeach
+                </ol>
+            </nav>
+        </div> -->
+
+        
+
+        <!-- <div class="card">
+            <div class="card-body p-4" style="border:0px;">
+                <iframe
+                    src="http://192.168.1.25:3000/public/question/97ec57a5-482e-4d06-b2f3-a69ddb36cf8c"
+                    width="100%"
+                    height="700"
+                    allowtransparency>
+                </iframe>
+            </div>
+        </div> -->
+
+<style>
+    th.text-medium{
+        color:#519ee3!important;
+    }
+</style>
+        <div class="card">
+            <div class="card-body">
+                <iframe
+                    src="http://192.168.1.25:3000/public/question/97ec57a5-482e-4d06-b2f3-a69ddb36cf8c"
+                    style="
+                        width:100%;
+                        height:100vh;
+                        border:none;
+                        display:block;
+                        overflow:hidden;
+                    ">
+                </iframe>
+            </div>
+        </div>
+
+
+
+    </div>
+@endsection
