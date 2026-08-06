@@ -18,7 +18,8 @@ class SecurityHeaders
         $response = $next($request);
 
         // X-Frame-Options: Prevent clickjacking
-        $response->headers->set('X-Frame-Options', 'DENY');
+        // $response->headers->set('X-Frame-Options', 'DENY');
+        $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
 
         // X-Content-Type-Options: Prevent MIME-sniffing
         $response->headers->set('X-Content-Type-Options', 'nosniff');
@@ -32,16 +33,29 @@ class SecurityHeaders
         // Permissions-Policy: Control browser features
         $response->headers->set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
 
-        // Content-Security-Policy: Prevent XSS and injection attacks
-        // Note: Adjust this based on your needs
+        // // Content-Security-Policy: Prevent XSS and injection attacks
+        // // Note: Adjust this based on your needs
+        // $csp = implode('; ', [
+        //     "default-src 'self'",
+        //     "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://code.jquery.com https://fonts.googleapis.com https://cdn.datatables.net",
+        //     "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://cdn.datatables.net",
+        //     "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
+        //     "img-src 'self' data: https:",
+        //     "connect-src 'self' https://cdn.jsdelivr.net https://code.jquery.com https://fonts.googleapis.com https://fonts.gstatic.com",
+        //     "frame-ancestors 'none'",
+        // ]);
+
         $csp = implode('; ', [
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://code.jquery.com https://fonts.googleapis.com https://cdn.datatables.net",
             "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com https://cdn.datatables.net",
             "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net",
             "img-src 'self' data: https:",
-            "connect-src 'self' https://cdn.jsdelivr.net https://code.jquery.com https://fonts.googleapis.com https://fonts.gstatic.com",
-            "frame-ancestors 'none'",
+            "connect-src 'self' http://192.168.1.25:3000",
+
+            "frame-src 'self' http://192.168.1.25:3000",
+
+            "frame-ancestors 'self'",
         ]);
         $response->headers->set('Content-Security-Policy', $csp);
 
