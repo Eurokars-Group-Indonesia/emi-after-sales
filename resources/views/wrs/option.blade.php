@@ -300,7 +300,7 @@
 
             </a>
 
-            <a href="/after_sales" class="card">
+            <a href="/aftersales" class="card">
 
                 <!-- <div class="icon">
                     🔧
