@@ -21,7 +21,7 @@ class AtpmAfterSalesUserController
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                return '<a href="'.route('atpm.aftersales.atpm_user_menu_permission').'" class="btn btn-xs-mzd btn-primary">Edit Menu & Permission</a>';
+                return '<a href="'.route('aftersales.atpmatpm_user_menu_permission').'" class="btn btn-xs-mzd btn-primary">Edit Menu & Permission</a>';
             })
             ->rawColumns(['action'])
             ->make(true);

@@ -46,7 +46,7 @@ class AtpmAfterSalesServiceHistoryController
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                return '<a href="'.route('atpm.aftersales.model_other_edit').'" class="btn btn-sm btn-primary">Edit</a>';
+                return '<a href="'.route('aftersales.atpm.model_other_edit').'" class="btn btn-sm btn-primary">Edit</a>';
             })
             ->addColumn('date_service', function($row){
                 $date_service = null;
