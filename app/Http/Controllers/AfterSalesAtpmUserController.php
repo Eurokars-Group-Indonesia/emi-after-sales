@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -21,9 +22,25 @@ class AfterSalesAtpmUserController
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('action', function($row){
-                return '<a href="'.route('aftersales.atpm.atpm_user_menu_permission').'" class="btn btn-xs-mzd btn-primary">Edit Menu & Permission</a>';
+
+                $action = '';
+
+                $action .= '<a href="'.route('aftersales.atpm.atpm_user_menu_permission', ['kd_atpm_user' => base64_encode($row->kd_atpm_user)]).'" class="btn-fi btn-fi-primary btn-fi-sm">Menu</a> ';
+                $action .= '<a href="'.route('aftersales.atpm.atpm_user_menu_permission', ['kd_atpm_user' => base64_encode($row->kd_atpm_user)]).'" class="btn-fi btn-fi-primary btn-fi-sm">Permission</a>';
+
+                return $action;
+                
+                
             })
-            ->rawColumns(['action'])
+            ->addColumn('z_is_active', function($row){
+                if($row->is_active == 1) {
+                    $z_is_active = '<span class="badge bg-success">Active</span>';
+                } else if($row->is_active == 0) {
+                    $z_is_active = '<span class="badge bg-danger">Inactive</span>';
+                }
+                return $z_is_active;
+            })
+            ->rawColumns(['action', 'z_is_active'])
             ->make(true);
     }
 

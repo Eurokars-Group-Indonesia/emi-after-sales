@@ -63,18 +63,18 @@ class SalesAtpmMasterMenuSeeder extends Seeder
                     'route' => 'sales.atpm.system_setup.sales_atpm_master_menu',
                     'parent_id' => $systemSetup->id,
                     'order' => 2,
-                'created_by' => 1,
-                'date_created'=>now()
+                    'created_by' => 1,
+                    'date_created'=>now()
                 ]);
 
                 SalesAtpmMasterMenu::create([
                     'title' => 'Master Permission',
                     'icon'  => '',
-                    'route' => 'sales.atpm.system_setup.master_permission_atpm',
+                    'route' => 'sales.atpm.system_setup.master_permission',
                     'parent_id' => $systemSetup->id,
                     'order' => 2,
-                'created_by' => 1,
-                'date_created'=>now()
+                    'created_by' => 1,
+                    'date_created'=>now()
                 ]);
 
                 SalesAtpmMasterMenu::create([
@@ -83,8 +83,8 @@ class SalesAtpmMasterMenuSeeder extends Seeder
                     'route' => 'sales.atpm.system_setup.master_menu_dealer',
                     'parent_id' => $systemSetup->id,
                     'order' => 2,
-                'created_by' => 1,
-                'date_created'=>now()
+                    'created_by' => 1,
+                    'date_created'=>now()
                 ]);
 
             
@@ -104,9 +104,21 @@ class SalesAtpmMasterMenuSeeder extends Seeder
                     'route' => 'sales.atpm.user',
                     'parent_id' => $ATPM->id,
                     'order' => 1,
-                'created_by' => 1,
-                'date_created'=>now()
+                    'created_by' => 1,
+                    'date_created'=>now()
                 ]);
+
+                SalesAtpmMasterMenu::create([
+                    'title' => 'Menu Permission Access',
+                    'icon'  => '',
+                    'route' => 'sales.atpm.administration.menu_permission_access',
+                    'parent_id' => $ATPM->id,
+                    'order' => 1,
+                    'created_by' => 1,
+                    'date_created'=>now()
+                ]);
+
+                
 
 
             $dealer = SalesAtpmMasterMenu::create([
@@ -124,8 +136,8 @@ class SalesAtpmMasterMenuSeeder extends Seeder
                     'route' => 'sales.atpm.administration.dealer_user',
                     'parent_id' => $dealer->id,
                     'order' => 1,
-                'created_by' => 1,
-                'date_created'=>now()
+                    'created_by' => 1,
+                    'date_created'=>now()
                 ]);
 
 

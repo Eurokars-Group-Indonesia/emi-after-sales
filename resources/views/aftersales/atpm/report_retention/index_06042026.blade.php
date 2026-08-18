@@ -204,7 +204,7 @@
 
                 $('#spinner-load').css('display', 'block');
 
-                axios.post('{{ route('atpm.report.report-retention-retrieve') }}', formData, {
+                axios.post('{{ route('aftersales.atpm.report.report-retention-retrieve') }}', formData, {
                         headers: {
                             // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                             'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
