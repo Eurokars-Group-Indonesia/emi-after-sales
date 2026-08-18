@@ -225,7 +225,7 @@
                                     <div class="report-container-1 p-2 rounded bg-light" style="padding:0px!important;">
                                         <div class="row align-items-center">
                                             <div class="col-md-3 d-flex align-items-center">
-                                                <button class="btn-fi btn-fi-primary btn-fi-sm id="search-report" type="button">
+                                                <button class="btn-fi btn-fi-primary btn-fi-sm" id="search-report" type="button">
                                                     Search
                                                 </button>
                                                 <div class="spinner-border d-none" id="spinner-search" role="status">
