@@ -1,6 +1,4 @@
-/* ============================================================
-   Existing utilities
-   ============================================================ */
+
 .btn-xs-mzd {
   /* padding: 2px 6px; */
   font-size: 0.8rem;
@@ -8,10 +6,7 @@
   border-radius: 3px;
 }
 
-/* ============================================================
-   SAP Fiori / Enterprise Button System
-   Base token
-   ============================================================ */
+
 :root {
   --btn-font:        'Segoe UI', '72', Arial, sans-serif;
   --btn-radius:      0.375rem;
@@ -149,3 +144,186 @@
 }
 .btn-fi-icon.btn-fi-sm { width: 1.625rem; }
 .btn-fi-icon.btn-fi-lg { width: 2.5rem; }
+
+
+
+/* permission */
+
+  /* ── User Info Header ── */
+  .perm-user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #e8f2ff;
+      color: #0070f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+  }
+  .perm-user-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #32363a;
+      line-height: 1.3;
+  }
+  .perm-user-meta {
+      font-size: 0.8125rem;
+      color: #6a6d70;
+      margin-top: 2px;
+  }
+  .perm-user-code {
+      background: #f0f4f8;
+      padding: 1px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+  }
+
+  /* ── Toolbar ── */
+  .perm-toolbar {
+      border-bottom: 1px solid #e8eaed;
+      padding-bottom: 0.75rem;
+  }
+  .perm-count-badge {
+      font-size: 0.8125rem;
+      color: #0070f2;
+      font-weight: 500;
+      background: #e8f2ff;
+      padding: 3px 10px;
+      border-radius: 12px;
+  }
+
+  /* ── Group Card ── */
+  .perm-group-card {
+      border: 1px solid #e0e3e6;
+      border-radius: 6px;
+      overflow: hidden;
+  }
+  .perm-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      background: #f5f6f7;
+      border-bottom: 1px solid #e0e3e6;
+  }
+  .perm-group-icon {
+      color: #0070f2;
+      font-size: 0.9375rem;
+  }
+  .perm-group-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #32363a;
+  }
+  .perm-group-count {
+      font-size: 0.75rem;
+      color: #89919a;
+      margin-left: 4px;
+  }
+  .perm-group-body {
+      padding: 0.75rem 1rem;
+      background: #fff;
+  }
+
+  /* ── Permission Item (checkbox card) ── */
+  .perm-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid #e0e3e6;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
+      background: #fff;
+      position: relative;
+      user-select: none;
+      min-height: 52px;
+  }
+  .perm-item:hover {
+      border-color: #89919a;
+      background: #f9fafb;
+  }
+  .perm-item--checked {
+      border-color: #0070f2;
+      background: #f0f7ff;
+  }
+  .perm-item--checked .perm-item-name {
+      color: #0070f2;
+  }
+  .perm-item--checked .perm-item-icon {
+      color: #0070f2;
+  }
+  .perm-item--checked .perm-item-check {
+      opacity: 1;
+  }
+
+  /* hide the native checkbox visually */
+  .perm-checkbox {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+  }
+
+  .perm-item-body {
+      flex: 1;
+      min-width: 0;
+  }
+  .perm-item-name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #32363a;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      line-height: 1.3;
+  }
+  .perm-item-icon {
+      color: #89919a;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+      transition: color 0.15s ease;
+  }
+  .perm-item-desc {
+      font-size: 0.75rem;
+      color: #89919a;
+      margin-top: 2px;
+      line-height: 1.4;
+  }
+  .perm-item-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: #0070f2;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      margin-top: 1px;
+  }
+
+  /* ── Empty State ── */
+  .perm-empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #89919a;
+  }
+  .perm-empty-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+  }
+
+  /* ── Footer ── */
+  .perm-footer {
+      border-top: 1px solid #e8eaed;
+      display: flex;
+      gap: 0.5rem;
+  }

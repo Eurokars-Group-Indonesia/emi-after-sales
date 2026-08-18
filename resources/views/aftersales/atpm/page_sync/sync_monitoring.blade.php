@@ -96,7 +96,7 @@
             const dt = $('#table-datatable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route("atpm.utility.sync_logs_datatable") }}',
+                ajax: '{{ route("aftersales.atpm.utility.sync_logs_datatable") }}',
                 dom: '<"row align-items-center mb-2"<"col-auto"l><"col-auto ms-auto"i>>rt<"row mt-2"<"col-auto"p>>',
                 language: {
                     lengthMenu: '_MENU_ entries per page',

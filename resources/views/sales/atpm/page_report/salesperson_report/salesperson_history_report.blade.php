@@ -47,11 +47,11 @@
             </div>
         </div> -->
 
-<style>
-    th.text-medium{
-        color:#519ee3!important;
-    }
-</style>
+        <style>
+            th.text-medium{
+                color:#519ee3!important;
+            }
+        </style>
         <div class="card">
             <div class="card-body">
                 <iframe

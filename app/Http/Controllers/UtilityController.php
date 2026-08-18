@@ -50,7 +50,8 @@ class UtilityController extends Controller
 
     public function sync_index()
     {
-        return view('atpm.page_sync.sync_monitoring');
+        // return view('atpm.page_sync.sync_monitoring');
+        return view('aftersales.atpm.page_sync.sync_monitoring');
     }
 
     public function sync_logs_datatable()

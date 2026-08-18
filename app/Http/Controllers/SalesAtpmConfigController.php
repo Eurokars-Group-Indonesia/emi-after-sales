@@ -4,12 +4,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\SalesAtpmUserRepository;
+use App\Repositories\SalesAtpmConfigRepository;
 
 class SalesAtpmConfigController
 {
-    public function index()
+    protected $salesAtpmConfigRepo;
+    protected $salesAtpmUserRepo;
+
+    public function __construct(
+        SalesAtpmConfigRepository $SalesAtpmConfigRepository,
+        SalesAtpmUserRepository $SalesAtpmUserRepository
+    )
     {
-        return view('aftersales.atpm.page_user.atpm_user');
+        $this->salesAtpmConfigRepo = $SalesAtpmConfigRepository;
+        $this->salesAtpmUserRepo = $SalesAtpmUserRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $data['dataConfig'] = $this->salesAtpmConfigRepo->findAll();
+        
+        return view('sales.atpm.page_config.config_index', $data);
     }
 
     // public function atpm_user_datatable()

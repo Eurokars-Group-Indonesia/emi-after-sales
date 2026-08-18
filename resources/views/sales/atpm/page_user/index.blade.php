@@ -52,7 +52,7 @@
                             </button>
                         </div>
                         <div class="col-auto ms-auto">
-                            <button class="btn-fi btn-fi-warning btn-fi-sm" id="btn-sync-user">
+                            <button class="btn-fi btn-fi-primary btn-fi-sm" id="btn-sync-user">
                                 <i class="bi bi-arrow-repeat"></i> Sync User
                             </button>
                         </div>

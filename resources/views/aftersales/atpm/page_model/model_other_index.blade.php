@@ -44,7 +44,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <table id="model-other-table" class="display">
+                    <table id="model-other-table" class="table table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Kode Model</th>

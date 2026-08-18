@@ -10,7 +10,7 @@ class AfterSalesAtpmHomeController
     public function index()
     {
         // dd('test');
-        return view('aftersales.atpm.page_home.home');
+        return view('aftersales.atpm.page_home.V_home');
     }
 
     // public function index()

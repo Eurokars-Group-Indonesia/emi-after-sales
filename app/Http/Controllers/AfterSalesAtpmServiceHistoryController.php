@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Repositories\ModelRepository;
 use App\Repositories\ServiceHistoryRepository;
 
-class AtpmAfterSalesServiceHistoryController
+class AfterSalesAtpmServiceHistoryController
 {
     protected $modelRepo, $serviceHistoryRepo;
 
@@ -25,7 +26,7 @@ class AtpmAfterSalesServiceHistoryController
 
         $data['dataModel'] = $this->modelRepo->getModel();
 
-        return view('atpm.page_vehicle.V_service_history', $data);
+        return view('aftersales.atpm.page_vehicle.V_service_history', $data);
     }
 
     public function service_history_datatable(Request $request)
@@ -64,7 +65,7 @@ class AtpmAfterSalesServiceHistoryController
     // public function atpm_model_other_create()
     // {
     //     $data['dataModel'] = $this->modelRepo->getModelExcludeInOther();
-    //     return view('atpm.page_model.V_model_other_create', $data);
+    //     return view('atpm.page_model.model_other_index_create', $data);
     // }
 
     // public function atpm_model_other_store(Request $request)

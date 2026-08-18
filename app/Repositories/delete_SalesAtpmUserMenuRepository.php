@@ -5,20 +5,20 @@ use Illuminate\Support\Facades\DB;
 
 interface SalesAtpmUserMenuInterface
 {
-    public function findByKd($kd_atpm_user);    // return get();
+    // public function findUserMenuBykd($kd_atpm_user);    // return first();
 }
 
 class SalesAtpmUserMenuRepository implements SalesAtpmUserMenuInterface
 {
-   public function findBykd($kd_atpm_user)
-   {
-        $query = DB::table('tr_sales_atpm_user_menu')
-        ->where('fk_kd_atpm_user', $kd_atpm_user)
-        ->where('is_active', 1)
-        ->get();
+//    public function findUserMenuBykd($kd_atpm_user)
+//    {
+//         $query = DB::table('tr_sales_atpm_user_menu')
+//         ->where('fk_kd_atpm_user', $kd_atpm_user)
+//         ->where('is_active', 1)
+//         ->get();
 
-        return $query;
-   }
+//         return $query;
+//    }
 
 
 

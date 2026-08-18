@@ -6,14 +6,14 @@ use App\Http\Controllers\UtilityController;
 use App\Http\Controllers\PentahoController;
 use App\Http\Controllers\AuthController;
 
-# AFTER SALES - ATPM
+# AFTERSALES - ATPM
 use App\Http\Controllers\AfterSalesAtpmHomeController;
 use App\Http\Controllers\AfterSalesAtpmUserController;
-use App\Http\Controllers\AfterSalesAfterSalesAtpmReportRetentionController;
+use App\Http\Controllers\AfterSalesAtpmReportRetentionController;
 use App\Http\Controllers\AfterSalesAtpmModelOtherController;
 use App\Http\Controllers\AfterSalesAtpmServiceHistoryController;
 
-# AFTER SALES - DEALER
+# AFTERSALES - DEALER
 use App\Http\Controllers\DealerAfterSalesHomeController;
 use App\Http\Controllers\DealerReportRetentionController;
 
@@ -24,6 +24,7 @@ use App\Http\Controllers\SalesAtpmSystemSetupMasterMenuController;
 use App\Http\Controllers\SalesAtpmMasterPermissionController;
 use App\Http\Controllers\SalesAtpmSystemSetupController;
 use App\Http\Controllers\SalesAtpmUserController;
+use App\Http\Controllers\SalesAtpmAccessRepository;
 
 
 use App\Http\Controllers\SalesAtpmReportController;
@@ -56,10 +57,10 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
 
     # WRS AFTER SALES #######################################################
 
-    // Home
+    ## Home
     Route::get('aftersales/atpm/home', [AfterSalesAtpmHomeController::class, 'index'])->name('aftersales.atpm.home');
 
-    // ATPM User
+    ## ATPM User
     Route::get('aftersales/atpm/atpm-user', [AfterSalesAtpmUserController::class, 'index'])->name('aftersales.atpm.atpm_user');
     Route::get('aftersales/atpm/atpm-user/datatable', [AfterSalesAtpmUserController::class, 'atpm_user_datatable'])->name('aftersales.atpm.atpm_user_datatable');
     Route::get('aftersales/atpm/atpm-user/edit-menu-permission', [AfterSalesAtpmUserController::class, 'atpm_user_edit_menu_permission'])->name('aftersales.atpm.atpm_user_menu_permission');
@@ -93,37 +94,47 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
 
         Route::get('sales/atpm/home', [SalesAtpmHomeController::class, 'index'])->name('sales.atpm.home');
         
-        // System Setup
-        Route::get('sales/atpm/system-setup/config/', [SalesAtpmSystemSetupController::class, 'index'])->name('sales.atpm.system_setup.config');
+        # SYSTEM SETUP
+        Route::get('sales/atpm/system-setup/config/', [SalesAtpmConfigController::class, 'index'])->name('sales.atpm.system_setup.config');
         Route::get('sales/atpm/system-setup/master-menu-atpm/', [SalesAtpmSystemSetupMasterMenuController::class, 'sales_atpm_master_menu'])->name('sales.atpm.system_setup.sales_atpm_master_menu');
         Route::get('sales/atpm/system-setup/master-menu-atpm/datatable', [SalesAtpmSystemSetupMasterMenuController::class, 'sales_atpm_master_menu_datatable'])->name('sales.atpm.system_setup.sales_atpm_master_menu_datatable');
-        Route::get('sales/atpm/system-setup/master-permission/', [SalesAtpmMasterPermissionController::class, 'index'])->name('sales.atpm.system_setup.sales_atpm_master_permission');
+        Route::get('sales/atpm/system-setup/master-permission/', [SalesAtpmMasterPermissionController::class, 'index'])->name('sales.atpm.system_setup.master_permission');
         Route::get('sales/atpm/system-setup/master-permission/datatable/', [SalesAtpmMasterPermissionController::class, 'sales_atpm_master_permission_datatable'])->name('sales.atpm.system_setup.sales_atpm_master_permission_datatable');
         
-        # ADMINISTRATION 
+
+
+
+
+
+
+        # ADMINISTRATION - ATPM - USER
+
+        ## USER
         Route::get('sales/atpm/user', [SalesAtpmUserController::class, 'index'])->name('sales.atpm.user_index');
         Route::get('sales/atpm/user/datatable', [SalesAtpmUserController::class, 'user_datatable'])->name('sales.atpm.user_datatable');
         Route::get('sales/atpm/user/sync', [SalesAtpmUserController::class, 'userSync'])->name('sales.atpm.user_sync');
 
-        
-        # ADMINISTRATION - ATPM - USER
-
         ## MENU
         Route::get('sales/atpm/user_menu', [SalesAtpmUserController::class, 'userMenu'])->name('sales.atpm.user_menu_index');
         Route::get('sales/atpm/edit_user_menu/{kd_atpm_user}', [SalesAtpmUserController::class, 'editUserMenu'])->name('sales.atpm.edit_user_menu');
-        
+        Route::post('sales/atpm/update_user_menu', [SalesAtpmUserController::class, 'updateUserMenu'])->name('sales.atpm.update_user_menu');
         
         ## PERMISSION
-        Route::get('sales/atpm/edit_user_permission/{kd_atpm_user}', [SalesAtpmUserController::class, 'userPermissionEdit'])->name('sales.atpm.edit_user_permission');
-
+        Route::get('sales/atpm/edit_user_permission/{kd_atpm_user}', [SalesAtpmUserController::class, 'editUserPermission'])->name('sales.atpm.edit_user_permission');
+        Route::post('sales/atpm/update_user_permission', [SalesAtpmUserController::class, 'updateUserPermission'])->name('sales.atpm.update_user_permission');
+        // Route::get('sales/atpm/user/permission/', [SalesAtpmUserPermissionController::class, 'index'])->name('sales.atpm.user_permission_index');
         
 
 
 
-        Route::get('sales/atpm/user/permission/', [SalesAtpmUserPermissionController::class, 'index'])->name('sales.atpm.user_permission_index');
-        
 
-        // sales.atpm.user_datatable
+
+        Route::get('sales/atpm/menu-permission-access/', [salesAtpmAccess::class, 'index'])->name('sales.atpm.administration.access_index');
+        
+        Route::get('sales/atpm/menu/', [salesAtpmAccess::class, 'index'])->name('sales.atpm.system_setup.master_permission');
+        
+        
+        
 
 
 
