@@ -30,18 +30,10 @@ class SalesAtpmMasterMenuSeeder extends Seeder
             'date_created'=>now()
         ]);
 
-        $administration = SalesAtpmMasterMenu::create([
-            'title' => 'Administration',
-            'icon'  => 'bi bi-building',
-            'order' => 2,
-                'created_by' => 1,
-                'date_created'=>now()
-        ]);
-            
-            $systemSetup = SalesAtpmMasterMenu::create([
+
+        $systemSetup = SalesAtpmMasterMenu::create([
                 'title' => 'System Setup',
                 'icon'  => 'bi bi-gear',
-                'parent_id' => $administration->id,
                 'order' => 1,
                 'created_by' => 1,
                 'date_created'=>now()
@@ -53,8 +45,8 @@ class SalesAtpmMasterMenuSeeder extends Seeder
                     'route' => 'sales.atpm.system_setup.config',
                     'parent_id' => $systemSetup->id,
                     'order' => 1,
-                'created_by' => 1,
-                'date_created'=>now()
+                    'created_by' => 1,
+                    'date_created'=>now()
                 ]);
 
                 SalesAtpmMasterMenu::create([
@@ -77,15 +69,15 @@ class SalesAtpmMasterMenuSeeder extends Seeder
                     'date_created'=>now()
                 ]);
 
-                SalesAtpmMasterMenu::create([
-                    'title' => 'Master Menu Sales Dealer',
-                    'icon'  => '',
-                    'route' => 'sales.atpm.system_setup.master_menu_dealer',
-                    'parent_id' => $systemSetup->id,
-                    'order' => 2,
-                    'created_by' => 1,
-                    'date_created'=>now()
-                ]);
+        $administration = SalesAtpmMasterMenu::create([
+            'title' => 'Administration',
+            'icon'  => 'bi bi-building',
+            'order' => 2,
+                'created_by' => 1,
+                'date_created'=>now()
+        ]);
+            
+            
 
             
             $ATPM = SalesAtpmMasterMenu::create([

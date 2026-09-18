@@ -172,6 +172,7 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
     Route::get('sales/atpm/report/sales_person_history', [SalesAtpmReportController::class, 'salesPersonHistoryReport'])->name('sales.atpm.report.sales_person_history');
     Route::get('sales/atpm/report/sales_person_productivity', [SalesAtpmReportController::class, 'salesPersonProductivityReport'])->name('sales.atpm.report.sales_person_productivity');
     Route::get('sales/atpm/report/sales_person_national_productivity', [SalesAtpmReportController::class, 'salesPersonNationalProductivityReport'])->name('sales.atpm.report.sales_person_national_productivity');
+    Route::get('sales/atpm/report/sales_person_list', [SalesAtpmReportController::class, 'salesPersonListReport'])->name('sales.atpm.report.sales_person_list');
 
 
     

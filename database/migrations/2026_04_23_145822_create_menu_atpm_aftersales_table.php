@@ -20,9 +20,9 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
             
-            $table->unsignedBigInteger('created_by');
+            $table->text('created_by');
             $table->datetime('date_created');
-            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->text('updated_by')->nullable();
             $table->datetime('date_updated')->nullable();
 
 
