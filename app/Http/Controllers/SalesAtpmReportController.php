@@ -23,4 +23,13 @@ class SalesAtpmReportController
         return view('sales.atpm.page_report.salesperson_report.salesperson_national_productivity_report');
     }
 
+    public function salesPersonListReport()
+    {
+        return view('sales.atpm.page_report.salesperson_report.salesperson_list_report_report');
+    }
+
+
+
+    
+
 }
