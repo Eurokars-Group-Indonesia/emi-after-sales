@@ -5,14 +5,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\SalesAtpmUserMenuRepository;
+use App\Repositories\SalesAtpmAccessRepository;
+use App\Repositories\SalesAtpmUserRepository;
 
 class SalesAtpmUserController
 {
-    protected $salesAtpmUserMenuRepo;
-    public function __construct(SalesAtpmUserMenuRepository $SalesAtpmUserMenuRepository)
+    protected $salesAtpmAccessRepo;
+    protected $salesAtpmUserRepo;
+
+    public function __construct(
+        SalesAtpmAccessRepository $SalesAtpmAccessRepository,
+        SalesAtpmUserRepository $SalesAtpmUserRepository
+    )
     {
-        $this->salesAtpmUserMenuRepo = $SalesAtpmUserMenuRepository;
+        $this->salesAtpmAccessRepo = $SalesAtpmAccessRepository;
+        $this->salesAtpmUserRepo = $SalesAtpmUserRepository;
     }
 
     public function index()
@@ -103,11 +110,48 @@ class SalesAtpmUserController
     {
         $kd_atpm_user = base64_decode($request->route('kd_atpm_user'));
         // dd($kd_atpm_user);
-        
-        $data['dataMenuUser'] = $this->salesAtpmUserMenuRepo->findBykd($kd_atpm_user);
-        dd($data['dataMenuUser']);
+        // SalesAtpmUserMenuRepository
+        $data['dataUser'] = $this->salesAtpmUserRepo->findByKd($kd_atpm_user);
+        $data['dataMenuUser'] = $this->salesAtpmAccessRepo->findUserMenuBykd($kd_atpm_user);
+        $data['dataMasterMenu'] = $this->salesAtpmAccessRepo->findAllMasterMenu();
 
-        return view('sales.atpm.page_user.atpm_user_menu', $data);
+        return view('sales.atpm.page_user_menu.user_menu_edit', $data);
+    }
+    
+
+    public function updateUserMenu(Request $request)
+    {
+        $data = $request->all();
+
+        $dto['arrMenuIds'] = isset($data['menu_ids']) ? $data['menu_ids'] : [];
+        $dto['kd_atpm_user'] = $request->input('kd_atpm_user');
+
+        $callback = $this->salesAtpmAccessRepo->updateUserMenuById($dto);
+
+        return response()->json($callback);
+
+
+        
+    }
+
+    public function editUserPermission(Request $request)
+    {
+        $kd_atpm_user = base64_decode($request->route('kd_atpm_user'));
+        $data['dataUser'] = $this->salesAtpmUserRepo->findByKd($kd_atpm_user);
+        $data['dataPermissionUser'] = $this->salesAtpmAccessRepo->findUserPermissionBykd($kd_atpm_user); // full collection
+        $data['dataMasterPermission'] = $this->salesAtpmAccessRepo->findAllMasterPermission();
+
+        return view('sales.atpm.page_user_permission.user_permission_edit', $data);
+    }
+
+    public function updateUserPermission(Request $request)
+    {
+        $dto['arrPermissionIds'] = $request->input('permissions', []);
+        $dto['kd_atpm_user']     = $request->input('kd_atpm_user');
+
+        $callback = $this->salesAtpmAccessRepo->updateUserPermissionById($dto);
+
+        return response()->json($callback);
     }
     
 

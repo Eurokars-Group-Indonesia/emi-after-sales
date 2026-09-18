@@ -274,7 +274,7 @@
 
             <img src="{{ asset('assets/img/mazda-logo-26.png') }}" class="logo">
 
-            <h1>WRS</h1>
+            <h1>WRS CONNECT</h1>
 
             <!-- <p class="subtitle">
                 Warehouse Reporting System

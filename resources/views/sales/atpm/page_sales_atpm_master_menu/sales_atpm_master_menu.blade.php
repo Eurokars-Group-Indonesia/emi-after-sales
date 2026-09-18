@@ -1,6 +1,6 @@
 @extends('sales.atpm.layouts.app')
 
-@section('title', 'Sales ATPM Master Menu')
+@section('title', 'Master Menu')
 
 @section('navtop')
     {{ view('sales.atpm.layouts.navtop') }}
@@ -13,7 +13,7 @@
 @php
     $breadcrumbs = [
         ['title' => 'Home', 'url' => route("sales.atpm.home")],
-        ['title' => 'Sales ATPM Master Menu', 'url' => 'javascript:void(0)'],
+        ['title' => 'Master Menu', 'url' => 'javascript:void(0)'],
     ];
 @endphp
 
@@ -24,7 +24,7 @@
 
     <div class="content">
         <div class="page-header">
-            <div class="page-title">Sales ATPM Master Menu</div>
+            <div class="page-title">Master Menu</div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     @foreach ($breadcrumbs as $item)

@@ -1,6 +1,6 @@
 @extends('sales.atpm.layouts.app')
 
-@section('title', 'Sales Person Productivity Report')
+@section('title', 'Sales Person List Report')
 
 @section('navtop')
     {{ view('sales.atpm.layouts.navtop') }}
@@ -24,7 +24,7 @@
     
     <div class="content">
         <!-- <div class="page-header">
-            <div class="page-title">Sales Person Productivity Report</div>
+            <div class="page-title">Sales Person List Report</div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
                     @foreach ($breadcrumbs as $item)
@@ -34,18 +34,6 @@
             </nav>
         </div> -->
 
-        
-
-        <!-- <div class="card">
-            <div class="card-body p-4" style="border:0px;">
-                <iframe
-                    src="http://192.168.1.25:3000/public/question/97ec57a5-482e-4d06-b2f3-a69ddb36cf8c"
-                    width="100%"
-                    height="700"
-                    allowtransparency>
-                </iframe>
-            </div>
-        </div> -->
 
         <style>
             th.text-medium{
@@ -55,7 +43,7 @@
         <div class="card">
             <div class="card-body">
                 <iframe
-                    src="http://192.168.1.25:3000/public/question/97ec57a5-482e-4d06-b2f3-a69ddb36cf8c"
+                    src="http://192.168.1.25:3000/public/question/e45aa5c8-ddd8-42f1-84c9-74df294d8723"
                     style="
                         width:100%;
                         height:100vh;
@@ -66,8 +54,6 @@
                 </iframe>
             </div>
         </div>
-
-
-
+        
     </div>
 @endsection

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Repositories\ModelRepository;
 
-class AtpmReportRetentionController
+class AfterSalesAtpmReportRetentionController
 {
     protected $modelRepo;
 
@@ -48,7 +48,8 @@ class AtpmReportRetentionController
         }
 
 
-        return view('atpm.report_retention.index', $data);
+        // return view('atpm.report_retention.index', $data);
+        return view('aftersales.atpm.report_retention.report_retention_index', $data);
     }
 
     public function retrieve(Request $request)

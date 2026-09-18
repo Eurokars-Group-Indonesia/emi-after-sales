@@ -13,7 +13,7 @@ class SalesAtpmMasterPermissionController
 
     public function __construct(SalesAtpmMasterPermissionRepository $SalesAtpmMasterPermissionRepository)
     {
-        $this->SalesAtpmMasterPermissionRepo = $SalesAtpmMasterPermissionRepository;
+        $this->salesAtpmMasterPermissionRepo = $SalesAtpmMasterPermissionRepository;
     }
 
     public function index()
@@ -25,7 +25,7 @@ class SalesAtpmMasterPermissionController
     {
         $srcText = $request->input('srcText');
 
-        $query = $this->SalesAtpmMasterPermissionRepo->findAll($srcText);
+        $query = $this->salesAtpmMasterPermissionRepo->findAll($srcText);
         // dd($query);
         
         return DataTables::of($query)

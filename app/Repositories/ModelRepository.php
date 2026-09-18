@@ -21,15 +21,15 @@ class ModelRepository implements ModelRepositoryInterface
     public function getModelOther()
     {
         return DB::connection('mysql')
-                ->table('model_other')
-                ->join('tblmodel', 'model_other.kd_model', '=', 'tblmodel.kd_model')
+                ->table('ms_model_other')
+                ->join('tblmodel', 'ms_model_other.kd_model', '=', 'tblmodel.kd_model')
                 ->get();
     }
 
     public function modelOtherStore($kd_model)
     {
         return DB::connection('mysql')
-            ->table('model_other')
+            ->table('ms_model_other')
             ->insert([
                 'kd_model' => $kd_model,
             ]);
@@ -45,7 +45,7 @@ class ModelRepository implements ModelRepositoryInterface
             ->select('kd_model', 'nm_model')
             ->where('is_wrs_aftersales', true)
             ->whereNotIn('kd_model', function ($query) {
-                $query->select('kd_model')->from('model_other');
+                $query->select('kd_model')->from('ms_model_other');
             })
             ->orderBy('nm_model')
             ->get();
@@ -54,7 +54,7 @@ class ModelRepository implements ModelRepositoryInterface
     public function getModelOtherArray()
     {
         return DB::connection('mysql')
-            ->table('model_other')
+            ->table('ms_model_other')
             ->where('is_active', true)
             ->pluck('kd_model')   // ambil kolom saja
             ->toArray();

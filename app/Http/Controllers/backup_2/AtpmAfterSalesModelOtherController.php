@@ -20,7 +20,7 @@ class AtpmAfterSalesModelOtherController
     public function index()
     {
         // dd('test');
-        return view('atpm.page_model.V_model_other');
+        return view('atpm.page_model.model_other_index');
     }
 
     public function atpm_model_other_datatable()
@@ -41,7 +41,7 @@ class AtpmAfterSalesModelOtherController
     public function atpm_model_other_create()
     {
         $data['dataModel'] = $this->modelRepo->getModelExcludeInOther();
-        return view('atpm.page_model.V_model_other_create', $data);
+        return view('atpm.page_model.model_other_index_create', $data);
     }
 
     public function atpm_model_other_store(Request $request)

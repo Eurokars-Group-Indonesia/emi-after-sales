@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tr_sales_atpm_user_menu', function (Blueprint $table) {
+        Schema::create('tr_sales_atpm_user_permission', function (Blueprint $table) {
             $table->id();
             $table->text('fk_kd_atpm_user');
-            $table->unsignedBigInteger('fk_sales_atpm_master_menu');
+            $table->unsignedBigInteger('fk_sales_atpm_master_permission');
             $table->boolean('is_active')->default(true);
             
             $table->string('created_by', 255);
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tr_sales_atpm_user_menu');
+        Schema::dropIfExists('tr_sales_atpm_user_permission');
     }
 };

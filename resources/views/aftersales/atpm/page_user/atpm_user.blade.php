@@ -66,6 +66,7 @@
                                 <th class="text-center">Username</th>
                                 <th class="text-center">Name</th>
                                 <th class="text-center">Email</th>
+                                <th class="text-center">Active</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -108,6 +109,7 @@
                     { data: 'username', name: 'username' },
                     { data: 'nm_atpm_user', name: 'nm_atpm_user' },
                     { data: 'email', name: 'email' },
+                    { data: 'z_is_active', name: 'z_is_active' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
             });

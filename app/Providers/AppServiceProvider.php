@@ -4,8 +4,12 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
+use App\Models\SalesAtpmMenuUser;
+use App\Models\SalesAtpmMasterMenu;
+
+
 use App\Models\MenuAtpmAfterSales;
-use App\Models\MenuAtpmSales;
 use App\Models\MenuDealer;
 
 
@@ -34,13 +38,10 @@ class AppServiceProvider extends ServiceProvider
         //     $event->extendSocialite('azure', \App\Services\CustomAzureProvider::class);
         // });
         
-        // // Configure rate limiting
-        // $this->configureRateLimiting();
-        
+        # Configure rate limiting
+        $this->configureRateLimiting();
 
-
-
-
+        # Menu after sales atpm
         View::composer('*', function ($view) {
             $menus = MenuAtpmAfterSales::whereNull('parent_id')
                 ->orderBy('order')
@@ -50,16 +51,40 @@ class AppServiceProvider extends ServiceProvider
             $view->with('MenuAtpmAfterSales', $menus);
         });
 
+        // # Menu sales atpm
         View::composer('*', function ($view) {
-            $menus = MenuAtpmSales::whereNull('parent_id')
-            
+
+           $kdAtpmUser = session('user.id');
+
+           $userMenuIds = SalesAtpmMenuUser::where('is_active', true)
+                                ->where('fk_kd_atpm_user', $kdAtpmUser)
+                                ->pluck('fk_sales_atpm_master_menu')
+                                ->toArray();
+
+            $menus = SalesAtpmMasterMenu::whereNull('parent_id')
+                ->whereIn('id', $userMenuIds)
                 ->where('is_active', true)
-                ->orderBy('order')
-                ->with('children')
+                ->orderBy('order', 'asc')
+                ->with([
+                    'children' => function ($query) use ($userMenuIds) {
+                        $query->whereIn('id', $userMenuIds)
+                            ->where('is_active', true)
+                            ->orderBy('order', 'asc');
+                    },
+                    'children.children' => function ($query) use ($userMenuIds) {
+                        $query->whereIn('id', $userMenuIds)
+                            ->where('is_active', true)
+                            ->orderBy('order', 'asc');
+                    }
+                ])
                 ->get();
 
-            $view->with('MenuAtpmSales', $menus);
+                        // dd($menus);
+
+            $view->with('SalesAtpmMenuUser', $menus);
         });
+
+
 
         View::composer('*', function ($view) {
             $menus = MenuDealer::whereNull('parent_id')

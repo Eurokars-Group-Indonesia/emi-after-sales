@@ -66,7 +66,7 @@ class AtpmSalesSystemSetupController
     // public function atpm_model_other_create()
     // {
     //     $data['dataModel'] = $this->modelRepo->getModelExcludeInOther();
-    //     return view('atpm.page_model.V_model_other_create', $data);
+    //     return view('atpm.page_model.model_other_index_create', $data);
     // }
 
     // public function atpm_model_other_store(Request $request)

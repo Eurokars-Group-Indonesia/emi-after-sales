@@ -33,6 +33,9 @@
 
     <!-- css general -->
     <style>
+        body {
+            font-size:0.8rem;
+        }
         #disabler {
             position: fixed;
             top: 0;
@@ -309,15 +312,6 @@
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.getElementById(this.dataset.target);
-                const parent = this.parentElement;
-
-                parent.querySelectorAll('.submenu.open').forEach(el => {
-                    if (el !== target) {
-                        el.classList.remove('open');
-                        const arrow = el.previousElementSibling?.querySelector('.arrow');
-                        arrow?.classList.remove('rotate');
-                    }
-                });
 
                 target.classList.toggle('open');
                 this.querySelector('.arrow').classList.toggle('rotate');

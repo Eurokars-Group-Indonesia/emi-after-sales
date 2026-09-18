@@ -20,6 +20,7 @@
     <link href="{{ asset('assets/vendor/datatable/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('assets/vendor/datatable/dataTables.min.js') }}"></script>
 
+    
 
     <!-- sweet alert -->
     <script src="{{ asset('assets/vendor/sweetalert2/sweetaler2@11.js') }}"></script>
@@ -33,6 +34,9 @@
 
     <!-- css general -->
     <style>
+        body {
+            font-size:0.8rem;
+        }
         #disabler {
             position: fixed;
             top: 0;
@@ -73,6 +77,7 @@
 
         /* Sidebar */
         .sidebar {
+            font-size:0.8rem;
             width: 250px;
             height: 100vh;
             position: fixed;
@@ -86,10 +91,12 @@
         }
 
         .sidebar a {
+            font-size:0.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            /* padding: 12px 20px; */
+            padding: 6px 20px;
             color: #cbd5e1;
             text-decoration: none;
             transition: 0.2s;
@@ -97,21 +104,25 @@
         }
 
         .sidebar a i {
+            font-size:0.8rem;
             margin-right: 10px;
         }
 
         .sidebar a:hover {
+            font-size:0.8rem;
             background: rgba(255, 255, 255, 0.08);
             color: #fff;
             padding-left: 25px;
         }
 
         .sidebar a.active {
+            font-size:0.8rem;
             color: #fff !important;
             font-weight: 500;
         }
 
         .sidebar a.active::before {
+            font-size:0.8rem;
             content: '';
             position: absolute;
             left: 0;
@@ -138,7 +149,7 @@
         }
 
         .submenu a {
-            font-size: 14px;
+            font-size:0.8rem;
         }
 
         .arrow {

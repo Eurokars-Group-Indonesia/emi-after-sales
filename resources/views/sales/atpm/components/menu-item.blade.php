@@ -1,3 +1,4 @@
+
 @foreach ($menus as $menu)
     @if ($menu->children->count())
         @php
@@ -19,6 +20,7 @@
                     }
                 }
             }
+            
         @endphp
 
         <a href="#"
@@ -31,7 +33,7 @@
         </a>
 
         <div id="menu-{{ $menu->id }}" class="submenu {{ $isParentActive ? 'open' : '' }}">
-            @include('aftersales.atpm.components.menu-item', ['menus' => $menu->children])
+            @include('sales.atpm.components.menu-item', ['menus' => $menu->children])
         </div>
 
     @else
@@ -40,10 +42,15 @@
         @endphp
         <a href="{{ $menu->route ? route($menu->route) : '#' }}"
            class="menu-link {{ $isActive ? 'active' : '' }}">
-            @if ($menu->icon)
-                <i class="{{ $menu->icon }}"></i>
-            @endif
-            {{ $menu->title }}
+            <span>
+                @if ($menu->icon)
+                    <i class="{{ $menu->icon }}"></i>
+                @endif
+                {{ $menu->title }}
+            </span>
         </a>
     @endif
-@endforeach
+@endforeach 
+
+
+

@@ -58,7 +58,7 @@
                             </select>
                         </div>
 
-                        <button type="button" class="btn btn-primary" id="btn-model-add"  style="border-radius: 10px; font-weight: 600; background: #0078d4; border: none;">Add</button>
+                        <button type="button" class="btn-fi btn-fi-primary btn-fi-sm" id="btn-model-add"  style="border-radius: 10px; font-weight: 600; background: #0078d4; border: none;">Add</button>
                     </form>
                 </div>
 
