@@ -84,6 +84,11 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
     // Route::middleware('check.sync')->group(function () {
         Route::get('atpm/report/report-retention', [AfterSalesAtpmReportRetentionController::class, 'index'])->name('aftersales.atpm.report.service-retention');
         Route::post('atpm/report/report-retention-retrieve', [AfterSalesAtpmReportRetentionController::class, 'retrieve'])->name('aftersales.atpm.report.report-retention-retrieve');
+
+        Route::get('atpm/report/report-retention-old', [AfterSalesAtpmReportRetentionController::class, 'index_old'])->name('aftersales.atpm.report.service-retention-old');
+        Route::post('atpm/report/report-retention-old-retrieve', [AfterSalesAtpmReportRetentionController::class, 'retrieve_old'])->name('aftersales.atpm.report.report-retention-retrieve-old');
+
+
         // Route::get('aftersales/atpm/sp-test', [TestController::class, 'sp_test'])->name('aftersales.atpmsp_test');
     // });
 
