@@ -295,7 +295,7 @@ class AfterSalesAtpmReportRetentionController
         $pdo = DB::connection('mysql')->getPdo();
 
         $stmt = $pdo->prepare("
-            CALL sp_rpt_retention_report(
+            CALL sp_rpt_retention_report_old(
                 CAST(? AS JSON),
                 ?,
                 ?,
