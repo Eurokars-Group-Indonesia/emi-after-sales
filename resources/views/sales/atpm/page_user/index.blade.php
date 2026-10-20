@@ -13,7 +13,7 @@
 @php
 
     $breadcrumbs = [
-        ['title' => 'Home', 'url' => route("aftersales.atpm.home")],
+        ['title' => 'Home', 'url' => route("sales.atpm.home")],
         ['title' => 'Sales ATPM User', 'url' => 'javascript:void(0)'],
     ];
 @endphp
