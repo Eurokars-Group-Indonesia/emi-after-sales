@@ -52,5 +52,15 @@ return [
         'base_url' => env('API_SERVICE'),
     ],
 
+    // Microsoft Graph (OAuth2 client credentials) untuk kirim email no-reply@mazda.co.id
+    'ms_graph_mail' => [
+        'tenant_id' => env('MS_GRAPH_TENANT_ID'),
+        'client_id' => env('MS_GRAPH_CLIENT_ID'),
+        'client_secret' => env('MS_GRAPH_CLIENT_SECRET'),
+        'from_address' => env('MS_GRAPH_FROM_ADDRESS', 'no-reply@mazda.co.id'),
+        'from_name' => env('MS_GRAPH_FROM_NAME', 'WRS Connect'),
+        'proxy' => env('MS_GRAPH_PROXY'),
+    ],
+
 
 ];

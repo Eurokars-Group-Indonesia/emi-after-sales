@@ -25,6 +25,10 @@ use App\Http\Controllers\SalesAtpmMasterPermissionController;
 use App\Http\Controllers\SalesAtpmSystemSetupController;
 use App\Http\Controllers\SalesAtpmUserController;
 use App\Http\Controllers\SalesAtpmAccessRepository;
+use App\Http\Controllers\SalesAtpmEmailSchedulerController;
+
+
+
 
 
 use App\Http\Controllers\SalesAtpmReportController;
@@ -78,15 +82,18 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
     Route::get('aftersales/atpm/vehicle/service-history-datatable', [AfterSalesAtpmServiceHistoryController::class, 'service_history_datatable'])->name('aftersales.atpm.vehicle_service_history_datatable');
 
     
-    
+    // Sync Monitoring 
+    Route::get('aftersales/atpm/sync', [UtilityController::class, 'sync_index'])->name('aftersales.atpm.utility.sync_index');
+    Route::get('aftersales/atpm/sync_logs_datatable', [UtilityController::class, 'sync_logs_datatable'])->name('aftersales.atpm.utility.sync_logs_datatable');
+    Route::get('aftersales/atpm/sync/information', [UtilityController::class, 'sync_information'])->name('aftersales.atpm.utility.sync_information');
 
     // Report
     // Route::middleware('check.sync')->group(function () {
-        Route::get('atpm/report/report-retention', [AfterSalesAtpmReportRetentionController::class, 'index'])->name('aftersales.atpm.report.service-retention');
-        Route::post('atpm/report/report-retention-retrieve', [AfterSalesAtpmReportRetentionController::class, 'retrieve'])->name('aftersales.atpm.report.report-retention-retrieve');
+    Route::get('atpm/report/report-retention', [AfterSalesAtpmReportRetentionController::class, 'index'])->name('aftersales.atpm.report.service-retention');
+    Route::post('atpm/report/report-retention-retrieve', [AfterSalesAtpmReportRetentionController::class, 'retrieve'])->name('aftersales.atpm.report.report-retention-retrieve');
 
-        Route::get('atpm/report/report-retention-old', [AfterSalesAtpmReportRetentionController::class, 'index_old'])->name('aftersales.atpm.report.service-retention-old');
-        Route::post('atpm/report/report-retention-old-retrieve', [AfterSalesAtpmReportRetentionController::class, 'retrieve_old'])->name('aftersales.atpm.report.report-retention-retrieve-old');
+    Route::get('atpm/report/report-retention-old', [AfterSalesAtpmReportRetentionController::class, 'index_old'])->name('aftersales.atpm.report.service-retention-old');
+    Route::post('atpm/report/report-retention-old-retrieve', [AfterSalesAtpmReportRetentionController::class, 'retrieve_old'])->name('aftersales.atpm.report.report-retention-retrieve-old');
 
 
         // Route::get('aftersales/atpm/sp-test', [TestController::class, 'sp_test'])->name('aftersales.atpmsp_test');
@@ -119,6 +126,8 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
         Route::get('sales/atpm/user/datatable', [SalesAtpmUserController::class, 'user_datatable'])->name('sales.atpm.user_datatable');
         Route::get('sales/atpm/user/sync', [SalesAtpmUserController::class, 'userSync'])->name('sales.atpm.user_sync');
 
+        
+
         ## MENU
         Route::get('sales/atpm/user_menu', [SalesAtpmUserController::class, 'userMenu'])->name('sales.atpm.user_menu_index');
         Route::get('sales/atpm/edit_user_menu/{kd_atpm_user}', [SalesAtpmUserController::class, 'editUserMenu'])->name('sales.atpm.edit_user_menu');
@@ -131,33 +140,47 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
         
 
 
+        # EMAIL SCHEDULER
+        ## EMAIL SCHEDULER CKD
+        Route::get('sales/atpm/email_scheduler/delivery_ckd/', [SalesAtpmEmailSchedulerController::class, 'index'])->name('sales.atpm.email_scheduler.delivery_ckd');
+        Route::get('sales/atpm/email_scheduler/delivery_ckd/datatable', [SalesAtpmEmailSchedulerController::class, 'datatable'])->name('sales.atpm.email_scheduler.delivery_ckd_datatable');
+        Route::post('sales/atpm/email_scheduler/delivery_ckd/update_email_to', [SalesAtpmEmailSchedulerController::class, 'updateEmailTo'])->name('sales.atpm.email_scheduler.delivery_ckd_update_email_to');
+        Route::post('sales/atpm/email_scheduler/delivery_ckd/retry', [SalesAtpmEmailSchedulerController::class, 'retry'])->name('sales.atpm.email_scheduler.delivery_ckd_retry');
+        Route::get('sales/atpm/email_scheduler/delivery_ckd/retry_log_datatable', [SalesAtpmEmailSchedulerController::class, 'retryLogDatatable'])->name('sales.atpm.email_scheduler.delivery_ckd_retry_log_datatable');
+        
+
+        # REPORT
+        Route::get('sales/atpm/report/sales_person_history', [SalesAtpmReportController::class, 'salesPersonHistoryReport'])->name('sales.atpm.report.sales_person_history');
+        Route::get('sales/atpm/report/sales_person_productivity', [SalesAtpmReportController::class, 'salesPersonProductivityReport'])->name('sales.atpm.report.sales_person_productivity');
+        Route::get('sales/atpm/report/sales_person_national_productivity', [SalesAtpmReportController::class, 'salesPersonNationalProductivityReport'])->name('sales.atpm.report.sales_person_national_productivity');
+        Route::get('sales/atpm/report/sales_person_list', [SalesAtpmReportController::class, 'salesPersonListReport'])->name('sales.atpm.report.sales_person_list');
 
 
-
+        
+        
+        # Belum tau
         Route::get('sales/atpm/menu-permission-access/', [salesAtpmAccess::class, 'index'])->name('sales.atpm.administration.access_index');
         
         Route::get('sales/atpm/menu/', [salesAtpmAccess::class, 'index'])->name('sales.atpm.system_setup.master_permission');
-        
-        
-        
-
-
-
-
-
-
         Route::get('sales/atpm/system-setup/master-menu-dealer/', [SalesAtpmSystemSetupMasterMenuController::class, 'index'])->name('sales.atpm.system_setup.master_menu_dealer');
         
         // Administration
         Route::get('sales/atpm/administration/atpm-user/', [SalesAtpmAdministrationController::class, 'index'])->name('sales.atpm.administration.atpm_user');
         Route::get('sales/atpm/administration/dealer-user/', [SalesAtpmAdministrationController::class, 'index'])->name('sales.atpm.administration.dealer_user');
-        
-    
-
-
 
 
     // Route::get('sales/atpm/config', [SalesAtpmConfigController::class, 'index'])->name('sales.atpm.config');
+        
+    
+
+        
+        
+
+
+
+
+
+
     
 
 
@@ -173,20 +196,11 @@ Route::middleware(['check.session', 'role.atpm'])->group(function () {
     // 
     // Route::get('sales/atpm/administration/master-menu-dealer/', [SalesAtpmConfigController::class, 'index'])->name('sales.atpm.administration.master_menu_dealer');
     
-    // Report
-    Route::get('sales/atpm/report/sales_person_history', [SalesAtpmReportController::class, 'salesPersonHistoryReport'])->name('sales.atpm.report.sales_person_history');
-    Route::get('sales/atpm/report/sales_person_productivity', [SalesAtpmReportController::class, 'salesPersonProductivityReport'])->name('sales.atpm.report.sales_person_productivity');
-    Route::get('sales/atpm/report/sales_person_national_productivity', [SalesAtpmReportController::class, 'salesPersonNationalProductivityReport'])->name('sales.atpm.report.sales_person_national_productivity');
-    Route::get('sales/atpm/report/sales_person_list', [SalesAtpmReportController::class, 'salesPersonListReport'])->name('sales.atpm.report.sales_person_list');
-
-
+    
     
     
 
-    // Sync Monitoring 
-    Route::get('aftersales/atpm/sync', [UtilityController::class, 'sync_index'])->name('aftersales.atpm.utility.sync_index');
-    Route::get('aftersales/atpm/sync_logs_datatable', [UtilityController::class, 'sync_logs_datatable'])->name('aftersales.atpm.utility.sync_logs_datatable');
-    Route::get('aftersales/atpm/sync/information', [UtilityController::class, 'sync_information'])->name('aftersales.atpm.utility.sync_information');
+    
     
 
 });

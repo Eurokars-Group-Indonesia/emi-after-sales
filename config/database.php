@@ -177,6 +177,23 @@ return [
         ],
 
 
+        // Sumber data Email Scheduler CKD (isi kredensial di .env: DB_CKD_*)
+        'db_ckd' => [
+            'driver' => env('DB_CKD_DRIVER', 'pgsql'),
+            'url' => env('DATABASE_CKD_URL'),
+            'host' => env('DB_CKD_HOST'),
+            'port' => env('DB_CKD_PORT'),
+            'database' => env('DB_CKD_DATABASE'),
+            'username' => env('DB_CKD_USERNAME'),
+            'password' => env('DB_CKD_PASSWORD'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+
         // 'sqlsrv' => [
         //     'driver' => 'sqlsrv',
         //     'url' => env('DB_URL'),
