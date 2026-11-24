@@ -1,0 +1,249 @@
+/*
+ * Tampilan halaman admin After Sales (Access Control & Personel).
+ * Gaya Mazda After Sales: grafit + Soul Red + silver. Header popup bergradien dengan cahaya merah,
+ * label kecil berhuruf kapital, label bulat berwarna, bayangan tegas, dan loading berkilau.
+ * Hanya berlaku di dalam elemen .afsel-ui (konten halaman & modal halaman tsb).
+ */
+:root {
+    --mz-ink: #1b2027;        /* grafit */
+    --mz-ink-2: #3a424b;
+    --mz-graphite-0: #121519;
+    --mz-graphite-2: #23282f;
+    --mz-muted: #6b747d;
+    --mz-silver: #c3c8ce;
+    --mz-line: #e2e5e9;
+    --mz-line-soft: #eef0f2;
+    --mz-bg-soft: #f6f7f9;
+    --mz-red: #a6192e;        /* Soul Red */
+    --mz-red-bright: #d42a45;
+    --mz-red-dark: #8c1427;
+    --mz-red-tint: #fff1f3;
+    --mz-ok: #198754;
+    --mz-ok-tint: #e7f4ec;
+    --mz-off: #8a929c;
+    --mz-shadow: 0 4px 14px rgba(16, 24, 40, .07);
+    --mz-shadow-lg: 0 24px 60px rgba(10, 12, 15, .35);
+}
+
+/* ── Header halaman ── */
+.afsel-ui .page-header { align-items: flex-end; padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid var(--mz-line); }
+.afsel-ui .page-title { font-size: 20px; font-weight: 700; color: var(--mz-ink); }
+/* Ukuran huruf li, link, & pemisah "/" disamakan agar breadcrumb sebaris lurus */
+.afsel-ui ol.breadcrumb { align-items: baseline; font-size: 12px; line-height: 1.5; }
+.afsel-ui ol.breadcrumb li { font-size: 12px; }
+.afsel-ui ol.breadcrumb li a,
+.afsel-ui ol.breadcrumb .active { font-size: 12px; color: var(--mz-muted) !important; }
+.afsel-ui ol.breadcrumb li:last-child a,
+.afsel-ui ol.breadcrumb li.active { color: var(--mz-ink) !important; }
+
+/* Tab ATPM / Dealer: pil grafit dengan garis Soul Red */
+.afsel-ui .access-type-tabs { gap: 8px; }
+.afsel-ui .access-type-tabs .nav-link {
+    padding: 5px 16px; border: 1px solid #d5d9de; border-radius: 999px; background: #fff;
+    color: var(--mz-ink); font-size: 13px; font-weight: 600;
+}
+.afsel-ui .access-type-tabs .nav-link:hover { border-color: var(--mz-red); color: var(--mz-red); }
+.afsel-ui .access-type-tabs .nav-link.active { background: var(--mz-ink); border-color: var(--mz-ink); color: #fff; box-shadow: inset 0 -3px 0 var(--mz-red); }
+
+/* ── Kartu ── */
+.afsel-ui .card { border: 0; border-top: 3px solid var(--mz-ink); border-radius: 12px; box-shadow: var(--mz-shadow); overflow: hidden; }
+.afsel-ui .card-header { background: #fff; border-bottom: 1px solid var(--mz-line); padding: 12px 16px; }
+.afsel-ui .card-body { padding: 16px; }
+.afsel-ui .access-section-title,
+.afsel-ui .afsel-section-title { font-size: 14px; font-weight: 700; color: var(--mz-ink); }
+
+/* Ringkasan angka */
+.afsel-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.afsel-stat {
+    position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 2px; text-align: left;
+    background: #fff; border: 0; border-radius: 12px; padding: 12px 16px; box-shadow: var(--mz-shadow);
+}
+.afsel-stat::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--mz-silver); }
+.afsel-stat:first-child::before { background: var(--mz-red); }
+.afsel-stat-num { font-size: 22px; font-weight: 700; color: var(--mz-ink); line-height: 1.2; }
+.afsel-stat-label { font-size: 11px; color: var(--mz-muted); text-transform: uppercase; letter-spacing: .06em; }
+button.afsel-stat { cursor: pointer; transition: box-shadow .15s, transform .15s; }
+button.afsel-stat:hover { box-shadow: 0 8px 20px rgba(166, 25, 46, .18); transform: translateY(-1px); }
+button.afsel-stat[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--mz-red), var(--mz-shadow); }
+button.afsel-stat[aria-pressed="true"]::before { background: var(--mz-red); }
+
+/* Baris filter / pencarian */
+.afsel-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--mz-line); }
+.afsel-toolbar .afsel-grow { flex: 1 1 240px; max-width: 360px; }
+.afsel-toolbar .afsel-push { margin-left: auto; }
+.afsel-toolbar .form-select { width: auto; min-width: 160px; max-width: 260px; }
+
+/* ── Tabel ── */
+.afsel-ui .table { margin-bottom: 0; }
+.afsel-ui .table > :not(caption) > * > * { border-color: var(--mz-line-soft); }
+.afsel-ui .table thead th {
+    background: #f4f5f7; color: #5b6672; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+    border-bottom: 2px solid var(--mz-line); white-space: nowrap; vertical-align: middle;
+}
+.afsel-ui .table tbody td { font-size: 13px; color: var(--mz-ink); vertical-align: middle; }
+.afsel-ui .table-hover > tbody > tr:hover > * { --bs-table-bg-state: #fafbfc; }
+.afsel-ui .table-bordered > :not(caption) > * { border-width: 0 0 1px; }
+.afsel-ui .table-bordered > :not(caption) > * > * { border-width: 0; }
+.afsel-ui .table code { font-size: 12px; color: var(--mz-ink-2); background: var(--mz-bg-soft); padding: 1px 6px; border-radius: 4px; }
+.afsel-ui .afsel-sub { display: block; font-size: 12px; color: var(--mz-muted); }
+.afsel-ui .afsel-muted { color: var(--mz-off); }
+
+/* Tautan nama di tabel */
+.afsel-ui .afsel-link {
+    border: 0; background: none; padding: 0; text-align: left; font-weight: 600; color: var(--mz-ink); cursor: pointer;
+    text-decoration: underline; text-decoration-color: rgba(166, 25, 46, .35); text-underline-offset: 3px;
+    transition: color .15s, text-decoration-color .15s;
+}
+.afsel-ui .afsel-link:hover { color: var(--mz-red); text-decoration-color: var(--mz-red); }
+
+/* DataTables */
+.afsel-ui .dataTables_wrapper .dataTables_filter input,
+.afsel-ui .dataTables_wrapper .dataTables_length select,
+.afsel-ui .dt-length select, .afsel-ui .dt-search input {
+    border: 1px solid var(--mz-line); border-radius: 6px; font-size: 13px; padding: 3px 8px;
+}
+.afsel-ui .dataTables_wrapper .dataTables_info,
+.afsel-ui .dataTables_wrapper .dataTables_length,
+.afsel-ui .dataTables_wrapper .dataTables_filter { font-size: 12px; color: var(--mz-muted); }
+.afsel-ui .page-link { color: var(--mz-ink); font-size: 12px; }
+/* Halaman aktif: latar gelap, angka putih agar terbaca */
+.afsel-ui .page-item.active .page-link,
+.afsel-ui .dt-paging .dt-paging-button.current,
+.afsel-ui .dataTables_paginate .paginate_button.current {
+    background: var(--mz-ink); border-color: var(--mz-ink); color: #fff !important;
+}
+
+/* ── Label bulat berwarna ── */
+.afsel-ui .badge { font-weight: 600; font-size: 11px; border-radius: 999px; padding: .35em .75em; }
+.afsel-ui .badge.bg-success { background: var(--mz-ok) !important; color: #fff !important; }
+.afsel-ui .badge.bg-secondary { background: #6c757d !important; color: #fff !important; }
+.afsel-ui .badge.bg-danger { background: var(--mz-red) !important; color: #fff !important; }
+.afsel-ui .badge.bg-dark { background: var(--mz-ink) !important; color: #fff !important; }
+.afsel-ui .badge.bg-primary-subtle,
+.afsel-ui .badge.bg-info-subtle,
+.afsel-ui .badge.bg-secondary-subtle { background: #eef0f3 !important; color: var(--mz-ink) !important; }
+.afsel-ui .badge.bg-danger-subtle { background: var(--mz-red-tint) !important; color: var(--mz-red) !important; }
+.afsel-ui .afsel-tag {
+    display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 999px;
+    background: #eef0f3; color: var(--mz-ink); margin: 1px 3px 1px 0;
+}
+.afsel-ui .afsel-tag.is-red { background: var(--mz-red); color: #fff; }
+.afsel-ui .afsel-tag.is-dark { background: var(--mz-ink); color: #fff; }
+.afsel-ui .afsel-tag.is-soft-red { background: var(--mz-red-tint); color: var(--mz-red); }
+
+/* Status aktif / nonaktif (pil dengan titik) */
+.afsel-ui .afsel-status { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 2px 10px 2px 8px; border-radius: 999px; }
+.afsel-ui .afsel-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.afsel-ui .afsel-status.is-on { color: var(--mz-ok); background: var(--mz-ok-tint); }
+.afsel-ui .afsel-status.is-off { color: #6c757d; background: #eef0f3; }
+
+/* Avatar inisial */
+.afsel-ui .afsel-avatar {
+    flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff; background: linear-gradient(160deg, #2a3038, var(--mz-ink));
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+}
+.afsel-ui .afsel-avatar.is-off { background: #b8bec5; box-shadow: none; }
+.afsel-ui .afsel-user { display: flex; align-items: center; gap: 10px; min-width: 0; }
+
+/* ── Tombol ── */
+.afsel-ui .btn-fi-primary { background: var(--mz-ink); border-color: var(--mz-ink); color: #fff; box-shadow: 0 2px 6px rgba(27, 32, 39, .25); }
+.afsel-ui .btn-fi-primary:hover, .afsel-ui .btn-fi-primary:active { background: #000; border-color: #000; color: #fff; }
+.afsel-ui .btn-fi-secondary { background: #fff; border-color: #cfd4da; color: var(--mz-ink); }
+.afsel-ui .btn-fi-secondary:hover { background: var(--mz-bg-soft); border-color: #b5bcc4; color: var(--mz-ink); }
+.afsel-ui .btn-fi-danger { background: #fff; border-color: #e3b5bd; color: var(--mz-red); }
+.afsel-ui .btn-fi-danger:hover { background: var(--mz-red); border-color: var(--mz-red); color: #fff; }
+.afsel-ui .btn-fi-accent { background: var(--mz-red); border-color: var(--mz-red); color: #fff; box-shadow: 0 2px 8px rgba(166, 25, 46, .3); }
+.afsel-ui .btn-fi-accent:hover { background: var(--mz-red-dark); border-color: var(--mz-red-dark); color: #fff; }
+.afsel-ui .btn-fi:focus-visible { outline: 2px solid var(--mz-red); outline-offset: 2px; }
+
+/* ── Form ── */
+.afsel-ui .form-label { font-size: 12px; font-weight: 600; color: var(--mz-ink-2); margin-bottom: 4px; }
+.afsel-ui .form-control, .afsel-ui .form-select { font-size: 13px; border-color: #cfd4da; }
+.afsel-ui .form-control:focus, .afsel-ui .form-select:focus { border-color: var(--mz-red); box-shadow: 0 0 0 .2rem rgba(166, 25, 46, .15); }
+.afsel-ui .form-text { font-size: 12px; color: var(--mz-muted); }
+.afsel-ui .form-check-input:checked { background-color: var(--mz-ok); border-color: var(--mz-ok); }
+.afsel-ui .form-check-input:focus { box-shadow: 0 0 0 .2rem rgba(166, 25, 46, .2); border-color: var(--mz-red); }
+.afsel-ui .form-check-input.is-danger:checked { background-color: var(--mz-red); border-color: var(--mz-red); }
+
+/* Baris pengaturan on/off */
+.afsel-ui .afsel-setting {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 8px;
+    padding: 10px 14px; border: 1px solid #e3e6ea; border-radius: 10px; background: #fafbfc; cursor: pointer;
+    transition: border-color .15s, background .15s;
+}
+.afsel-ui .afsel-setting:last-child { margin-bottom: 0; }
+.afsel-ui .afsel-setting:hover { border-color: var(--mz-silver); background: #fff; }
+.afsel-ui .afsel-setting:has(.is-danger:checked) { border-color: rgba(166, 25, 46, .45); background: #fff5f6; }
+.afsel-ui .afsel-setting-title { display: block; font-size: 13px; font-weight: 700; color: var(--mz-ink); }
+.afsel-ui .afsel-setting-desc { display: block; font-size: 12px; color: var(--mz-muted); }
+.afsel-ui .afsel-setting .form-switch .form-check-input { width: 2.4em; height: 1.25em; cursor: pointer; }
+
+/* Kotak informasi */
+.afsel-ui .afsel-note { display: flex; gap: 8px; padding: 10px 14px; margin-bottom: 14px; border-radius: 10px; font-size: 12px; background: var(--mz-bg-soft); border: 1px solid var(--mz-line); color: var(--mz-ink-2); }
+.afsel-ui .afsel-note.is-warn { background: #fff8e6; border-color: #f2dca4; color: #6b5310; }
+.afsel-ui .afsel-note.is-red { background: var(--mz-red-tint); border-color: #f3c2ca; color: var(--mz-red-dark); }
+
+/* ── Modal: header bergradien grafit dengan cahaya Soul Red ── */
+.afsel-ui.modal .modal-content { border: 0; border-radius: 16px; overflow: hidden; box-shadow: var(--mz-shadow-lg); }
+.afsel-ui.modal .modal-header {
+    position: relative; align-items: center; gap: 14px; padding: 20px 22px 18px; border-bottom: 0; color: #fff;
+    background:
+        radial-gradient(circle at 92% -20%, rgba(166, 25, 46, .6), transparent 45%),
+        linear-gradient(135deg, var(--mz-graphite-0) 0%, var(--mz-ink) 55%, var(--mz-graphite-2) 100%);
+}
+.afsel-ui.modal .modal-header::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: linear-gradient(90deg, var(--mz-red), var(--mz-red-bright) 55%, rgba(212, 42, 69, 0));
+}
+.afsel-ui.modal .modal-header .btn-close { position: absolute; top: 14px; right: 14px; margin: 0; filter: invert(1); opacity: .7; }
+.afsel-ui.modal .modal-header .btn-close:hover { opacity: 1; }
+.afsel-ui.modal .modal-title { font-size: 16px; font-weight: 700; color: #fff; margin: 2px 0 0; padding-right: 28px; word-break: break-word; }
+.afsel-ui.modal .modal-header .text-muted,
+.afsel-ui.modal .afsel-hero-sub { color: var(--mz-silver) !important; font-size: 12px; }
+.afsel-ui .afsel-eyebrow { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--mz-silver); }
+.afsel-ui .afsel-hero-avatar {
+    flex: 0 0 48px; width: 48px; height: 48px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #fff;
+    background: linear-gradient(160deg, var(--mz-red), #6d0f1f); box-shadow: 0 0 0 3px rgba(255, 255, 255, .85);
+}
+.afsel-ui.modal .modal-body { padding: 18px 22px; background: var(--mz-bg-soft); }
+.afsel-ui.modal .modal-footer { padding: 6px 22px 18px; border-top: 0; background: var(--mz-bg-soft); }
+
+/* Bagian detail di modal */
+.afsel-ui .afsel-dl { display: grid; grid-template-columns: 130px 1fr; gap: 0; margin: 0; font-size: 13px; }
+.afsel-ui .afsel-dl dt, .afsel-ui .afsel-dl dd { padding: 6px 0; border-top: 1px dashed #e6e8eb; }
+.afsel-ui .afsel-dl dt:first-of-type, .afsel-ui .afsel-dl dd:first-of-type { border-top: 0; padding-top: 0; }
+.afsel-ui .afsel-dl dt { font-weight: 400; color: var(--mz-muted); }
+.afsel-ui .afsel-dl dd { margin: 0; color: var(--mz-ink); font-weight: 600; text-align: right; word-break: break-word; }
+.afsel-ui .afsel-block { background: #fff; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(16, 24, 40, .06); }
+.afsel-ui .afsel-block:last-child { margin-bottom: 0; }
+.afsel-ui .afsel-block.is-accent { border: 1px solid rgba(166, 25, 46, .25); box-shadow: 0 0 0 3px rgba(166, 25, 46, .06); }
+.afsel-ui .afsel-block-title {
+    display: flex; align-items: center; gap: 7px; margin: 0 0 10px;
+    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--mz-red);
+}
+
+/* Loading berkilau */
+.afsel-ui .afsel-skel {
+    background: linear-gradient(90deg, #eceef1 25%, #f6f7f9 50%, #eceef1 75%);
+    background-size: 200% 100%; animation: afsel-shimmer 1.2s infinite; border-radius: 6px;
+}
+.afsel-ui.modal .modal-header .afsel-skel {
+    background: linear-gradient(90deg, rgba(255, 255, 255, .08) 25%, rgba(255, 255, 255, .18) 50%, rgba(255, 255, 255, .08) 75%);
+    background-size: 200% 100%;
+}
+@keyframes afsel-shimmer { to { background-position: -200% 0; } }
+
+.afsel-ui .min-w-0 { min-width: 0; }
+
+@media (max-width: 576px) {
+    .afsel-toolbar .afsel-grow, .afsel-toolbar .form-select { max-width: none; flex: 1 1 100%; }
+    .afsel-toolbar .afsel-push { margin-left: 0; }
+    .afsel-ui .afsel-dl { grid-template-columns: 1fr; }
+    .afsel-ui .afsel-dl dd { text-align: left; border-top: 0; padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .afsel-ui .afsel-skel { animation: none; }
+}

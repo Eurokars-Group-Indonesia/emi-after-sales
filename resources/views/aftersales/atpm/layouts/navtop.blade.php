@@ -23,9 +23,13 @@
             </div>
             <ul class="dropdown-menu dropdown-menu-end shadow">
                 <li><span class="dropdown-item text-muted small">{{ session('user.name') }}</span></li>
+                {{-- Role aktif & Ganti Role ada di halaman Profile --}}
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Profile see on WRS</a></li>
-                <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
+                <li>
+                    <a class="dropdown-item" href="{{ route('aftersales.atpm.profile') }}">
+                        <i class="bi bi-person-circle me-1"></i> Profile
+                    </a>
+                </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <form action="{{ route('aftersales.logout') }}" method="POST">

@@ -18,7 +18,7 @@ class MenuDealerSeeder extends Seeder
 
         $home = MenuDealer::create([
             'title' => 'Home',
-            'route' => 'dealer.aftersales.home',
+            'route' => 'aftersales.dealer.home',
             'icon'  => 'bi bi-house-fill',
             'order' => 1,
             'created_by' => 1,

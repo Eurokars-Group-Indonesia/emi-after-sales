@@ -1,18 +1,18 @@
-@extends('dealer.layouts.app')
+@extends('aftersales.dealer.layouts.app')
 
 @section('title', 'Retention Report')
 
 @section('navtop')
-    {{ view('dealer.layouts.navtop') }}
+    {{ view('aftersales.dealer.layouts.navtop') }}
 @endsection
 
 @section('sidebar')
-    {{ view('dealer.layouts.sidebar') }}
+    {{ view('aftersales.dealer.layouts.sidebar') }}
 @endsection
 
 @php
     $breadcrumbs = [
-        ['title' => 'Home', 'url' => route('dealer.aftersales.home')],
+        ['title' => 'Home', 'url' => route('aftersales.dealer.home')],
         ['title' => 'Report', 'url' => '#'],
         ['title' => 'Retention Report', 'url' => 'javascript:void(0)'],
     ];

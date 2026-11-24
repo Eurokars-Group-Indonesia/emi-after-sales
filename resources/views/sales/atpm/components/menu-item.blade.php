@@ -1,33 +1,37 @@
+{{--
+    Menu sidebar Sales ATPM (rekursif). Data dari tabel RBAC ms_sales_atpm_menus
+    (label, route_name, url); tetap kompatibel dengan kolom lama (title, route).
+--}}
+@php
+    $salesMenuRoute = fn ($m) => $m->route_name ?? $m->route ?? null;
+    $salesMenuIsActive = function ($m) use (&$salesMenuIsActive, $salesMenuRoute) {
+        $r = $salesMenuRoute($m);
+        if ($r && request()->routeIs($r)) {
+            return true;
+        }
+        foreach ($m->children ?? [] as $child) {
+            if ($salesMenuIsActive($child)) {
+                return true;
+            }
+        }
+        return false;
+    };
+@endphp
 
 @foreach ($menus as $menu)
-    @if ($menu->children->count())
-        @php
-            // cek apakah salah satu child (atau nested) adalah route aktif
-            $isParentActive = false;
-            $stack = $menu->children->toArray();
-            foreach ($menu->children as $child) {
-                if ($child->route && request()->routeIs($child->route)) {
-                    $isParentActive = true;
-                    break;
-                }
-                // satu level lebih dalam
-                if (!empty($child['children'])) {
-                    foreach ($child['children'] as $grandchild) {
-                        if (!empty($grandchild['route']) && request()->routeIs($grandchild['route'])) {
-                            $isParentActive = true;
-                            break 2;
-                        }
-                    }
-                }
-            }
-            
-        @endphp
+    @php
+        $menuLabel = $menu->label ?? $menu->title;
+        $menuRoute = $salesMenuRoute($menu);
+    @endphp
+
+    @if ($menu->children && $menu->children->count())
+        @php $isParentActive = $salesMenuIsActive($menu); @endphp
 
         <a href="#"
            class="menu-toggle {{ $isParentActive ? 'active' : '' }}"
            data-target="menu-{{ $menu->id }}">
             <span>
-                <i class="{{ $menu->icon }}"></i>{{ $menu->title }}
+                <i class="{{ $menu->icon }}"></i>{{ $menuLabel }}
             </span>
             <i class="bi bi-chevron-down arrow {{ $isParentActive ? 'rotate' : '' }}"></i>
         </a>
@@ -38,19 +42,17 @@
 
     @else
         @php
-            $isActive = $menu->route && request()->routeIs($menu->route);
+            $isActive = $menuRoute && request()->routeIs($menuRoute);
+            $href = $menuRoute && Route::has($menuRoute) ? route($menuRoute) : ($menu->url ?? '#');
         @endphp
-        <a href="{{ $menu->route ? route($menu->route) : '#' }}"
+        <a href="{{ $href }}"
            class="menu-link {{ $isActive ? 'active' : '' }}">
             <span>
                 @if ($menu->icon)
                     <i class="{{ $menu->icon }}"></i>
                 @endif
-                {{ $menu->title }}
+                {{ $menuLabel }}
             </span>
         </a>
     @endif
-@endforeach 
-
-
-
+@endforeach

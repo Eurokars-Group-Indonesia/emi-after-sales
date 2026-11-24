@@ -4,14 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\DB;
-use App\Models\SalesAtpmMenuUser;
-use App\Models\SalesAtpmMasterMenu;
-
-
-use App\Models\MenuAtpmAfterSales;
-use App\Models\MenuDealer;
-
+use Illuminate\Support\Facades\Blade;
+use App\Services\Afsel\AfselRbacService;
+use App\Services\Rbac\RbacEngine;
+use App\Services\Sales\SalesRbacService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Singleton agar per-request cache role/permission terpakai ulang
+        $this->app->singleton(AfselRbacService::class);
+        $this->app->singleton(SalesRbacService::class);
     }
 
     /**
@@ -41,61 +39,49 @@ class AppServiceProvider extends ServiceProvider
         # Configure rate limiting
         $this->configureRateLimiting();
 
-        # Menu after sales atpm
-        View::composer('*', function ($view) {
-            $menus = MenuAtpmAfterSales::whereNull('parent_id')
-                ->orderBy('order')
-                ->with('children')
-                ->get();
+        # Blade: @afselcan('permission.slug') ... @endafselcan
+        Blade::if('afselcan', fn (string $slug) => afsel_can($slug));
 
-            $view->with('MenuAtpmAfterSales', $menus);
+        # Blade: @salescan('permission.slug') ... @endsalescan  (RBAC Sales)
+        Blade::if('salescan', fn (string $slug) => sales_can($slug));
+
+        # Menu sidebar dari tabel RBAC (role aktif + override per user), logika sama dengan eurokars-exam.
+        # Composer dipasang hanya di view sidebar, bukan '*', agar query menu tidak jalan di setiap view.
+        View::composer('aftersales.atpm.layouts.sidebar', function ($view) {
+            $view->with('MenuAtpmAfterSales', $this->rbacMenu(AfselRbacService::class, 'atpm', 'aftersales'));
         });
 
-        // # Menu sales atpm
-        View::composer('*', function ($view) {
-
-           $kdAtpmUser = session('user.id');
-
-           $userMenuIds = SalesAtpmMenuUser::where('is_active', true)
-                                ->where('fk_kd_atpm_user', $kdAtpmUser)
-                                ->pluck('fk_sales_atpm_master_menu')
-                                ->toArray();
-
-            $menus = SalesAtpmMasterMenu::whereNull('parent_id')
-                ->whereIn('id', $userMenuIds)
-                ->where('is_active', true)
-                ->orderBy('order', 'asc')
-                ->with([
-                    'children' => function ($query) use ($userMenuIds) {
-                        $query->whereIn('id', $userMenuIds)
-                            ->where('is_active', true)
-                            ->orderBy('order', 'asc');
-                    },
-                    'children.children' => function ($query) use ($userMenuIds) {
-                        $query->whereIn('id', $userMenuIds)
-                            ->where('is_active', true)
-                            ->orderBy('order', 'asc');
-                    }
-                ])
-                ->get();
-
-                        // dd($menus);
-
-            $view->with('SalesAtpmMenuUser', $menus);
+        View::composer('aftersales.dealer.layouts.sidebar', function ($view) {
+            $view->with('MenuDealer', $this->rbacMenu(AfselRbacService::class, 'dealer', 'aftersales'));
         });
 
+        # Sales (RBAC Sales: ms_sales_atpm_* / ms_sales_dealer_*). Home Sales juga memakai menu ini (akses cepat).
+        View::composer(['sales.atpm.layouts.sidebar', 'sales.atpm.page_home.home'], function ($view) {
+            $view->with('SalesAtpmMenuUser', $this->rbacMenu(SalesRbacService::class, 'atpm', 'sales'));
+        });
 
-
-        View::composer('*', function ($view) {
-            $menus = MenuDealer::whereNull('parent_id')
-                ->orderBy('order')
-                ->with('children')
-                ->get();
-
-            $view->with('MenuDealer', $menus);
+        View::composer(['sales.dealer.layouts.sidebar', 'sales.dealer.page_home.home'], function ($view) {
+            $view->with('SalesDealerMenuUser', $this->rbacMenu(SalesRbacService::class, 'dealer', 'sales'));
         });
     }
-    
+
+    /**
+     * Menu sidebar (tree) untuk user yang sedang login.
+     * @param class-string<RbacEngine> $service  AfselRbacService (After Sales) / SalesRbacService (Sales)
+     * $type : tipe user (atpm / dealer), wajib sama dengan session user.loginAs
+     * $app  : nilai session user.app yang wajib cocok (aftersales / sales)
+     */
+    private function rbacMenu(string $service, string $type, string $app)
+    {
+        $userId = (string) session('user.id');
+
+        if ($userId === '' || session('user.loginAs') !== $type || session('user.app') !== $app) {
+            return collect();
+        }
+
+        return app($service)->getMenuTree($type, $userId);
+    }
+
     /**
      * Configure rate limiting for the application
      */

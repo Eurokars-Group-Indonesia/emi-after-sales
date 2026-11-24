@@ -25,8 +25,10 @@ class AfterSalesAtpmUserController
 
                 $action = '';
 
-                $action .= '<a href="'.route('aftersales.atpm.atpm_user_menu_permission', ['kd_atpm_user' => base64_encode($row->kd_atpm_user)]).'" class="btn-fi btn-fi-primary btn-fi-sm">Menu</a> ';
-                $action .= '<a href="'.route('aftersales.atpm.atpm_user_menu_permission', ['kd_atpm_user' => base64_encode($row->kd_atpm_user)]).'" class="btn-fi btn-fi-primary btn-fi-sm">Permission</a>';
+                // Role & override menu dikelola di halaman Access Control > User Access
+                if (afsel_can('rbac.user-role.manage')) {
+                    $action .= '<a href="'.e(route('aftersales.atpm.access.users.edit', ['kdUser' => $row->kd_atpm_user, 'type' => 'atpm'])).'" class="btn-fi btn-fi-primary btn-fi-sm"><i class="bi bi-shield-lock"></i> Atur Akses</a>';
+                }
 
                 return $action;
                 

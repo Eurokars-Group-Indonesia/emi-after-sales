@@ -20,6 +20,14 @@ return Application::configure(basePath: dirname(__DIR__))
             'role.atpm'     => \App\Http\Middleware\CheckRoleAtpm::class,
             'role.dealer'   => \App\Http\Middleware\CheckRoleDealer::class,
             'check.sync'    => \App\Http\Middleware\CheckSyncRunning::class,
+
+            // RBAC After Sales (ATPM & Dealer)
+            'afsel.auth'       => \App\Http\Middleware\AfselEnsureAccess::class,
+            'afsel.permission' => \App\Http\Middleware\AfselPermission::class,
+
+            // RBAC Sales (ATPM & Dealer) — terpisah dari After Sales
+            'sales.auth'       => \App\Http\Middleware\SalesEnsureAccess::class,
+            'sales.permission' => \App\Http\Middleware\SalesPermission::class,
         ]);
         
         // Add security headers to all web requests

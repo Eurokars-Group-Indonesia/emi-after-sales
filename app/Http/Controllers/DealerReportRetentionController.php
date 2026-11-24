@@ -49,7 +49,7 @@ class DealerReportRetentionController
         }
 
 
-        return view('dealer.report_retention.index', $data);
+        return view('aftersales.dealer.report_retention.index', $data);
     }
 
     public function retrieve(Request $request)
