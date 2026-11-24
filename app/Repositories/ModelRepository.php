@@ -31,11 +31,32 @@ class ModelRepository implements ModelRepositoryInterface
         return DB::connection('mysql')
             ->table('ms_model_other')
             ->insert([
-                'kd_model' => $kd_model,
+                'kd_model'     => $kd_model,
+                'is_active'    => true,
+                'created_by'   => (string) session('user.id'),
+                'date_created' => now(),
             ]);
     }
     
-    /* 
+    public function findModelOther($id)
+    {
+        return DB::connection('mysql')->table('ms_model_other')->where('id', $id)->first();
+    }
+
+    public function modelOtherUpdate($id, $kd_model, $is_active)
+    {
+        return DB::connection('mysql')
+            ->table('ms_model_other')
+            ->where('id', $id)
+            ->update([
+                'kd_model'     => $kd_model,
+                'is_active'    => $is_active,
+                'updated_by'   => (string) session('user.id'),
+                'date_updated' => now(),
+            ]);
+    }
+
+    /*
         Hapus list model yang ada di Model Other
     */
     public function getModelExcludeInOther()

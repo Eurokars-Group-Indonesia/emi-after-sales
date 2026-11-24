@@ -1,0 +1,136 @@
+/*
+ * Tema WRS Connect Sales (ATPM & Dealer).
+ * Memakai komponen tampilan yang sama dengan After Sales (afsel-ui.css, sidebar) tetapi
+ * dengan warna biru Sales (#002856 / #003f88) menggantikan grafit + Soul Red.
+ * Aktif untuk halaman dengan <body class="sales-theme">.
+ */
+body.sales-theme {
+    --mz-ink: #0b2a52;          /* biru tua: tombol utama, tab aktif, judul */
+    --mz-ink-2: #2b4468;
+    --mz-graphite-0: #001b3d;
+    --mz-graphite-2: #0a3570;
+    --mz-red: #1f6fd1;          /* aksen biru (pengganti Soul Red) */
+    --mz-red-bright: #4d93f0;
+    --mz-red-dark: #003f88;
+    --mz-red-tint: #e9f2fd;
+    --mz-silver: #c9d8ec;
+    --sl-accent-rgb: 31, 111, 209;
+
+    background: #f2f5fa;
+}
+
+/* Bayangan / fokus yang di afsel-ui.css memakai rgba Soul Red */
+body.sales-theme button.afsel-stat:hover { box-shadow: 0 8px 20px rgba(var(--sl-accent-rgb), .18); }
+body.sales-theme .afsel-ui .afsel-link { text-decoration-color: rgba(var(--sl-accent-rgb), .35); }
+body.sales-theme .afsel-ui .btn-fi-accent { box-shadow: 0 2px 8px rgba(var(--sl-accent-rgb), .3); }
+body.sales-theme .afsel-ui .btn-fi-primary { box-shadow: 0 2px 6px rgba(11, 42, 82, .25); }
+body.sales-theme .afsel-ui .btn-fi-primary:hover,
+body.sales-theme .afsel-ui .btn-fi-primary:active { background: #001b3d; border-color: #001b3d; }
+body.sales-theme .afsel-ui .btn-fi-danger { border-color: #b9d0f0; }
+body.sales-theme .afsel-ui .form-control:focus,
+body.sales-theme .afsel-ui .form-select:focus { box-shadow: 0 0 0 .2rem rgba(var(--sl-accent-rgb), .15); }
+body.sales-theme .afsel-ui .form-check-input:focus { box-shadow: 0 0 0 .2rem rgba(var(--sl-accent-rgb), .2); }
+body.sales-theme .afsel-ui .afsel-setting:has(.is-danger:checked) { border-color: rgba(var(--sl-accent-rgb), .45); background: #f3f8ff; }
+body.sales-theme .afsel-ui .afsel-note.is-red { border-color: #c4dbf7; }
+body.sales-theme .afsel-ui.modal .modal-header {
+    background:
+        radial-gradient(circle at 92% -20%, rgba(77, 147, 240, .55), transparent 45%),
+        linear-gradient(135deg, var(--mz-graphite-0) 0%, var(--mz-ink) 55%, var(--mz-graphite-2) 100%);
+}
+body.sales-theme .afsel-ui.modal .modal-header::after {
+    background: linear-gradient(90deg, var(--mz-red), var(--mz-red-bright) 55%, rgba(77, 147, 240, 0));
+}
+body.sales-theme .afsel-ui .afsel-hero-avatar { background: linear-gradient(160deg, var(--mz-red), #0a3570); }
+body.sales-theme .afsel-ui .afsel-avatar { background: linear-gradient(160deg, #2f5d9a, var(--mz-ink)); }
+body.sales-theme .afsel-ui .afsel-block.is-accent { border-color: rgba(var(--sl-accent-rgb), .25); box-shadow: 0 0 0 3px rgba(var(--sl-accent-rgb), .06); }
+
+/* ── Navbar atas ── */
+body.sales-theme .navbar-custom { border-bottom: 1px solid #e3e9f2; box-shadow: 0 2px 10px rgba(0, 40, 86, .06); }
+.sl-nav-toggle {
+    width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid #d5dde8; border-radius: 8px; background: #fff; color: #0b2a52;
+}
+.sl-nav-toggle:hover { background: #f1f5fb; border-color: #b9c7da; }
+.sl-nav-context { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.sl-nav-context-app { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #6b7a90; font-weight: 600; }
+.sl-nav-context-title { font-size: 14px; font-weight: 700; color: #0b2a52; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sl-role-chip {
+    display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px;
+    background: #e9f2fd; color: #003f88; font-size: 12px; font-weight: 600; text-decoration: none; border: 1px solid #cfe0f7;
+}
+a.sl-role-chip:hover { background: #dbeafc; color: #002856; }
+.sl-avatar-btn {
+    width: 38px; height: 38px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #fff;
+    background: linear-gradient(160deg, #1f6fd1, #002856); box-shadow: 0 0 0 2px #fff, 0 0 0 3px #cfe0f7;
+}
+.sl-user-menu { min-width: 260px; border: 0; border-radius: 12px; padding: 0; overflow: hidden; box-shadow: 0 16px 40px rgba(0, 25, 60, .18); }
+.sl-user-menu .sl-user-head { display: flex; gap: 10px; align-items: center; padding: 14px 16px; background: linear-gradient(135deg, #002856, #003f88); color: #fff; }
+.sl-user-menu .sl-user-head .sl-avatar-btn { box-shadow: 0 0 0 2px rgba(255, 255, 255, .85); background: linear-gradient(160deg, #4d93f0, #1f6fd1); cursor: default; }
+.sl-user-menu .sl-user-name { font-weight: 700; font-size: 13px; }
+.sl-user-menu .sl-user-sub { font-size: 11px; color: #c9d8ec; }
+.sl-user-menu .dropdown-item { font-size: 13px; padding: 8px 16px; }
+.sl-user-menu .dropdown-item-text { font-size: 12px; padding: 8px 16px; color: #4a5a70; }
+
+/* ── Home ──
+ * Banner bergaya Mazda: hitam grafit + silver metalik, foto CX-60 memudar di sisi kanan.
+ */
+.sl-hero {
+    position: relative; overflow: hidden; isolation: isolate; border-radius: 16px; padding: 26px 28px; margin-bottom: 20px; color: #fff;
+    background: linear-gradient(135deg, #050607 0%, #111418 50%, #1c2026 100%);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+}
+.sl-hero::before {
+    content: ''; position: absolute; inset: 0 0 0 38%; z-index: -1;
+    background: url('../img/All-New-Mazda-CX-60-front-1.jpg') 60% 55% / cover no-repeat;
+    opacity: .55; filter: grayscale(.35) contrast(1.05);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+}
+.sl-hero::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+    background: linear-gradient(90deg, #c3c8ce, rgba(255, 255, 255, .9) 35%, rgba(195, 200, 206, 0) 80%);
+}
+.sl-hero-eyebrow { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #a9b0b9; }
+.sl-hero-title { font-size: 24px; font-weight: 700; margin: 4px 0 6px; letter-spacing: .01em; }
+.sl-hero-sub { font-size: 13px; color: #cdd2d8; margin: 0; }
+.sl-hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.sl-hero-pill {
+    display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 12px;
+    background: rgba(255, 255, 255, .08); border: 1px solid rgba(195, 200, 206, .35); color: #f4f5f7; text-decoration: none;
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+a.sl-hero-pill:hover { background: rgba(255, 255, 255, .16); color: #fff; }
+.sl-hero-date { position: absolute; right: 28px; top: 26px; text-align: right; font-size: 12px; color: #a9b0b9; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+.sl-hero-date strong { display: block; font-size: 15px; color: #fff; }
+
+.sl-section-title { display: flex; align-items: center; gap: 8px; margin: 4px 0 12px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #003f88; }
+.sl-section-title::after { content: ''; flex: 1 1 auto; height: 1px; background: #dde5f0; }
+
+.sl-quick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.sl-quick {
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; background: #fff;
+    text-decoration: none; color: #0b2a52; box-shadow: 0 4px 14px rgba(16, 40, 80, .06); border: 1px solid transparent;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.sl-quick:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0, 40, 86, .12); border-color: #cfe0f7; color: #002856; }
+.sl-quick:focus-visible { outline: 2px solid #1f6fd1; outline-offset: 2px; }
+.sl-quick-icon {
+    flex: 0 0 40px; width: 40px; height: 40px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #003f88; background: #e9f2fd;
+}
+.sl-quick-text { min-width: 0; }
+.sl-quick-label { display: block; font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sl-quick-group { display: block; font-size: 11px; color: #6b7a90; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sl-empty { padding: 28px; text-align: center; color: #6b7a90; background: #fff; border-radius: 12px; box-shadow: 0 4px 14px rgba(16, 40, 80, .06); }
+.sl-empty i { display: block; font-size: 26px; margin-bottom: 6px; color: #93a9c7; }
+
+@media (max-width: 768px) {
+    .sl-hero { padding: 20px; }
+    .sl-hero-date { position: static; text-align: left; margin-bottom: 8px; }
+    .sl-nav-context { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sl-quick { transition: none; }
+    .sl-quick:hover { transform: none; }
+}

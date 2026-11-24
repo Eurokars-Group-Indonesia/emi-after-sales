@@ -64,3 +64,105 @@ if (!function_exists('sanitize')) {
         return trim($value);
     }
 }
+
+/*
+|--------------------------------------------------------------------------
+| RBAC WRS Connect - After Sales
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('afsel_type')) {
+    /** Tipe user After Sales yang sedang login: 'atpm' | 'dealer' | null */
+    function afsel_type(): ?string
+    {
+        if (session('user.app') !== 'aftersales') {
+            return null;
+        }
+
+        $type = session('user.loginAs');
+
+        return isset(\App\Services\Afsel\AfselRbacService::TYPES[$type]) ? $type : null;
+    }
+}
+
+if (!function_exists('afsel_can')) {
+    /** Cek permission user After Sales yang sedang login (berdasarkan role aktif). */
+    function afsel_can(string $slug): bool
+    {
+        if (config('afsel.auth_driver') !== 'local') {
+            return true;
+        }
+
+        $type = afsel_type();
+        if (!$type || !session()->has('user.id')) {
+            return false;
+        }
+
+        return app(\App\Services\Afsel\AfselRbacService::class)
+            ->userHasPermission($type, (string) session('user.id'), $slug);
+    }
+}
+
+if (!function_exists('afsel_role')) {
+    /** Role aktif user After Sales yang sedang login. */
+    function afsel_role(): ?\Illuminate\Database\Eloquent\Model
+    {
+        $type = afsel_type();
+        if (!$type || !session()->has('user.id')) {
+            return null;
+        }
+
+        return app(\App\Services\Afsel\AfselRbacService::class)
+            ->getActiveRole($type, (string) session('user.id'));
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| RBAC WRS Connect - Sales (terpisah dari After Sales)
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('sales_type')) {
+    /** Tipe user Sales yang sedang login: 'atpm' | 'dealer' | null */
+    function sales_type(): ?string
+    {
+        if (session('user.app') !== 'sales') {
+            return null;
+        }
+
+        $type = session('user.loginAs');
+
+        return isset(\App\Services\Sales\SalesRbacService::TYPES[$type]) ? $type : null;
+    }
+}
+
+if (!function_exists('sales_can')) {
+    /** Cek permission user Sales yang sedang login (berdasarkan role aktif). */
+    function sales_can(string $slug): bool
+    {
+        if (config('sales.auth_driver') === 'api') {
+            return true;
+        }
+
+        $type = sales_type();
+        if (!$type || !session()->has('user.id')) {
+            return false;
+        }
+
+        return app(\App\Services\Sales\SalesRbacService::class)
+            ->userHasPermission($type, (string) session('user.id'), $slug);
+    }
+}
+
+if (!function_exists('sales_role')) {
+    /** Role aktif user Sales yang sedang login. */
+    function sales_role(): ?\Illuminate\Database\Eloquent\Model
+    {
+        $type = sales_type();
+        if (!$type || !session()->has('user.id')) {
+            return null;
+        }
+
+        return app(\App\Services\Sales\SalesRbacService::class)
+            ->getActiveRole($type, (string) session('user.id'));
+    }
+}

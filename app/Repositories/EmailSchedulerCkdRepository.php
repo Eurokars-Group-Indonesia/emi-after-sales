@@ -30,6 +30,7 @@ class EmailSchedulerCkdRepository
                     ->join('tblmodel as tmodel', 'tmodel.kd_model', '=', 'tinv.fk_model')
                     ->join('tbltype as ttype', 'ttype.kd_type', '=', 'tinv.fk_type')
                     ->join('tbldealer as tdealer', 'tdealer.kd_dealer', '=', 'tbast_log.dealer_info')
+                    ->where('ttype.nm_type', 'LIKE', '%CKD%')
                     ->where('tinv.is_active', true)
                     ->where('tbast_log.log_action_date', '>=', Carbon::parse($tanggal)->startOfDay())
                     ->where('tbast_log.log_action_date', '<', Carbon::parse($tanggal)->addDay()->startOfDay())

@@ -1,5 +1,7 @@
-<div class="sidebar" id="sidebar">
-    <h5 class="text-center py-3">SALES - ATPM</h5>
-
-    @include('sales.atpm.components.menu-item', ['menus' => $SalesAtpmMenuUser])
-</div>
+{{-- Menu dari RBAC Sales ATPM (ms_sales_atpm_*), diisi view composer di AppServiceProvider --}}
+@include('aftersales.components.sidebar', [
+    'brand'  => 'SALES',
+    'portal' => 'ATPM',
+    'theme'  => 'sales',
+    'menus'  => $SalesAtpmMenuUser ?? collect(),
+])

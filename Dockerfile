@@ -49,6 +49,24 @@ RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && docker-php-ext-enable redis \
     && apk del .build-deps
 
+# SQL Server (Sync MSI / Customer CSI): Microsoft ODBC Driver 18 + pdo_sqlsrv
+# URL paket dari https://learn.microsoft.com/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server (tab Alpine)
+ARG MSODBCSQL_URL_BASE=https://download.microsoft.com/download/ade174b7-8cea-4543-91a6-c33ae320c2f0
+ARG MSODBCSQL_VERSION=18.7.1.1-1
+RUN set -eux; \
+    case "$(uname -m)" in x86_64) arch=amd64 ;; aarch64|arm64) arch=arm64 ;; *) echo "arsitektur tidak didukung"; exit 1 ;; esac; \
+    apk add --no-cache unixodbc gnupg; \
+    curl -fsSLO "${MSODBCSQL_URL_BASE}/msodbcsql18_${MSODBCSQL_VERSION}_${arch}.apk"; \
+    curl -fsSLO "${MSODBCSQL_URL_BASE}/msodbcsql18_${MSODBCSQL_VERSION}_${arch}.sig"; \
+    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --import -; \
+    gpg --verify "msodbcsql18_${MSODBCSQL_VERSION}_${arch}.sig" "msodbcsql18_${MSODBCSQL_VERSION}_${arch}.apk"; \
+    apk add --no-cache --allow-untrusted "msodbcsql18_${MSODBCSQL_VERSION}_${arch}.apk"; \
+    rm -f msodbcsql18_*; \
+    apk add --no-cache --virtual .sqlsrv-build-deps $PHPIZE_DEPS unixodbc-dev; \
+    pecl install sqlsrv pdo_sqlsrv; \
+    docker-php-ext-enable sqlsrv pdo_sqlsrv; \
+    apk del .sqlsrv-build-deps
+
 # Create user with UID 1000 if it doesn't exist
 RUN if ! id -u 1000 > /dev/null 2>&1; then \
         addgroup -g 1000 appuser && \

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WRS Portal</title>
+    @include('partials.favicon')
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -272,7 +273,7 @@
 
         <header>
 
-            <img src="{{ asset('assets/img/mazda-logo-26.png') }}" class="logo">
+            <img src="{{ asset('assets/img/mazda_with_text_logo_26.jpg') }}" class="logo" alt="Mazda">
 
             <h1>WRS CONNECT</h1>
 

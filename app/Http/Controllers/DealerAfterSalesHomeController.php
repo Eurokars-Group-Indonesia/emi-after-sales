@@ -10,6 +10,6 @@ class DealerAfterSalesHomeController
     public function index()
     {
         // dd('test');
-        return view('dealer.page_home.home');
+        return view('aftersales.dealer.page_home.home');
     }
 }
