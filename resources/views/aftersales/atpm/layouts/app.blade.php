@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
+    @include('partials.favicon')
     
     <!-- jquery -->
     <script src="{{ asset('assets/js/jquery4.js') }}"></script>
@@ -29,6 +30,8 @@
     <!-- mzd style -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/datatable-style.css') }}" rel="stylesheet" />
+    <!-- halaman admin After Sales (Access Control & Personel) -->
+    <link href="{{ asset('assets/css/afsel-ui.css') }}?v={{ @filemtime(public_path('assets/css/afsel-ui.css')) }}" rel="stylesheet" />
 
     
 
@@ -75,90 +78,7 @@
             visibility: visible;
         }
 
-        /* Sidebar */
-        .sidebar {
-            font-size:0.8rem;
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background: linear-gradient(180deg, #002856, #003f88);
-            color: #fff;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
-            z-index: 999;
-            transition: transform .3s ease;
-        }
-
-        .sidebar a {
-            font-size:0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            /* padding: 12px 20px; */
-            padding: 6px 20px;
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: 0.2s;
-            position: relative;
-        }
-
-        .sidebar a i {
-            font-size:0.8rem;
-            margin-right: 10px;
-        }
-
-        .sidebar a:hover {
-            font-size:0.8rem;
-            background: rgba(255, 255, 255, 0.08);
-            color: #fff;
-            padding-left: 25px;
-        }
-
-        .sidebar a.active {
-            font-size:0.8rem;
-            color: #fff !important;
-            font-weight: 500;
-        }
-
-        .sidebar a.active::before {
-            font-size:0.8rem;
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: #0d6efd;
-            border-radius: 0 4px 4px 0;
-        }
-
-        .sidebar a.active i {
-            color: #0d6efd;
-        }
-
-        .submenu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding-left: 15px;
-        }
-
-        .submenu.open {
-            max-height: 500px;
-        }
-
-        .submenu a {
-            font-size:0.8rem;
-        }
-
-        .arrow {
-            transition: transform 0.3s;
-        }
-
-        .arrow.rotate {
-            transform: rotate(180deg);
-        }
+        /* Sidebar: style ada di aftersales.components.sidebar */
 
         /* Desktop layout */
         .content {
@@ -305,32 +225,7 @@
             overlay.classList.remove('show');
         }
 
-        document.querySelectorAll('.menu-toggle').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.getElementById(this.dataset.target);
-                const parent = this.parentElement;
-
-                parent.querySelectorAll('.submenu.open').forEach(el => {
-                    if (el !== target) {
-                        el.classList.remove('open');
-                        const arrow = el.previousElementSibling?.querySelector('.arrow');
-                        arrow?.classList.remove('rotate');
-                    }
-                });
-
-                target.classList.toggle('open');
-                this.querySelector('.arrow').classList.toggle('rotate');
-            });
-        });
-
-        document.querySelectorAll('.menu-link').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                closeSidebar();
-            });
-        });
+        // Toggle sub menu & search menu: lihat aftersales.components.sidebar
     </script>
 
 </body>

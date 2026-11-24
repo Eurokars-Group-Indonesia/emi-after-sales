@@ -89,66 +89,14 @@
        
         $(function () {
 
+            // Simpan Config belum punya endpoint. Sebelumnya tombol ini salah memanggil route
+            // sales.atpm.update_user_menu (halaman User lama, sudah dihapus).
             $('body').on('click', '#btn-model-add', function(){
-
-                const formElement = document.querySelector("#formConfig");
-                const formData = new FormData(formElement);
-
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: 'Update Config',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes',
-                    cancelButtonText: 'Cancel',
-                    showLoaderOnConfirm: true,
-                    allowOutsideClick: () => !Swal.isLoading(),
-
-                    preConfirm: () => {
-                        
-                        return axios.post('{{ route('sales.atpm.update_user_menu') }}', formData,{
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                            }
-                        })
-                        .then(function(response) {
-                            console.log(response);
-                            return response.data;
-                        })
-                        .catch(function(error) {
-                            console.log(error);
-                            Swal.showValidationMessage(
-                                error.response?.data?.message || 'Terjadi error'
-                            );
-                        });
-                    }
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        // console.log(result);
-                        if(result.value.status == true)
-                        {
-                            Swal.fire({
-                                title: 'Succsess!',
-                                text: 'Save Data Success',
-                                icon: 'success'
-                            });
-
-                            location.reload()
-                        }
-                        else 
-                        {
-                            Swal.fire({
-                                title: 'Failed!',
-                                text: 'Save Data Failed',
-                                icon: 'error'
-                            });
-                        }
-                    }
+                    title: 'Belum tersedia',
+                    text: 'Fitur simpan Config belum tersedia.',
+                    icon: 'info'
                 });
-                
-
-
             });
         });
 

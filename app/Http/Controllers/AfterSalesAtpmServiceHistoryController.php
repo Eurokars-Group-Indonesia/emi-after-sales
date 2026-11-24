@@ -46,19 +46,10 @@ class AfterSalesAtpmServiceHistoryController
 
         return DataTables::of($query)
             ->addIndexColumn()
-            ->addColumn('action', function($row){
-                return '<a href="'.route('aftersales.atpm.model_other_edit').'" class="btn btn-sm btn-primary">Edit</a>';
+            // date_service tetap nilai asli (Y-m-d H:i:s) supaya sort tanggal benar; teks tampilan terpisah.
+            ->addColumn('date_service_display', function($row){
+                return $row->date_service != null ? date('d-m-Y', strtotime($row->date_service)) : null;
             })
-            ->addColumn('date_service', function($row){
-                $date_service = null;
-
-                if($row->date_service != null) {
-                    $date_service = date('m-d-Y', strtotime($row->date_service));
-                }
-
-                return $date_service;
-            })
-            ->rawColumns(['action', 'date_service'])
             ->make(true);
     }
 
